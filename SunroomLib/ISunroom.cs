@@ -4,7 +4,7 @@ namespace SunroomLib
 {
     public interface ISunroom
     {
-        Dictionary<string, object> calculate_roof_panels(double soffitWall, Dictionary<string, object> 
+        Dictionary<string, object> CalculateRoofPanels(double soffitWall, Dictionary<string, object> 
             panelLengthDict);
     }
 }
