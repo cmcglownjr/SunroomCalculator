@@ -1,55 +1,135 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace SunroomLib
 {
     public class Sunroom
     {
-        readonly List <string> _endcutList = new List<string>() {"uncut", "plum_T_B", "plum_T"};
-        public virtual double Overhang {get; private set; }
-        public virtual double Awall {get; private set; }
-        public virtual double Bwall {get; private set; }
-        public virtual double Cwall {get; private set; }
-        public virtual double Thickness {get; private set; }
-        public virtual string Endcut {get; private set; }
-        public virtual double SideOverhang {get; set; }
-        public Sunroom(double pOverhang, double pAwall, double pBwall, double pCwall, double pThickness, string pEndcut)
+        readonly List <string> _endCutList = new() {"SquareCut", "PlumCut", "PlumCutTop"};
+        private double _overhang;
+        private double _aWall;
+        private double _bWall;
+        private double _cWall;
+        private double _thickness;
+        private double _sideOverhang;
+        private string _endCut;
+        public virtual double Overhang
         {
-            if (pOverhang >= 0) {Overhang = pOverhang;}
-            else {throw new ArgumentOutOfRangeException("The overhang must be greater than or equal to zero.");}
-            if (pAwall >= 0) {Awall = pAwall;}
-            else {throw new ArgumentOutOfRangeException("The awall must be greater than or equal to zero.");}
-            if (pBwall >= 0) {Bwall = pBwall;}
-            else {throw new ArgumentOutOfRangeException("The bwall must be greater than or equal to zero.");}
-            if (pCwall >= 0) {Cwall = pCwall;}
-            else {throw new ArgumentOutOfRangeException("The cwall must be greater than or equal to zero.");}
-            if (pThickness >= 0) {Thickness = pThickness;}
-            else {throw new ArgumentOutOfRangeException("The thickness must be greater than or equal to zero.");}
-            if (_endcutList.Contains(pEndcut)) {Endcut = pEndcut;}
-            else {throw new System.Data.DataException($"The listed endcut, {pEndcut}, is not an acceptable input.");}
-            if (Overhang > 16.0) {SideOverhang = 16.0;}
-            else {SideOverhang = Overhang;}
-        }
-        public virtual double calculate_drip_edge(double soffit, double pitch)
-        {
-            double angledThickness = Methods.Angled(pitch, Thickness);
-            if (Endcut == "plum_T_B")
+            get => _overhang;
+            set
             {
+                if (value >= 0)
+                {
+                    _overhang = value;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException(
+                        $"The Overhang must be greater than or equal to zero.");
+                }
+            }
+        }
+        public virtual double AWall
+        {
+            get => _aWall;
+            set
+            {
+                if (value >= 0)
+                {
+                    _aWall = value;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException(
+                        $"The A Wall must be greater than or equal to zero.");
+                }
+            }
+        }
+        public virtual double BWall
+        {
+            get => _bWall;
+            set
+            {
+                if (value >= 0)
+                {
+                    _bWall = value;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException(
+                        $"The B Wall must be greater than or equal to zero.");
+                }
+            }
+        }
+        public virtual double CWall
+        {
+            get => _cWall;
+            set
+            {
+                if (value >= 0)
+                {
+                    _cWall = value;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException(
+                        $"The C Wall must be greater than or equal to zero.");
+                }
+            }
+        }
+        public virtual double Thickness
+        {
+            get => _thickness;
+            set
+            {
+                if (value >= 0)
+                {
+                    _thickness = value;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException(
+                        $"The Thickness must be greater than or equal to zero.");
+                }
+            }
+        }
+        public virtual double SideOverhang => _sideOverhang;
+
+        public virtual string Endcut
+        {
+            get => _endCut;
+            set
+            {
+                if (_endCutList.Contains(value))
+                {
+                    _endCut = value;
+                }
+                else
+                {
+                    throw new DataException($"The listed endcut, {value}, is not an acceptable input.");
+                }
+            }
+        }
+        public Sunroom()
+        {
+            _sideOverhang = _overhang > 16.0 ? 16.0 : _overhang;
+        }
+        public virtual double CalculateDripEdge(double soffit, double pitch)
+        {
+            double angledThickness = Utilities.Angled(pitch, Thickness);
+            if (Endcut == "PlumCut")
                 return soffit + angledThickness;
-            }
-            else
-            {
-                return soffit + Thickness * Math.Cos(pitch);
-            }
+            return soffit + Thickness * Math.Cos(pitch);
         }
-        public virtual Dictionary<string, object> calculate_panel_length(double pitch, double pitchedWall)
+        public virtual Dictionary<string, object> CalculatePanelLength(double pitch, double pitchedWall)
         {
             Dictionary<string, object> values = new Dictionary<string,object>();
             bool maxPanelLength = false;
             bool panelTolerance = false;
             double pLength, pBottom, pTop;
             double panelLength;
-            if (Endcut == "uncut")
+            if (Endcut == "SquareCut")
             {
                 pLength = (pitchedWall + Overhang) / Math.Cos(pitch);
             }
@@ -79,6 +159,6 @@ namespace SunroomLib
             values.Add("Panel Tolerance", panelTolerance); // bool
             return values;
         }
-        protected virtual void calculate_sunroom(){}
+        protected virtual void CalculateSunroom(){}
     }
 }
