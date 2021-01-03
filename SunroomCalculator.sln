@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunroomLib", "SunroomLib\Su
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunroomLibTest", "SunroomLibTest\SunroomLibTest.csproj", "{1056ACD4-D62A-43D4-9E7D-FFE0C565C28E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunroomSandbox", "SunroomSandbox\SunroomSandbox.csproj", "{F3997CC5-6841-4D49-833A-F1E2B644B246}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{1056ACD4-D62A-43D4-9E7D-FFE0C565C28E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1056ACD4-D62A-43D4-9E7D-FFE0C565C28E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1056ACD4-D62A-43D4-9E7D-FFE0C565C28E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3997CC5-6841-4D49-833A-F1E2B644B246}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3997CC5-6841-4D49-833A-F1E2B644B246}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3997CC5-6841-4D49-833A-F1E2B644B246}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3997CC5-6841-4D49-833A-F1E2B644B246}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

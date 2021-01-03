@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace SunroomLib
 {
-    public interface ICathedral:ISunroom
+    public interface IGabled:ISunroom
     {
         void WallHeightPitch(List<double> pitch, List<double> soffitWallHeight);
         void WallHeightAttachedHeight(List<double> soffitWallHeight, double peak);

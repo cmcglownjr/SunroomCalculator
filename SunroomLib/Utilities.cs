@@ -6,6 +6,14 @@ namespace SunroomLib
 {
     public class Utilities
     {
+        public static readonly List <string> EndCutList = new() {"SquareCut", "PlumCut", "PlumCutTop"};
+        public static readonly Dictionary<int, string> StandardPanelLengths = new()
+        {
+            {96, "8ft"},
+            {120, "10ft"},
+            {144, "12ft"},
+            {192, "16ft"}
+        };
         public static double Angled(double pitch, double thickness)
         {
             return thickness * (Math.Sin(Math.PI / 2) / Math.Sin(Math.PI / 2 - pitch));
@@ -36,20 +44,22 @@ namespace SunroomLib
         {
             return Math.Round(input * fraction) / fraction;
         }
-        public static double estimate_drip_from_peak(double peak, double estimate_pitch, double pitched_wall_length,
+        public static double EstimateDripFromAttached(double peak, double estimatePitch, double pitchedWallLength,
             double overhang, double thickness, double awall, double bwall, double cwall, string endcut)
         {
-            double wall_height = peak - pitched_wall_length * Math.Tan(estimate_pitch);
-            double soffit = wall_height - overhang * Math.Tan(estimate_pitch);
-            Sunroom estimateDrip = new Sunroom();
-            estimateDrip.Overhang = overhang;
-            estimateDrip.AWall = awall;
-            estimateDrip.BWall = bwall;
-            estimateDrip.CWall = cwall;
-            estimateDrip.Thickness = thickness;
-            estimateDrip.Endcut = endcut;
-            
-            return estimateDrip.CalculateDripEdge(soffit, estimate_pitch);
+            double wallHeight = peak - pitchedWallLength * Math.Tan(estimatePitch);
+            double soffit = wallHeight - overhang * Math.Tan(estimatePitch);
+            Sunroom estimateDrip = new Sunroom
+            {
+                Overhang = overhang,
+                AWall = awall,
+                BWall = bwall,
+                CWall = cwall,
+                Thickness = thickness,
+                Endcut = endcut
+            };
+
+            return estimateDrip.CalculateDripEdge(soffit, estimatePitch);
         }
         // public static double calculate_armstrong_panels(double pitch, double pitched_wall, double unpitched_wall)
         // {

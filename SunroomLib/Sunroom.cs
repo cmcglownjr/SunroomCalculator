@@ -4,24 +4,24 @@ using System.Data;
 
 namespace SunroomLib
 {
-    public class Sunroom
+    public class Sunroom : ISunroom
     {
-        readonly List <string> _endCutList = new() {"SquareCut", "PlumCut", "PlumCutTop"};
-        private double _overhang;
-        private double _aWall;
-        private double _bWall;
-        private double _cWall;
-        private double _thickness;
-        private double _sideOverhang;
+        // Fields
+        private double _overhang, _aWall, _bWall, _cWall, _thickness, _sideOverhang;
         private string _endCut;
-        public virtual double Overhang
+        public bool PanelCut;
+        public int NumPanelCuts = 0;
+        public int RoofPanelLength = 0;
+        public int PanelType;
+        public double Overhang
         {
             get => _overhang;
-            set
+            init
             {
                 if (value >= 0)
                 {
                     _overhang = value;
+                    _sideOverhang = _overhang > 16.0 ? 16.0 : _overhang;
                 }
                 else
                 {
@@ -30,10 +30,10 @@ namespace SunroomLib
                 }
             }
         }
-        public virtual double AWall
+        public double AWall
         {
             get => _aWall;
-            set
+            init
             {
                 if (value >= 0)
                 {
@@ -46,10 +46,10 @@ namespace SunroomLib
                 }
             }
         }
-        public virtual double BWall
+        public double BWall
         {
             get => _bWall;
-            set
+            init
             {
                 if (value >= 0)
                 {
@@ -62,10 +62,10 @@ namespace SunroomLib
                 }
             }
         }
-        public virtual double CWall
+        public double CWall
         {
             get => _cWall;
-            set
+            init
             {
                 if (value >= 0)
                 {
@@ -78,10 +78,10 @@ namespace SunroomLib
                 }
             }
         }
-        public virtual double Thickness
+        public double Thickness
         {
             get => _thickness;
-            set
+            init
             {
                 if (value >= 0)
                 {
@@ -94,14 +94,14 @@ namespace SunroomLib
                 }
             }
         }
-        public virtual double SideOverhang => _sideOverhang;
+        public double SideOverhang => _sideOverhang;
 
-        public virtual string Endcut
+        public string Endcut
         {
             get => _endCut;
-            set
+            init
             {
-                if (_endCutList.Contains(value))
+                if (Utilities.EndCutList.Contains(value))
                 {
                     _endCut = value;
                 }
@@ -111,10 +111,6 @@ namespace SunroomLib
                 }
             }
         }
-        public Sunroom()
-        {
-            _sideOverhang = _overhang > 16.0 ? 16.0 : _overhang;
-        }
         public virtual double CalculateDripEdge(double soffit, double pitch)
         {
             double angledThickness = Utilities.Angled(pitch, Thickness);
@@ -122,42 +118,40 @@ namespace SunroomLib
                 return soffit + angledThickness;
             return soffit + Thickness * Math.Cos(pitch);
         }
-        public virtual Dictionary<string, object> CalculatePanelLength(double pitch, double pitchedWall)
+        public virtual void CalculatePanelLength(double pitch, double pitchedWall)
         {
-            Dictionary<string, object> values = new Dictionary<string,object>();
-            bool maxPanelLength = false;
-            bool panelTolerance = false;
-            double pLength, pBottom, pTop;
-            double panelLength;
+            double pLength;
             if (Endcut == "SquareCut")
             {
                 pLength = (pitchedWall + Overhang) / Math.Cos(pitch);
             }
             else
             {
-                pBottom = (pitchedWall + Overhang) / Math.Cos(pitch);
-                pTop = (pitchedWall + Overhang + Thickness * Math.Sin(pitch)) / Math.Cos(pitch);
+                var pBottom = (pitchedWall + Overhang) / Math.Cos(pitch);
+                var pTop = (pitchedWall + Overhang + Thickness * Math.Sin(pitch)) / Math.Cos(pitch);
                 pLength = Math.Max(pBottom, pTop);
             }
-            if (pLength % 12 <= 1) // This checks to see if the panel length is a maximum 1 inch past the nearest foot
+            RoofPanelLength = Convert.ToInt32(Math.Ceiling(pLength / 12) * 12);
+            while (RoofPanelLength > 192)
             {
-                panelTolerance = true; // If it is 1 inch past the foot then it is within manufaturer's tolerance and is rounded down
-                panelLength = Math.Floor(pLength / 12) * 12;
+                PanelCut = true;
+                RoofPanelLength /= 2;
+                NumPanelCuts += 1;
             }
-            else
+
+            foreach (int panelStandard in Utilities.StandardPanelLengths.Keys)
             {
-                // If more than one inch past foot then it is rounded up to nearest foot.
-                panelLength = Math.Ceiling(pLength / 12) * 12;
+                if (RoofPanelLength <= panelStandard)
+                {
+                    PanelType = panelStandard;
+                    break;
+                }
             }
-            if (panelLength > 288)
-            {
-                maxPanelLength = true;
-                panelLength /= 2;
-            }
-            values.Add("Panel Length", panelLength); // double
-            values.Add("Max Length Check", maxPanelLength); // bool
-            values.Add("Panel Tolerance", panelTolerance); // bool
-            return values;
+        }
+        public virtual Dictionary<string, object> CalculateRoofPanels(double soffitWall, Dictionary<string, object> 
+            panelLengthDict)
+        {
+            throw new InvalidOperationException();
         }
         protected virtual void CalculateSunroom(){}
     }

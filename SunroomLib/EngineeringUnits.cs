@@ -8,7 +8,7 @@ namespace SunroomLib
 {
     public class EngineeringUnits
     {
-        public static double Evaluate(string expression)
+        private static double Evaluate(string expression)
         {
             DataTable table = new DataTable();
             table.Columns.Add("expression", typeof(string), expression);
@@ -44,11 +44,11 @@ namespace SunroomLib
             List<string> unit = new List<string> {"in", "\""};
             return unit.Any(text.Contains);
         }
-        string fract_sign = "/";
+        string fractSign = "/";
         Regex degrees = new Regex(@"(\d*\.?\d*)deg");
         Regex fract = new Regex(@"(\d*\s?)(\d+\/\d+)");
-        Regex ft_or_in = new Regex(@"(\d*\.\d+|\d+)\s?[""|in|\'|ft|feet]");
-        Regex ft_and_in_fract = new Regex(@"(\d+\.?\d*)(\s?\d+\/\d+)*(\s?\D+\s?)(\d*\.?\d*)(\s?\d+\/\d+)*");
+        Regex ftOrIn = new Regex(@"(\d*\.\d+|\d+)\s?[""|in|\'|ft|feet]");
+        Regex ftAndInFract = new Regex(@"(\d+\.?\d*)(\s?\d+\/\d+)*(\s?\D+\s?)(\d*\.?\d*)(\s?\d+\/\d+)*");
 
         void set_base()
         {
@@ -72,60 +72,60 @@ namespace SunroomLib
             {
                 //Log.Information("Setting base");
                 base_unit = "inch";
-                double a_group, b_group, c_group, d_group;
-                Match match_fract = fract.Match(measurement);
-                Match match_ftin = ft_or_in.Match(measurement);
-                Match match_ft_and_in_fract = ft_and_in_fract.Match(measurement);
+                double aGroup, bGroup, cGroup, dGroup;
+                Match matchFract = fract.Match(measurement);
+                Match matchFtin = ftOrIn.Match(measurement);
+                Match matchFtAndInFract = ftAndInFract.Match(measurement);
                 if (feet_search(measurement) & inch_search(measurement))
                 {
                     //Log.Debug("This measuement has both inches and feet.");
-                    if (match_ft_and_in_fract.Success)
+                    if (matchFtAndInFract.Success)
                     {
-                        if (match_ft_and_in_fract.Groups[1].Value != "")
+                        if (matchFtAndInFract.Groups[1].Value != "")
                         {
-                            a_group = Convert.ToDouble(match_ft_and_in_fract.Groups[1].Value) * 12;
+                            aGroup = Convert.ToDouble(matchFtAndInFract.Groups[1].Value) * 12;
                             //Log.Debug($"{match_ft_and_in_fract.Groups[1].Value}ft converted to {a_group} in.");
                         }
                         else
                         {
-                            a_group = 0.0;
+                            aGroup = 0.0;
                             //Log.Debug("No whole feet so set to zero.");
                         }
 
-                        if (match_ft_and_in_fract.Groups[2].Success)
+                        if (matchFtAndInFract.Groups[2].Success)
                         {
-                            b_group = Evaluate(match_ft_and_in_fract.Groups[2].Value) * 12;
+                            bGroup = Evaluate(matchFtAndInFract.Groups[2].Value) * 12;
                             //Log.Debug($"{match_ft_and_in_fract.Groups[2].Value}ft converted to {b_group} in.");
                         }
                         else
                         {
-                            b_group = 0.0;
+                            bGroup = 0.0;
                             //Log.Debug("No fractional feet so set to zero.");
                         }
 
-                        if (match_ft_and_in_fract.Groups[4].Value != "")
+                        if (matchFtAndInFract.Groups[4].Value != "")
                         {
-                            c_group = Convert.ToDouble(match_ft_and_in_fract.Groups[4].Value);
+                            cGroup = Convert.ToDouble(matchFtAndInFract.Groups[4].Value);
                             //Log.Debug($"{match_ft_and_in_fract.Groups[4].Value}in converted to {c_group} in.");
                         }
                         else
                         {
-                            c_group = 0.0;
+                            cGroup = 0.0;
                             //Log.Debug("No whole inches so set to zero.");
                         }
 
-                        if (match_ft_and_in_fract.Groups[5].Success)
+                        if (matchFtAndInFract.Groups[5].Success)
                         {
-                            d_group = Evaluate(match_ft_and_in_fract.Groups[5].Value);
+                            dGroup = Evaluate(matchFtAndInFract.Groups[5].Value);
                             //Log.Debug($"{match_ft_and_in_fract.Groups[5].Value}in converted to {d_group} in.");
                         }
                         else
                         {
-                            d_group = 0.0;
+                            dGroup = 0.0;
                             //Log.Debug("No fractional inches so set to zero.");
                         }
 
-                        base_measure = a_group + b_group + c_group + d_group;
+                        base_measure = aGroup + bGroup + cGroup + dGroup;
                         //Log.Debug($"base measure is set to {base_measure} in.");
                     }
                     else
@@ -138,67 +138,67 @@ namespace SunroomLib
                 {
                     if (feet_search(measurement))
                     {
-                        if (fract_sign.Any(measurement.Contains))
+                        if (fractSign.Any(measurement.Contains))
                         {
-                            if (match_fract.Groups[1].Value != "")
+                            if (matchFract.Groups[1].Value != "")
                             {
-                                a_group = Convert.ToDouble(match_fract.Groups[1].Value) * 12;
+                                aGroup = Convert.ToDouble(matchFract.Groups[1].Value) * 12;
                             }
                             else
                             {
-                                a_group = 0.0;
+                                aGroup = 0.0;
                             }
 
-                            if (match_fract.Groups[2].Success)
+                            if (matchFract.Groups[2].Success)
                             {
-                                b_group = Evaluate(match_fract.Groups[2].Value) * 12;
+                                bGroup = Evaluate(matchFract.Groups[2].Value) * 12;
                             }
                             else
                             {
-                                b_group = 0.0;
+                                bGroup = 0.0;
                             }
 
-                            base_measure = a_group + b_group;
+                            base_measure = aGroup + bGroup;
                         }
                         else
                         {
-                            base_measure = Evaluate(match_ftin.Groups[1].Value) * 12;
+                            base_measure = Evaluate(matchFtin.Groups[1].Value) * 12;
                         }
                     }
                     else if (inch_search(measurement))
                     {
-                        if (fract_sign.Any(measurement.Contains))
+                        if (fractSign.Any(measurement.Contains))
                         {
-                            if (match_fract.Groups[1].Value != "")
+                            if (matchFract.Groups[1].Value != "")
                             {
-                                a_group = Convert.ToDouble(match_fract.Groups[1].Value);
+                                aGroup = Convert.ToDouble(matchFract.Groups[1].Value);
                             }
                             else
                             {
-                                a_group = 0.0;
+                                aGroup = 0.0;
                             }
 
-                            if (match_fract.Groups[2].Success)
+                            if (matchFract.Groups[2].Success)
                             {
-                                b_group = Evaluate(match_fract.Groups[2].Value);
+                                bGroup = Evaluate(matchFract.Groups[2].Value);
                             }
                             else
                             {
-                                b_group = 0.0;
+                                bGroup = 0.0;
                             }
 
-                            base_measure = a_group + b_group;
+                            base_measure = aGroup + bGroup;
                         }
                         else
                         {
-                            base_measure = Evaluate(match_ftin.Groups[1].Value);
+                            base_measure = Evaluate(matchFtin.Groups[1].Value);
                         }
                     }
                 }
             }
             else
             {
-                throw new System.ArgumentException("I'm not sure what to do.");
+                throw new ArgumentException("I'm not sure what to do.");
             }
         }
     }
