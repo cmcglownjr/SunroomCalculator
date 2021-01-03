@@ -1,0 +1,42 @@
+using System.Collections.Generic;
+
+namespace SunroomLib
+{
+    public class Gabled : Sunroom, IGabled
+    {
+        public void WallHeightPitch(List<double> pitch, List<double> soffitWallHeight)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void WallHeightAttachedHeight(List<double> soffitWallHeight, double peak)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void MaxHeightPitch(List<double> pitch, double maxH)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SoffitHeightAttachedHeight(List<double> soffitHeight, double peak)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SoffitHeightPitch(List<double> pitch, List<double> soffitHeight)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void DripEdgeAttachedHeight(double dripEdge, double peak)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void DripEdgePitch(double dripEdge, List<double> pitch)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+}
