@@ -18,7 +18,7 @@ namespace SunroomLib
             get => _overhang;
             init
             {
-                if (value >= 0)
+                if (value > 0)
                 {
                     _overhang = value;
                     _sideOverhang = _overhang > 16.0 ? 16.0 : _overhang;
@@ -26,7 +26,7 @@ namespace SunroomLib
                 else
                 {
                     throw new ArgumentOutOfRangeException(
-                        $"The Overhang must be greater than or equal to zero.");
+                        $"The Overhang must be greater than zero.");
                 }
             }
         }
@@ -35,14 +35,14 @@ namespace SunroomLib
             get => _aWall;
             init
             {
-                if (value >= 0)
+                if (value > 0)
                 {
                     _aWall = value;
                 }
                 else
                 {
                     throw new ArgumentOutOfRangeException(
-                        $"The A Wall must be greater than or equal to zero.");
+                        $"The A Wall must be greater than zero.");
                 }
             }
         }
@@ -51,14 +51,14 @@ namespace SunroomLib
             get => _bWall;
             init
             {
-                if (value >= 0)
+                if (value > 0)
                 {
                     _bWall = value;
                 }
                 else
                 {
                     throw new ArgumentOutOfRangeException(
-                        $"The B Wall must be greater than or equal to zero.");
+                        $"The B Wall must be greater than zero.");
                 }
             }
         }
@@ -67,14 +67,14 @@ namespace SunroomLib
             get => _cWall;
             init
             {
-                if (value >= 0)
+                if (value > 0)
                 {
                     _cWall = value;
                 }
                 else
                 {
                     throw new ArgumentOutOfRangeException(
-                        $"The C Wall must be greater than or equal to zero.");
+                        $"The C Wall must be greater than zero.");
                 }
             }
         }
@@ -83,14 +83,14 @@ namespace SunroomLib
             get => _thickness;
             init
             {
-                if (value >= 0)
+                if (value > 0)
                 {
                     _thickness = value;
                 }
                 else
                 {
                     throw new ArgumentOutOfRangeException(
-                        $"The Thickness must be greater than or equal to zero.");
+                        $"The Thickness must be greater than zero.");
                 }
             }
         }
@@ -111,7 +111,7 @@ namespace SunroomLib
                 }
             }
         }
-        public virtual double CalculateDripEdge(double soffit, double pitch)
+        public double CalculateDripEdge(double soffit, double pitch)
         {
             double angledThickness = Utilities.Angled(pitch, Thickness);
             if (Endcut == "PlumCut")
@@ -139,7 +139,7 @@ namespace SunroomLib
                 NumPanelCuts += 1;
             }
 
-            foreach (int panelStandard in Utilities.StandardPanelLengths.Keys)
+            foreach (var panelStandard in Utilities.StandardPanelLengths.Keys)
             {
                 if (RoofPanelLength <= panelStandard)
                 {

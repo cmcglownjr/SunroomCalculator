@@ -14,7 +14,7 @@ namespace SunroomLib
             throw new System.NotImplementedException();
         }
 
-        public void MaxHeightPitch(List<double> pitch, double maxH)
+        public void MaxHeightPitch(List<double> pitch, double maxHeight)
         {
             throw new System.NotImplementedException();
         }

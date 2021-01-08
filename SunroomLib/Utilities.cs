@@ -14,6 +14,11 @@ namespace SunroomLib
             {144, "12ft"},
             {192, "16ft"}
         };
+        public static readonly Dictionary<string, double> StandardPanelWidths = new()
+        {
+            {"24in", 24.0},
+            {"36in", 36.0}
+        };
         public static double Angled(double pitch, double thickness)
         {
             return thickness * (Math.Sin(Math.PI / 2) / Math.Sin(Math.PI / 2 - pitch));
@@ -26,12 +31,12 @@ namespace SunroomLib
         }
         public static double PitchInput(EngineeringUnits pInput)
         {
-            switch (pInput.base_unit)
+            switch (pInput.BaseUnit)
             {
                 case "inch":
-                    return Math.Atan(pInput.base_measure / 12.0);
+                    return Math.Atan(pInput.BaseMeasure / 12.0);
                 case "radian":
-                    return pInput.base_measure;
+                    return pInput.BaseMeasure;
                 default:
                     throw new ArgumentException("The base unit needs to be 'inch' or 'radian'.");
             }

@@ -16,67 +16,68 @@ namespace SunroomLib
             table.Rows.Add(row);
             return double.Parse((string)row["expression"]);
         }
-        List<string> unit_type = new List<string>{"angle", "length"};
-        public double base_measure;
-        public string base_unit;
-        string measurement {get; set; }
-        string u_type {get; set; }
-        double toRadians(double degrees)
+
+        readonly List<string> _unitType = new() {"angle", "length"};
+        public double BaseMeasure;
+        public string BaseUnit;
+        string Measurement {get; set; }
+        string UnitType {get; set; }
+        double toRadians(double input)
         {
-            return (Math.PI/180) * degrees;
+            return (Math.PI/180) * input;
         }
-        public EngineeringUnits(string pMeasurement, string pU_type)
+        public EngineeringUnits(string pMeasurement, string pUnitType)
         {
-            measurement = pMeasurement;
-            if (unit_type.Any(pU_type.Contains)) {u_type = pU_type;}
+            Measurement = pMeasurement;
+            if (_unitType.Any(pUnitType.Contains)) {UnitType = pUnitType;}
             else {throw new System.ArgumentException("The unit type selected is not valid!");}
-            set_base();
+            SetBase();
         }
-        static bool feet_search(string text)
+        static bool FeetSearch(string text)
         {
             //Debug.WriteLine("Checking for feet.");
             List<string> unit = new List<string> {"ft", "'", "feet"};
             return (unit.Any(text.Contains));
         }
-        static bool inch_search(string text)
+        static bool InchSearch(string text)
         {
             //Debug.WriteLine("Checking for inches.");
             List<string> unit = new List<string> {"in", "\""};
             return unit.Any(text.Contains);
         }
         string fractSign = "/";
-        Regex degrees = new Regex(@"(\d*\.?\d*)deg");
-        Regex fract = new Regex(@"(\d*\s?)(\d+\/\d+)");
-        Regex ftOrIn = new Regex(@"(\d*\.\d+|\d+)\s?[""|in|\'|ft|feet]");
-        Regex ftAndInFract = new Regex(@"(\d+\.?\d*)(\s?\d+\/\d+)*(\s?\D+\s?)(\d*\.?\d*)(\s?\d+\/\d+)*");
+        private Regex _degrees = new(@"(\d*\.?\d*)deg");
+        private Regex _fract = new (@"(\d*\s?)(\d+\/\d+)");
+        private Regex _ftOrIn = new (@"(\d*\.\d+|\d+)\s?[""|in|\'|ft|feet]");
+        private Regex _ftAndInFract = new (@"(\d+\.?\d*)(\s?\d+\/\d+)*(\s?\D+\s?)(\d*\.?\d*)(\s?\d+\/\d+)*");
 
-        void set_base()
+        void SetBase()
         {
-            if (u_type == "angle")
+            if (UnitType == "angle")
             {
-                Match match = degrees.Match(measurement);
+                Match match = _degrees.Match(Measurement);
                 if (match.Success)
                 {
                     var number = double.TryParse(match.Groups[1].Value, out double n);
-                    base_measure = toRadians(n);
-                    base_unit = "radian";
+                    BaseMeasure = toRadians(n);
+                    BaseUnit = "radian";
                 }
                 else
                 {
-                    var number = double.TryParse(measurement, out double n);
-                    base_measure = toRadians(n);
-                    base_unit = "radian";
+                    var number = double.TryParse(Measurement, out double n);
+                    BaseMeasure = toRadians(n);
+                    BaseUnit = "radian";
                 }
             }
-            else if (u_type == "length")
+            else if (UnitType == "length")
             {
                 //Log.Information("Setting base");
-                base_unit = "inch";
+                BaseUnit = "inch";
                 double aGroup, bGroup, cGroup, dGroup;
-                Match matchFract = fract.Match(measurement);
-                Match matchFtin = ftOrIn.Match(measurement);
-                Match matchFtAndInFract = ftAndInFract.Match(measurement);
-                if (feet_search(measurement) & inch_search(measurement))
+                Match matchFract = _fract.Match(Measurement);
+                Match matchFtIn = _ftOrIn.Match(Measurement);
+                Match matchFtAndInFract = _ftAndInFract.Match(Measurement);
+                if (FeetSearch(Measurement) & InchSearch(Measurement))
                 {
                     //Log.Debug("This measuement has both inches and feet.");
                     if (matchFtAndInFract.Success)
@@ -125,7 +126,7 @@ namespace SunroomLib
                             //Log.Debug("No fractional inches so set to zero.");
                         }
 
-                        base_measure = aGroup + bGroup + cGroup + dGroup;
+                        BaseMeasure = aGroup + bGroup + cGroup + dGroup;
                         //Log.Debug($"base measure is set to {base_measure} in.");
                     }
                     else
@@ -134,11 +135,11 @@ namespace SunroomLib
                         throw new System.ArgumentException("Unable to match current Regex.");
                     }
                 }
-                else if (feet_search(measurement) ^ inch_search(measurement))
+                else if (FeetSearch(Measurement) ^ InchSearch(Measurement))
                 {
-                    if (feet_search(measurement))
+                    if (FeetSearch(Measurement))
                     {
-                        if (fractSign.Any(measurement.Contains))
+                        if (fractSign.Any(Measurement.Contains))
                         {
                             if (matchFract.Groups[1].Value != "")
                             {
@@ -157,17 +158,16 @@ namespace SunroomLib
                             {
                                 bGroup = 0.0;
                             }
-
-                            base_measure = aGroup + bGroup;
+                            BaseMeasure = aGroup + bGroup;
                         }
                         else
                         {
-                            base_measure = Evaluate(matchFtin.Groups[1].Value) * 12;
+                            BaseMeasure = Evaluate(matchFtIn.Groups[1].Value) * 12;
                         }
                     }
-                    else if (inch_search(measurement))
+                    else if (InchSearch(Measurement))
                     {
-                        if (fractSign.Any(measurement.Contains))
+                        if (fractSign.Any(Measurement.Contains))
                         {
                             if (matchFract.Groups[1].Value != "")
                             {
@@ -186,12 +186,11 @@ namespace SunroomLib
                             {
                                 bGroup = 0.0;
                             }
-
-                            base_measure = aGroup + bGroup;
+                            BaseMeasure = aGroup + bGroup;
                         }
                         else
                         {
-                            base_measure = Evaluate(matchFtin.Groups[1].Value);
+                            BaseMeasure = Evaluate(matchFtIn.Groups[1].Value);
                         }
                     }
                 }
