@@ -54,15 +54,7 @@ namespace SunroomLib
         {
             double wallHeight = peak - pitchedWallLength * Math.Tan(estimatePitch);
             double soffit = wallHeight - overhang * Math.Tan(estimatePitch);
-            Sunroom estimateDrip = new Sunroom
-            {
-                Overhang = overhang,
-                AWall = awall,
-                BWall = bwall,
-                CWall = cwall,
-                Thickness = thickness,
-                Endcut = endcut
-            };
+            Sunroom estimateDrip = new Sunroom(awall, bwall, cwall, overhang, thickness, endcut);
 
             return estimateDrip.CalculateDripEdge(soffit, estimatePitch);
         }

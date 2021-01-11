@@ -49,7 +49,8 @@ namespace SunroomLib
             set => _pitchedWallHeight = value;
         }
 
-        public Studio() 
+        public Studio(double aWall, double bWall, double cWall, double overhang, double thickness, string endCut) : 
+            base(aWall, bWall, cWall, overhang, thickness, endCut)
         {
             UnpitchedWallHeight = base.BWall;
             PitchedWallHeight = Math.Max(AWall, CWall);

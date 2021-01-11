@@ -15,100 +15,59 @@ namespace SunroomLib
         public int PanelType;
         public double Overhang
         {
-            get => _overhang;
-            init
-            {
-                if (value > 0)
-                {
-                    _overhang = value;
-                    _sideOverhang = _overhang > 16.0 ? 16.0 : _overhang;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException(
-                        $"The Overhang must be greater than zero.");
-                }
-            }
+            get { return _overhang; }
         }
         public double AWall
         {
-            get => _aWall;
-            init
-            {
-                if (value > 0)
-                {
-                    _aWall = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException(
-                        $"The A Wall must be greater than zero.");
-                }
-            }
+            get { return _aWall; }
         }
         public double BWall
         {
-            get => _bWall;
-            init
-            {
-                if (value > 0)
-                {
-                    _bWall = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException(
-                        $"The B Wall must be greater than zero.");
-                }
-            }
+            get { return _bWall; }
         }
         public double CWall
         {
-            get => _cWall;
-            init
-            {
-                if (value > 0)
-                {
-                    _cWall = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException(
-                        $"The C Wall must be greater than zero.");
-                }
-            }
+            get { return _cWall; }
         }
         public double Thickness
         {
-            get => _thickness;
-            init
-            {
-                if (value > 0)
-                {
-                    _thickness = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException(
-                        $"The Thickness must be greater than zero.");
-                }
-            }
+            get { return _thickness; }
         }
         public double SideOverhang => _sideOverhang;
 
         public string Endcut
         {
-            get => _endCut;
-            init
+            get { return _endCut; }
+        }
+
+        public Sunroom(double aWall, double bWall, double cWall, double overhang, double thickness, string endCut)
+        {
+            if (overhang > 0) {_overhang = overhang;}
+            else {throw new ArgumentOutOfRangeException($"The overhang must be greater than zero.");}
+            if (aWall > 0) {_aWall = aWall;}
+            else {throw new System.ArgumentOutOfRangeException($"The awall must be greater than zero.");}
+            if (bWall > 0) {_bWall = bWall;}
+            else {throw new System.ArgumentOutOfRangeException($"The bwall must be greater than zero.");}
+            if (cWall > 0) {_cWall = cWall;}
+            else {throw new System.ArgumentOutOfRangeException($"The cwall must be greater than zero.");}
+            if (thickness > 0) {_thickness = thickness;}
+            else {throw new System.ArgumentOutOfRangeException($"The thickness must be greater than zero.");}
+            if (Utilities.EndCutList.Contains(endCut))
             {
-                if (Utilities.EndCutList.Contains(value))
-                {
-                    _endCut = value;
-                }
-                else
-                {
-                    throw new DataException($"The listed endcut, {value}, is not an acceptable input.");
-                }
+                _endCut = endCut;
+            }
+            else
+            {
+                throw new DataException($"The listed endcut, {endCut}, is not an acceptable input.");
+            }
+            // TODO - this should account for the width of both types of roof panels. Not just 32in.
+            if (overhang > 16.0)
+            {
+                _sideOverhang = 16.0;
+            }
+            else
+            {
+                _sideOverhang = overhang;
             }
         }
         public double CalculateDripEdge(double soffit, double pitch)
