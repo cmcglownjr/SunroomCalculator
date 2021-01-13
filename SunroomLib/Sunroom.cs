@@ -8,7 +8,7 @@ namespace SunroomLib
     {
         // Fields
         private double _overhang, _aWall, _bWall, _cWall, _thickness, _sideOverhang;
-        private string _endCut;
+        private string _endCut, _panelWidth;
         public bool PanelCut;
         public int NumPanelCuts = 0;
         public int RoofPanelLength = 0;
@@ -33,14 +33,26 @@ namespace SunroomLib
         {
             get { return _thickness; }
         }
-        public double SideOverhang => _sideOverhang;
+
+        public double SideOverhang
+        {
+            get => _sideOverhang;
+            set => _sideOverhang = value;
+
+        }
 
         public string Endcut
         {
             get { return _endCut; }
         }
 
-        public Sunroom(double aWall, double bWall, double cWall, double overhang, double thickness, string endCut)
+        public string PanelWidth
+        {
+            get { return _panelWidth; }
+        }
+
+        public Sunroom(double aWall, double bWall, double cWall, double overhang, double thickness, string endCut, 
+            string panelWidth)
         {
             if (overhang > 0) {_overhang = overhang;}
             else {throw new ArgumentOutOfRangeException($"The overhang must be greater than zero.");}
@@ -60,10 +72,18 @@ namespace SunroomLib
             {
                 throw new DataException($"The listed endcut, {endCut}, is not an acceptable input.");
             }
-            // TODO - this should account for the width of both types of roof panels. Not just 32in.
-            if (overhang > 16.0)
+
+            if (Utilities.StandardPanelWidths.ContainsKey(panelWidth))
             {
-                _sideOverhang = 16.0;
+                _panelWidth = panelWidth;
+            }
+            else
+            {
+                throw new DataException($"The listed panel width, {panelWidth}, is an invalid input.");
+            }
+            if (overhang > Utilities.StandardPanelWidths[panelWidth] / 2)
+            {
+                _sideOverhang = Utilities.StandardPanelWidths[panelWidth] / 2;
             }
             else
             {
@@ -93,6 +113,7 @@ namespace SunroomLib
             RoofPanelLength = Convert.ToInt32(Math.Ceiling(pLength / 12) * 12);
             while (RoofPanelLength > 192)
             {
+                // Cut panel lengths in half because the lengths exceed allowed threshold
                 PanelCut = true;
                 RoofPanelLength /= 2;
                 NumPanelCuts += 1;

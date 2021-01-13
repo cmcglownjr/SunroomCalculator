@@ -4,8 +4,8 @@ namespace SunroomLib
 {
     public class Studio : Sunroom, IStudio
     {
-        private double _pitch, _attachedHeight, _maxHeight, _unpitchedWallHeight, _soffitHeight, _dripEdge, 
-            _pitchedWallHeight;
+        private double _pitch, _attachedHeight, _maxHeight, _soffitWallLength, _soffitWallHeight, _soffitHeight, 
+            _dripEdge, _pitchedWallLength, _roofArea;
 
         public double Pitch
         {
@@ -25,10 +25,16 @@ namespace SunroomLib
             set => _maxHeight = value;
         }
 
-        public double UnpitchedWallHeight
+        public double SoffitWallLength
         {
-            get => _unpitchedWallHeight;
-            set => _unpitchedWallHeight = value;
+            get => _soffitWallLength;
+            set => _soffitWallLength = value;
+        }
+
+        public double SoffitWallHeight
+        {
+            get => _soffitWallHeight;
+            set => _soffitWallHeight = value;
         }
 
         public double SoffitHeight
@@ -43,25 +49,62 @@ namespace SunroomLib
             set => _dripEdge = value;
         }
 
-        public double PitchedWallHeight
+        public double PitchedWallLength
         {
-            get => _pitchedWallHeight;
-            set => _pitchedWallHeight = value;
+            get => _pitchedWallLength;
+            set => _pitchedWallLength = value;
         }
 
-        public Studio(double aWall, double bWall, double cWall, double overhang, double thickness, string endCut) : 
-            base(aWall, bWall, cWall, overhang, thickness, endCut)
+        public double RoofArea => _roofArea;
+
+        public Studio(double aWall, double bWall, double cWall, double overhang, double thickness, string endCut, 
+            string panelWidth) : base(aWall, bWall, cWall, overhang, thickness, endCut, panelWidth)
         {
-            UnpitchedWallHeight = base.BWall;
-            PitchedWallHeight = Math.Max(AWall, CWall);
+            SoffitWallLength = BWall;
+            PitchedWallLength = Math.Max(AWall, CWall);
         }
 
-        private void CalculateRoofPanels(double soffitWall)
-        {}
+        private void CalculateRoofPanels()
+        {
+            double roofWidth = SoffitWallLength + SideOverhang * 2;
+            double panelWidth = Utilities.StandardPanelWidths[PanelWidth];
+            double roofPanelNumber = Math.Ceiling(roofWidth / panelWidth);
+            if ((roofPanelNumber * panelWidth - SoffitWallLength) / 2 < SideOverhang)
+            {
+                // The overhang from the calculated number of panels is too low
+                SideOverhang = (roofPanelNumber * panelWidth - SoffitWallLength) / 2;
+            }
+
+            if ((roofPanelNumber * panelWidth - SoffitWallLength) / 2 > (panelWidth / 2))
+            {
+                // The calculated overhang exceeds max allowed
+                SideOverhang = (roofPanelNumber * panelWidth - SoffitWallLength) / 2;
+            }
+            if (PanelCut) // Checks to see if panel lengths were cut in half
+            {
+                _roofArea = RoofPanelLength * 2 * roofPanelNumber * panelWidth;
+            }
+            else
+            {
+                _roofArea = RoofPanelLength * roofPanelNumber * panelWidth;
+            }
+        }
+
+        protected override void CalculateSunroom()
+        {
+            CalculatePanelLength(_pitch, _pitchedWallLength);
+            CalculateRoofPanels();
+        }
 
         public void WallHeightPitch(double pitch, double soffitWallHeight)
         {
-            throw new System.NotImplementedException();
+            Pitch = pitch;
+            SoffitWallHeight = soffitWallHeight;
+            SoffitHeight = SoffitWallLength - Overhang * Math.Tan(Pitch);
+            AttachedHeight = SoffitHeight + PitchedWallLength * Math.Tan(Pitch);
+            MaxHeight = AttachedHeight + Utilities.Angled(Pitch, Thickness);
+            DripEdge = CalculateDripEdge(SoffitHeight, Pitch);
+            CalculateSunroom();
         }
 
         public void WallHeightAttachedHeight(double soffitWallHeight, double peak)

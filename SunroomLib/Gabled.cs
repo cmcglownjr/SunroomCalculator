@@ -4,8 +4,8 @@ namespace SunroomLib
 {
     public class Gabled : Sunroom, IGabled
     {
-        public Gabled(double aWall, double bWall, double cWall, double overhang, double thickness, string endCut):
-            base(aWall, bWall, cWall, overhang, thickness, endCut){}
+        public Gabled(double aWall, double bWall, double cWall, double overhang, double thickness, string endCut, 
+            string panelWidth):base(aWall, bWall, cWall, overhang, thickness, endCut, panelWidth){}
         public void WallHeightPitch(List<double> pitch, List<double> soffitWallHeight)
         {
             throw new System.NotImplementedException();
