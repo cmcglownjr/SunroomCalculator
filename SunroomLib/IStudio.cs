@@ -4,7 +4,7 @@ namespace SunroomLib
     {
         void WallHeightPitch(double pitch, double soffitWallHeight);
         void WallHeightAttachedHeight(double soffitWallHeight, double peak);
-        void MaxHeightPitch(double pitch, double maxH);
+        void MaxHeightPitch(double pitch, double maxHeight);
         void SoffitHeightAttachedHeight(double soffitHeight, double peak);
         void SoffitHeightPitch(double pitch, double soffitHeight);
         void DripEdgeAttachedHeight(double dripEdge, double peak);

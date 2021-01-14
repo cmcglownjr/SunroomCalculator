@@ -99,18 +99,18 @@ namespace SunroomLib
         }
         public virtual void CalculatePanelLength(double pitch, double pitchedWall)
         {
-            double pLength;
+            double pannelLength;
             if (Endcut == "SquareCut")
             {
-                pLength = (pitchedWall + Overhang) / Math.Cos(pitch);
+                pannelLength = (pitchedWall + Overhang) / Math.Cos(pitch);
             }
             else
             {
-                var pBottom = (pitchedWall + Overhang) / Math.Cos(pitch);
-                var pTop = (pitchedWall + Overhang + Thickness * Math.Sin(pitch)) / Math.Cos(pitch);
-                pLength = Math.Max(pBottom, pTop);
+                var pannelBottom = (pitchedWall + Overhang) / Math.Cos(pitch);
+                var pannelTop = (pitchedWall + Overhang + Thickness * Math.Sin(pitch)) / Math.Cos(pitch);
+                pannelLength = Math.Max(pannelBottom, pannelTop);
             }
-            RoofPanelLength = Convert.ToInt32(Math.Ceiling(pLength / 12) * 12);
+            RoofPanelLength = Convert.ToInt32(Math.Ceiling(pannelLength / 12) * 12);
             while (RoofPanelLength > 192)
             {
                 // Cut panel lengths in half because the lengths exceed allowed threshold
@@ -128,11 +128,7 @@ namespace SunroomLib
                 }
             }
         }
-        public virtual Dictionary<string, object> CalculateRoofPanels(double soffitWall, Dictionary<string, object> 
-            panelLengthDict)
-        {
-            throw new InvalidOperationException();
-        }
+        protected virtual void CalculateRoofPanels(){}
         protected virtual void CalculateSunroom(){}
     }
 }

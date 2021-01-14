@@ -50,7 +50,8 @@ namespace SunroomLib
             return Math.Round(input * fraction) / fraction;
         }
         public static double EstimateDripFromAttached(double peak, double estimatePitch, double pitchedWallLength,
-            double overhang, double thickness, double awall, double bwall, double cwall, string endcut, string panelWidth)
+            double overhang, double thickness, double awall, double bwall, double cwall, string endcut, 
+            string panelWidth)
         {
             double wallHeight = peak - pitchedWallLength * Math.Tan(estimatePitch);
             double soffit = wallHeight - overhang * Math.Tan(estimatePitch);
