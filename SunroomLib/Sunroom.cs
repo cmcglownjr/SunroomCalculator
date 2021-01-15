@@ -97,20 +97,23 @@ namespace SunroomLib
                 return soffit + angledThickness;
             return soffit + Thickness * Math.Cos(pitch);
         }
+
+        public virtual void CalculatePanelLength(){} // For use with Gabled sunroom
+
         public virtual void CalculatePanelLength(double pitch, double pitchedWall)
         {
-            double pannelLength;
+            double panelLength;
             if (Endcut == "SquareCut")
             {
-                pannelLength = (pitchedWall + Overhang) / Math.Cos(pitch);
+                panelLength = (pitchedWall + Overhang) / Math.Cos(pitch);
             }
             else
             {
-                var pannelBottom = (pitchedWall + Overhang) / Math.Cos(pitch);
-                var pannelTop = (pitchedWall + Overhang + Thickness * Math.Sin(pitch)) / Math.Cos(pitch);
-                pannelLength = Math.Max(pannelBottom, pannelTop);
+                var panelBottom = (pitchedWall + Overhang) / Math.Cos(pitch);
+                var panelTop = (pitchedWall + Overhang + Thickness * Math.Sin(pitch)) / Math.Cos(pitch);
+                panelLength = Math.Max(panelBottom, panelTop);
             }
-            RoofPanelLength = Convert.ToInt32(Math.Ceiling(pannelLength / 12) * 12);
+            RoofPanelLength = Convert.ToInt32(Math.Ceiling(panelLength / 12) * 12);
             while (RoofPanelLength > 192)
             {
                 // Cut panel lengths in half because the lengths exceed allowed threshold
@@ -129,6 +132,7 @@ namespace SunroomLib
             }
         }
         protected virtual void CalculateRoofPanels(){}
+        protected virtual void CalculateRoofPanels(double soffitWall){}
         protected virtual void CalculateSunroom(){}
     }
 }

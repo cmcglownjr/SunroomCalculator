@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace SunroomLib
 {
-    public class Utilities
+    public static class Utilities
     {
         public static readonly List <string> EndCutList = new() {"SquareCut", "PlumCut", "PlumCutTop"};
         public static readonly Dictionary<int, string> StandardPanelLengths = new()

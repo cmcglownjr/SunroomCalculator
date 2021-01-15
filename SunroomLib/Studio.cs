@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 
 namespace SunroomLib
 {
@@ -13,7 +14,21 @@ namespace SunroomLib
         public double Pitch // The roof pitch
         {
             get => _pitch;
-            set => _pitch = value;
+            set
+            {
+                if (value < Math.Tan(4.0 / 12.0))
+                {
+                    throw new DataException($"The pitch is less than 4/12 and is considered too low.");
+                }
+                else if (value > Math.Tan(9.0 / 12.0))
+                {
+                    throw new DataException($"The pitch is greater than 9/12 and is considered too steep.");
+                }
+                else
+                {
+                    _pitch = value;
+                }
+            }
         }
 
         public double AttachedHeight // The height where the bottom of the panels attach to the existing structure
@@ -97,7 +112,7 @@ namespace SunroomLib
 
         protected override void CalculateSunroom()
         {
-            CalculatePanelLength(_pitch, _pitchedWallLength);
+            CalculatePanelLength(Pitch, PitchedWallLength);
             CalculateRoofPanels();
         }
 
