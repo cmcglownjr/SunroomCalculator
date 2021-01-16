@@ -1,6 +1,6 @@
 namespace SunroomLib
 {
-    public interface IStudio : ISunroom
+    public interface IStudio
     {
         void WallHeightPitch(double pitch, double soffitWallHeight);
         void WallHeightAttachedHeight(double soffitWallHeight, double peak);

@@ -19,18 +19,15 @@ namespace SunroomLib
             get => _aPitch;
             set
             {
-                if (value < Math.Tan(4.0 / 12.0))
+                if (value < Math.Atan(4.0 / 12.0))
                 {
                     throw new DataException($"The A side pitch is less than 4/12 and is considered too low.");
                 }
-                else if (value > Math.Tan(9.0 / 12.0))
+                if (value > Math.Atan(9.0 / 12.0))
                 {
                     throw new DataException($"The A side pitch is greater than 9/12 and is considered too steep.");
                 }
-                else
-                {
-                    _aPitch = value;
-                }
+                _aPitch = value;
             }
         }
         public double CPitch
@@ -38,18 +35,15 @@ namespace SunroomLib
             get => _cPitch;
             set
             {
-                if (value < Math.Tan(4.0 / 12.0))
+                if (value < Math.Atan(4.0 / 12.0))
                 {
                     throw new DataException($"The C side pitch is less than 4/12 and is considered too low.");
                 }
-                else if (value > Math.Tan(9.0 / 12.0))
+                if (value > Math.Atan(9.0 / 12.0))
                 {
                     throw new DataException($"The C side pitch is greater than 9/12 and is considered too steep.");
                 }
-                else
-                {
-                    _cPitch = value;
-                }
+                _cPitch = value;
             }
         }
         public double AttachedHeight
@@ -146,7 +140,7 @@ namespace SunroomLib
             CSoffitWallLength = cWall;
         }
 
-        public override void CalculatePanelLength()
+        protected override void CalculatePanelLength()
         {
             double aPanelLength, cPanelLength, panelBottom, panelTop;
             if (Endcut == "SquareCut")
@@ -198,9 +192,29 @@ namespace SunroomLib
             }
         }
 
-        protected override void CalculateRoofPanels(double soffitWall)
+        private double CalculateRoofPanels(double roofWidth)
         {
-            double roofPanels, roofWidth;
+            if ((roofWidth / Utilities.StandardPanelWidths[PanelWidth]) ==
+                (Math.Floor(roofWidth / Utilities.StandardPanelWidths[PanelWidth])))
+            {
+                return Math.Floor(roofWidth / Utilities.StandardPanelWidths[PanelWidth]);
+            }
+            if ((roofWidth / Utilities.StandardPanelWidths[PanelWidth]) >=
+                     (Math.Floor(roofWidth / Utilities.StandardPanelWidths[PanelWidth]) + 0.5))
+            {
+                APanelCut = true;
+                return Math.Floor(roofWidth / Utilities.StandardPanelWidths[PanelWidth]) + 0.5;
+            }
+            return Math.Ceiling(roofWidth / Utilities.StandardPanelWidths[PanelWidth]);
+        }
+
+        protected override void CalculateRoofPanels()
+        {
+            double aRoofPanels, cRoofPanels, aRoofWidth, cRoofWidth;
+            aRoofWidth = ASoffitWallLength + SideOverhang;
+            cRoofWidth = CSoffitWallLength + SideOverhang;
+            aRoofPanels = CalculateRoofPanels(aRoofWidth);
+            cRoofPanels = CalculateRoofPanels(cRoofWidth);
         }
 
         public void WallHeightPitch(List<double> pitch, List<double> soffitWallHeight)

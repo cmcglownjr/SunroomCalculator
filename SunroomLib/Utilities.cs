@@ -29,14 +29,14 @@ namespace SunroomLib
             if (units.Any(stringIn.Contains)) {return stringIn;}
             else {return stringIn + assume;}
         }
-        public static double PitchInput(EngineeringUnits pInput)
+        public static double PitchInput(EngineeringUnits pitchInput)
         {
-            switch (pInput.BaseUnit)
+            switch (pitchInput.BaseUnit)
             {
                 case "inch":
-                    return Math.Atan(pInput.BaseMeasure / 12.0);
+                    return Math.Atan(pitchInput.BaseMeasure / 12.0);
                 case "radian":
-                    return pInput.BaseMeasure;
+                    return pitchInput.BaseMeasure;
                 default:
                     throw new ArgumentException("The base unit needs to be 'inch' or 'radian'.");
             }
@@ -49,20 +49,19 @@ namespace SunroomLib
         {
             return Math.Round(input * fraction) / fraction;
         }
+        public static double CalculateDripEdge(double soffitHeight, double pitch, double thickness, string endCut)
+        {
+            double angledThickness = Angled(pitch, thickness);
+            if (endCut == "PlumCut")
+                return soffitHeight + angledThickness;
+            return soffitHeight + thickness * Math.Cos(pitch);
+        }
         public static double EstimateDripFromAttached(double peak, double estimatePitch, double pitchedWallLength,
-            double overhang, double thickness, double awall, double bwall, double cwall, string endcut, 
-            string panelWidth)
+            double overhang, double thickness, string endCut)
         {
             double wallHeight = peak - pitchedWallLength * Math.Tan(estimatePitch);
-            double soffit = wallHeight - overhang * Math.Tan(estimatePitch);
-            Sunroom estimateDrip = new Sunroom(awall, bwall, cwall, overhang, thickness, endcut, panelWidth);
-
-            return estimateDrip.CalculateDripEdge(soffit, estimatePitch);
+            double soffitHeight = wallHeight - overhang * Math.Tan(estimatePitch);
+            return CalculateDripEdge(soffitHeight, estimatePitch, thickness, endCut);
         }
-        // public static double calculate_armstrong_panels(double pitch, double pitched_wall, double unpitched_wall)
-        // {
-        //     double armstrong_area = (pitched_wall / Math.Cos(pitch)) * unpitched_wall / 144;
-        //     return Math.Ceiling((armstrong_area + (armstrong_area * 0.1)) / 29);
-        // }
     }
 }

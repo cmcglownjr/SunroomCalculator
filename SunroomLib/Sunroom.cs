@@ -4,15 +4,11 @@ using System.Data;
 
 namespace SunroomLib
 {
-    public class Sunroom : ISunroom
+    public class Sunroom
     {
         // Fields
         private double _overhang, _aWall, _bWall, _cWall, _thickness, _sideOverhang;
         private string _endCut, _panelWidth;
-        public bool PanelCut;
-        public int NumPanelCuts = 0;
-        public int RoofPanelLength = 0;
-        public int PanelType;
         public double Overhang
         {
             get { return _overhang; }
@@ -90,49 +86,8 @@ namespace SunroomLib
                 _sideOverhang = overhang;
             }
         }
-        public double CalculateDripEdge(double soffit, double pitch)
-        {
-            double angledThickness = Utilities.Angled(pitch, Thickness);
-            if (Endcut == "PlumCut")
-                return soffit + angledThickness;
-            return soffit + Thickness * Math.Cos(pitch);
-        }
-
-        public virtual void CalculatePanelLength(){} // For use with Gabled sunroom
-
-        public virtual void CalculatePanelLength(double pitch, double pitchedWall)
-        {
-            double panelLength;
-            if (Endcut == "SquareCut")
-            {
-                panelLength = (pitchedWall + Overhang) / Math.Cos(pitch);
-            }
-            else
-            {
-                var panelBottom = (pitchedWall + Overhang) / Math.Cos(pitch);
-                var panelTop = (pitchedWall + Overhang + Thickness * Math.Sin(pitch)) / Math.Cos(pitch);
-                panelLength = Math.Max(panelBottom, panelTop);
-            }
-            RoofPanelLength = Convert.ToInt32(Math.Ceiling(panelLength / 12) * 12);
-            while (RoofPanelLength > 192)
-            {
-                // Cut panel lengths in half because the lengths exceed allowed threshold
-                PanelCut = true;
-                RoofPanelLength /= 2;
-                NumPanelCuts += 1;
-            }
-
-            foreach (var panelStandard in Utilities.StandardPanelLengths.Keys)
-            {
-                if (RoofPanelLength <= panelStandard)
-                {
-                    PanelType = panelStandard;
-                    break;
-                }
-            }
-        }
+        protected virtual void CalculatePanelLength(){} 
         protected virtual void CalculateRoofPanels(){}
-        protected virtual void CalculateRoofPanels(double soffitWall){}
         protected virtual void CalculateSunroom(){}
     }
 }
