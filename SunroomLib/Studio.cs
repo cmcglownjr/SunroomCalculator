@@ -9,7 +9,7 @@ namespace SunroomLib
     public class Studio : Sunroom, IStudio
     {
         private double _pitch, _attachedHeight, _maxHeight, _soffitWallLength, _soffitWallHeight, _soffitHeight, 
-            _dripEdge, _pitchedWallLength, _roofArea;
+            _dripEdge, _pitchedWallLength, _roofArea, _sideOverhang;
         public bool PanelCut;
         public int NumPanelCuts = 0;
         public int RoofPanelLength = 0;
@@ -76,12 +76,26 @@ namespace SunroomLib
             get => _roofArea;
             set => _roofArea = value;
         }
+        public double SideOverhang
+        {
+            get => _sideOverhang;
+            set => _sideOverhang = value;
+
+        }
 
         public Studio(double aWall, double bWall, double cWall, double overhang, double thickness, string endCut, 
             string panelWidth) : base(aWall, bWall, cWall, overhang, thickness, endCut, panelWidth)
         {
             SoffitWallLength = BWall;
             PitchedWallLength = Math.Max(AWall, CWall);
+            if (overhang > Utilities.StandardPanelWidths[panelWidth] / 2)
+            {
+                SideOverhang = Utilities.StandardPanelWidths[panelWidth] / 2;
+            }
+            else
+            {
+                SideOverhang = overhang;
+            }
         }
         protected override void CalculatePanelLength()
         {

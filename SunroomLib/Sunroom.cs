@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Data;
 
 namespace SunroomLib
@@ -7,7 +6,7 @@ namespace SunroomLib
     public class Sunroom
     {
         // Fields
-        private double _overhang, _aWall, _bWall, _cWall, _thickness, _sideOverhang;
+        private double _overhang, _aWall, _bWall, _cWall, _thickness;
         private string _endCut, _panelWidth;
         public double Overhang
         {
@@ -28,13 +27,6 @@ namespace SunroomLib
         public double Thickness
         {
             get { return _thickness; }
-        }
-
-        public double SideOverhang
-        {
-            get => _sideOverhang;
-            set => _sideOverhang = value;
-
         }
 
         public string Endcut
@@ -76,14 +68,6 @@ namespace SunroomLib
             else
             {
                 throw new DataException($"The listed panel width, {panelWidth}, is an invalid input.");
-            }
-            if (overhang > Utilities.StandardPanelWidths[panelWidth] / 2)
-            {
-                _sideOverhang = Utilities.StandardPanelWidths[panelWidth] / 2;
-            }
-            else
-            {
-                _sideOverhang = overhang;
             }
         }
         protected virtual void CalculatePanelLength(){} 

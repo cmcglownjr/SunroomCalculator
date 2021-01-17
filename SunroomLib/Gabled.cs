@@ -8,7 +8,7 @@ namespace SunroomLib
     {
         private double _aPitch, _cPitch, _attachedHeight, _maxHeight, _aSoffitWallHeight, _cSoffitWallHeight, 
             _aSoffitWallLength, _cSoffitWallLength, _aSoffitHeight, _cSoffitHeight, _aPitchedWallLength, 
-            _cPitchedWallLength, _aDripEdge, _cDripEdge, _roofArea;
+            _cPitchedWallLength, _aDripEdge, _cDripEdge, _roofArea, _aSideOverhang, _cSideOverhang;
 
         private int _aRoofPanelLength, _cRoofPanelLength;
 
@@ -131,6 +131,18 @@ namespace SunroomLib
             set => _cRoofPanelLength = value;
         }
 
+        public double ASideOverhang
+        {
+            get => _aSideOverhang;
+            set => _aSideOverhang = value;
+        }
+
+        public double CSideOverhang
+        {
+            get => _cSideOverhang;
+            set => _cSideOverhang = value;
+        }
+
         public Gabled(double aWall, double bWall, double cWall, double overhang, double thickness, string endCut,
             string panelWidth) : base(aWall, bWall, cWall, overhang, thickness, endCut, panelWidth)
         {
@@ -192,7 +204,7 @@ namespace SunroomLib
             }
         }
 
-        private double CalculateRoofPanels(double roofWidth)
+        private double CalculateRoofPanelLength(double roofWidth)
         {
             if ((roofWidth / Utilities.StandardPanelWidths[PanelWidth]) ==
                 (Math.Floor(roofWidth / Utilities.StandardPanelWidths[PanelWidth])))
@@ -208,18 +220,67 @@ namespace SunroomLib
             return Math.Ceiling(roofWidth / Utilities.StandardPanelWidths[PanelWidth]);
         }
 
+        private double CalculateSideOverhang(double roofPanels, double soffitWall, double sideOverhang)
+        {
+            if ((roofPanels * Utilities.StandardPanelWidths[PanelWidth] - soffitWall) < sideOverhang)
+            {
+                // Overhang is too short
+                return roofPanels * Utilities.StandardPanelWidths[PanelWidth] - soffitWall;
+            }
+            if ((roofPanels * Utilities.StandardPanelWidths[PanelWidth] - soffitWall) >
+                     Utilities.StandardPanelWidths[PanelWidth] / 2)
+            {
+                // Overhang is too long
+                return roofPanels * Utilities.StandardPanelWidths[PanelWidth] - soffitWall;
+            }
+            return sideOverhang;
+        }
+
+        private double CalculateRoofArea(int roofPanelLength, double roofPanels, bool panelCut, int numberPanelCuts)
+        {
+            if (panelCut)
+            {
+                return Convert.ToDouble(roofPanelLength) * numberPanelCuts * roofPanels *
+                       Utilities.StandardPanelWidths[PanelWidth];
+            }
+            return Convert.ToDouble(roofPanelLength) * roofPanels * Utilities.StandardPanelWidths[PanelWidth];
+        }
         protected override void CalculateRoofPanels()
         {
-            double aRoofPanels, cRoofPanels, aRoofWidth, cRoofWidth;
-            aRoofWidth = ASoffitWallLength + SideOverhang;
-            cRoofWidth = CSoffitWallLength + SideOverhang;
-            aRoofPanels = CalculateRoofPanels(aRoofWidth);
-            cRoofPanels = CalculateRoofPanels(cRoofWidth);
+            double aRoofPanels, cRoofPanels, aRoofWidth, cRoofWidth, aRoofArea, cRoofArea;
+            aRoofWidth = ASoffitWallLength + ASideOverhang;
+            cRoofWidth = CSoffitWallLength + CSideOverhang;
+            aRoofPanels = CalculateRoofPanelLength(aRoofWidth);
+            cRoofPanels = CalculateRoofPanelLength(cRoofWidth);
+            ASideOverhang = CalculateSideOverhang(aRoofPanels, ASoffitWallHeight, ASideOverhang);
+            CSideOverhang = CalculateSideOverhang(cRoofPanels, CSoffitWallHeight, CSideOverhang);
+            aRoofArea = CalculateRoofArea(ARoofPanelLength, aRoofPanels, APanelCut, ANumberPanelCuts);
+            cRoofArea = CalculateRoofArea(CRoofPanelLength, cRoofPanels, CPanelCut, CNumberPanelCuts);
+            RoofArea = aRoofArea + cRoofArea;
+        }
+
+        protected override void CalculateSunroom()
+        {
+            CalculatePanelLength();
+            CalculateRoofPanels();
         }
 
         public void WallHeightPitch(List<double> pitch, List<double> soffitWallHeight)
         {
-            throw new System.NotImplementedException();
+            APitch = pitch[0];
+            CPitch = pitch[1];
+            ASoffitWallHeight = soffitWallHeight[0];
+            CSoffitWallHeight = soffitWallHeight[0];
+            ASoffitHeight = ASoffitWallHeight - Overhang * Math.Tan(APitch);
+            CSoffitHeight = CSoffitWallHeight - Overhang * Math.Tan(CPitch);
+            AttachedHeight = (BWall * Math.Sin(APitch) * Math.Sin(CPitch)) / Math.Sin(Math.PI - APitch - CPitch) +
+                             Math.Max(ASoffitWallHeight, CSoffitWallHeight);
+            MaxHeight = AttachedHeight + Math.Max(Utilities.Angled(APitch, Thickness),
+                            Utilities.Angled(CPitch, Thickness)) +
+                        (3.5 * Math.Sin(APitch) * Math.Sin(CPitch)) / Math.Sin(Math.PI - APitch - CPitch);
+            ADripEdge = Utilities.CalculateDripEdge(ASoffitHeight, APitch, Thickness, Endcut);
+            CDripEdge = Utilities.CalculateDripEdge(CSoffitHeight, CPitch, Thickness, Endcut);
+            CalculateSunroom();
         }
 
         public void WallHeightAttachedHeight(List<double> soffitWallHeight, double peak)
