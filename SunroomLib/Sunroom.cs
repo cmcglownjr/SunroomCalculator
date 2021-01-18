@@ -45,13 +45,13 @@ namespace SunroomLib
             if (overhang > 0) {_overhang = overhang;}
             else {throw new ArgumentOutOfRangeException($"The overhang must be greater than zero.");}
             if (aWall > 0) {_aWall = aWall;}
-            else {throw new System.ArgumentOutOfRangeException($"The awall must be greater than zero.");}
+            else {throw new ArgumentOutOfRangeException($"The awall must be greater than zero.");}
             if (bWall > 0) {_bWall = bWall;}
-            else {throw new System.ArgumentOutOfRangeException($"The bwall must be greater than zero.");}
+            else {throw new ArgumentOutOfRangeException($"The bwall must be greater than zero.");}
             if (cWall > 0) {_cWall = cWall;}
-            else {throw new System.ArgumentOutOfRangeException($"The cwall must be greater than zero.");}
+            else {throw new ArgumentOutOfRangeException($"The cwall must be greater than zero.");}
             if (thickness > 0) {_thickness = thickness;}
-            else {throw new System.ArgumentOutOfRangeException($"The thickness must be greater than zero.");}
+            else {throw new ArgumentOutOfRangeException($"The thickness must be greater than zero.");}
             if (Utilities.EndCutList.Contains(endCut))
             {
                 _endCut = endCut;

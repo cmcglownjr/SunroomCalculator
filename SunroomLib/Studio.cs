@@ -11,13 +11,11 @@ namespace SunroomLib
         private double _pitch, _attachedHeight, _maxHeight, _soffitWallLength, _soffitWallHeight, _soffitHeight, 
             _dripEdge, _pitchedWallLength, _roofArea, _sideOverhang;
         public bool PanelCut;
-        public int NumPanelCuts = 0;
-        public int RoofPanelLength = 0;
-        public int PanelType;
+        public int NumPanelCuts, RoofPanelLength, PanelType;
         public double Pitch // The roof pitch
         {
             get => _pitch;
-            set
+            private set
             {
                 if (value < Math.Atan(4.0 / 12.0))
                 {
@@ -34,52 +32,52 @@ namespace SunroomLib
         public double AttachedHeight // The height where the bottom of the panels attach to the existing structure
         {
             get => _attachedHeight;
-            set => _attachedHeight = value;
+            private set => _attachedHeight = value;
         }
 
         public double MaxHeight // The maximum height of the sunroom with panels
         {
             get => _maxHeight;
-            set => _maxHeight = value;
+            private set => _maxHeight = value;
         }
         
         public double SoffitWallLength // This will be set to B Wall since it isn't angled
         {
             get => _soffitWallLength;
-            set => _soffitWallLength = value;
+            private set => _soffitWallLength = value;
         }
-        private double PitchedWallLength // This will be set to A or C Wall because they are angled
+        public double PitchedWallLength // This will be set to A or C Wall because they are angled
         {
             get => _pitchedWallLength;
-            set => _pitchedWallLength = value;
+            private set => _pitchedWallLength = value;
         }
-        private double SoffitWallHeight // The height of B Wall
+        public double SoffitWallHeight // The height of B Wall
         {
             get => _soffitWallHeight;
-            set => _soffitWallHeight = value;
+            private set => _soffitWallHeight = value;
         }
 
         public double SoffitHeight // The distance from the ground to the soffit
         {
             get => _soffitHeight;
-            set => _soffitHeight = value;
+            private set => _soffitHeight = value;
         }
 
         public double DripEdge // The distance from the ground to the drip edge
         {
             get => _dripEdge;
-            set => _dripEdge = value;
+            private set => _dripEdge = value;
         }
         
         public double RoofArea // The area of the roof with panels
         {
             get => _roofArea;
-            set => _roofArea = value;
+            private set => _roofArea = value;
         }
         public double SideOverhang
         {
             get => _sideOverhang;
-            set => _sideOverhang = value;
+            private set => _sideOverhang = value;
 
         }
 

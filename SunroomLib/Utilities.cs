@@ -6,6 +6,7 @@ namespace SunroomLib
 {
     public static class Utilities
     {
+        public static double StandardPostWidth = 3.5; // The width, in inches, of a standard 2X4
         public static readonly List <string> EndCutList = new() {"SquareCut", "PlumCut", "PlumCutTop"};
         public static readonly Dictionary<int, string> StandardPanelLengths = new()
         {
@@ -56,10 +57,10 @@ namespace SunroomLib
                 return soffitHeight + angledThickness;
             return soffitHeight + thickness * Math.Cos(pitch);
         }
-        public static double EstimateDripFromAttached(double peak, double estimatePitch, double pitchedWallLength,
+        public static double EstimateDripFromAttached(double attachedHeight, double estimatePitch, double pitchedWallLength,
             double overhang, double thickness, string endCut)
         {
-            double wallHeight = peak - pitchedWallLength * Math.Tan(estimatePitch);
+            double wallHeight = attachedHeight - pitchedWallLength * Math.Tan(estimatePitch);
             double soffitHeight = wallHeight - overhang * Math.Tan(estimatePitch);
             return CalculateDripEdge(soffitHeight, estimatePitch, thickness, endCut);
         }
