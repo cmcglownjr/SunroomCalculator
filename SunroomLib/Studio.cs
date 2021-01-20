@@ -1,5 +1,5 @@
 using System;
-using System.Data;
+using static SunroomLib.Utilities;
 
 namespace SunroomLib
 {
@@ -11,22 +11,12 @@ namespace SunroomLib
         private double _pitch, _attachedHeight, _maxHeight, _soffitWallLength, _soffitWallHeight, _soffitHeight, 
             _dripEdge, _pitchedWallLength, _roofArea, _sideOverhang;
         public bool PanelCut;
-        public int NumPanelCuts, RoofPanelLength, PanelType;
+        public int RoofPanelLength, PanelType, RakeLength;
+        public double NumPanelCuts;
         public double Pitch // The roof pitch
         {
             get => _pitch;
-            private set
-            {
-                if (value < Math.Atan(4.0 / 12.0))
-                {
-                    throw new DataException($"The pitch is less than 4/12 and is considered too low.");
-                }
-                if (value > Math.Atan(9.0 / 12.0))
-                {
-                    throw new DataException($"The pitch is greater than 9/12 and is considered too steep.");
-                }
-                _pitch = value;
-            }
+            private set => _pitch = PitchCheck(value);
         }
 
         public double AttachedHeight // The height where the bottom of the panels attach to the existing structure
@@ -86,9 +76,9 @@ namespace SunroomLib
         {
             SoffitWallLength = BWall;
             PitchedWallLength = Math.Max(AWall, CWall);
-            if (overhang > Utilities.StandardPanelWidths[panelWidth] / 2)
+            if (overhang > StandardPanelWidths[panelWidth] / 2)
             {
-                SideOverhang = Utilities.StandardPanelWidths[panelWidth] / 2;
+                SideOverhang = StandardPanelWidths[panelWidth] / 2;
             }
             else
             {
@@ -109,15 +99,16 @@ namespace SunroomLib
                 panelLength = Math.Max(panelBottom, panelTop);
             }
             RoofPanelLength = Convert.ToInt32(Math.Ceiling(panelLength / 12) * 12);
-            while (RoofPanelLength > 192)
+            RakeLength = RoofPanelLength;
+            if (RoofPanelLength > 192)
             {
                 // Cut panel lengths in half because the lengths exceed allowed threshold
                 PanelCut = true;
-                RoofPanelLength /= 2;
-                NumPanelCuts += 1;
+                NumPanelCuts = RoundUpToNearest((RakeLength / 192.0), 0.25);
+                RoofPanelLength = 192;
             }
 
-            foreach (var panelStandard in Utilities.StandardPanelLengths.Keys)
+            foreach (var panelStandard in StandardPanelLengths.Keys)
             {
                 if (RoofPanelLength <= panelStandard)
                 {
@@ -130,7 +121,7 @@ namespace SunroomLib
         protected override void CalculateRoofPanels()
         {
             double roofWidth = SoffitWallLength + SideOverhang * 2;
-            double panelWidth = Utilities.StandardPanelWidths[PanelWidth];
+            double panelWidth = StandardPanelWidths[PanelWidth];
             double roofPanelNumber = Math.Ceiling(roofWidth / panelWidth);
             if ((roofPanelNumber * panelWidth - SoffitWallLength) / 2 < SideOverhang)
             {
@@ -142,14 +133,7 @@ namespace SunroomLib
                 // The calculated overhang exceeds max allowed
                 SideOverhang = (roofPanelNumber * panelWidth - SoffitWallLength) / 2;
             }
-            if (PanelCut) // Checks to see if panel lengths were cut in half
-            {
-                RoofArea = RoofPanelLength * 2 * roofPanelNumber * panelWidth;
-            }
-            else
-            {
-                RoofArea = RoofPanelLength * roofPanelNumber * panelWidth;
-            }
+            RoofArea = RakeLength * roofPanelNumber * panelWidth;
         }
 
         protected override void CalculateSunroom()
@@ -164,8 +148,8 @@ namespace SunroomLib
             SoffitWallHeight = soffitWallHeight;
             SoffitHeight = SoffitWallLength - Overhang * Math.Tan(Pitch);
             AttachedHeight = SoffitHeight + PitchedWallLength * Math.Tan(Pitch);
-            MaxHeight = AttachedHeight + Utilities.Angled(Pitch, Thickness);
-            DripEdge = Utilities.CalculateDripEdge(SoffitHeight, Pitch, Thickness, Endcut);
+            MaxHeight = AttachedHeight + Angled(Pitch, Thickness);
+            DripEdge = CalculateDripEdge(SoffitHeight, Pitch, Thickness, Endcut);
             CalculateSunroom();
         }
 
@@ -175,8 +159,8 @@ namespace SunroomLib
             AttachedHeight = peak;
             Pitch = Math.Atan((AttachedHeight - SoffitWallHeight) / PitchedWallLength);
             SoffitHeight = SoffitWallHeight - Overhang * Math.Tan(Pitch);
-            MaxHeight = AttachedHeight + Utilities.Angled(Pitch, Thickness);
-            DripEdge = Utilities.CalculateDripEdge(SoffitHeight, Pitch, Thickness, Endcut);
+            MaxHeight = AttachedHeight + Angled(Pitch, Thickness);
+            DripEdge = CalculateDripEdge(SoffitHeight, Pitch, Thickness, Endcut);
             CalculateSunroom();
         }
 
@@ -184,10 +168,10 @@ namespace SunroomLib
         {
             Pitch = pitch;
             MaxHeight = maxHeight;
-            SoffitWallHeight = MaxHeight - PitchedWallLength * Math.Tan(Pitch) - Utilities.Angled(Pitch, Thickness);
+            SoffitWallHeight = MaxHeight - PitchedWallLength * Math.Tan(Pitch) - Angled(Pitch, Thickness);
             SoffitHeight = SoffitWallHeight - Overhang * Math.Tan(Pitch);
-            AttachedHeight = MaxHeight - Utilities.Angled(Pitch, Thickness);
-            DripEdge = Utilities.CalculateDripEdge(SoffitHeight, Pitch, Thickness, Endcut);
+            AttachedHeight = MaxHeight - Angled(Pitch, Thickness);
+            DripEdge = CalculateDripEdge(SoffitHeight, Pitch, Thickness, Endcut);
             CalculateSunroom();
         }
 
@@ -197,8 +181,8 @@ namespace SunroomLib
             AttachedHeight = peak;
             Pitch = Math.Atan((AttachedHeight - SoffitHeight) / (PitchedWallLength + Overhang));
             SoffitWallHeight = SoffitHeight + Overhang * Math.Tan(Pitch);
-            MaxHeight = AttachedHeight + Utilities.Angled(Pitch, Thickness);
-            DripEdge = Utilities.CalculateDripEdge(SoffitHeight, Pitch, Thickness, Endcut);
+            MaxHeight = AttachedHeight + Angled(Pitch, Thickness);
+            DripEdge = CalculateDripEdge(SoffitHeight, Pitch, Thickness, Endcut);
             CalculateSunroom();
         }
 
@@ -208,8 +192,8 @@ namespace SunroomLib
             SoffitHeight = soffitHeight;
             SoffitWallHeight = SoffitHeight + Overhang * Math.Tan(Pitch);
             AttachedHeight = SoffitWallHeight + PitchedWallLength * Math.Tan(Pitch);
-            MaxHeight = AttachedHeight + Utilities.Angled(Pitch, Thickness);
-            DripEdge = Utilities.CalculateDripEdge(SoffitHeight, Pitch, Thickness, Endcut);
+            MaxHeight = AttachedHeight + Angled(Pitch, Thickness);
+            DripEdge = CalculateDripEdge(SoffitHeight, Pitch, Thickness, Endcut);
             CalculateSunroom();
         }
 
@@ -227,7 +211,7 @@ namespace SunroomLib
                 oldRatio = ratioPitch;
                 ratioPitch += incr;
                 Pitch = Math.Atan2(ratioPitch, 12.0);
-                dripEstimate = Utilities.EstimateDripFromAttached(AttachedHeight, Pitch, PitchedWallLength,
+                dripEstimate = EstimateDripFromAttached(AttachedHeight, Pitch, PitchedWallLength,
                     Overhang, Thickness, Endcut);
                 diff = Math.Abs(DripEdge - dripEstimate);
                 if (ratioPitch > 12.0){break;}
@@ -241,7 +225,7 @@ namespace SunroomLib
 
             SoffitWallHeight = AttachedHeight - PitchedWallLength * Math.Tan(Pitch);
             SoffitHeight = SoffitWallHeight - Overhang * Math.Tan(Pitch);
-            MaxHeight = AttachedHeight + Utilities.Angled(Pitch, Thickness);
+            MaxHeight = AttachedHeight + Angled(Pitch, Thickness);
             CalculateSunroom();
         }
 
@@ -249,10 +233,10 @@ namespace SunroomLib
         {
             Pitch = pitch;
             DripEdge = dripEdge;
-            SoffitHeight = DripEdge - Utilities.Angled(Pitch, Thickness);
+            SoffitHeight = DripEdge - Angled(Pitch, Thickness);
             SoffitWallHeight = SoffitHeight + Overhang * Math.Tan(Pitch);
             AttachedHeight = SoffitWallHeight + PitchedWallLength * Math.Tan(Pitch);
-            MaxHeight = AttachedHeight + Utilities.Angled(Pitch, Thickness);
+            MaxHeight = AttachedHeight + Angled(Pitch, Thickness);
             CalculateSunroom();
         }
     }

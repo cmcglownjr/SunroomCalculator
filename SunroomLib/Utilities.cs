@@ -20,6 +20,19 @@ namespace SunroomLib
             {"24in", 24.0},
             {"36in", 36.0}
         };
+
+        public static double PitchCheck(double pitch)
+        {
+            if (pitch < Math.Atan(4.0 / 12.0))
+            {
+                throw new System.Data.DataException($"The pitch is less than 4/12 and is considered too low.");
+            }
+            if (pitch > Math.Atan(9.0 / 12.0))
+            {
+                throw new System.Data.DataException($"The pitch is greater than 9/12 and is considered too steep.");
+            }
+            return pitch;
+        }
         public static double Angled(double pitch, double thickness)
         {
             return thickness * (Math.Sin(Math.PI / 2) / Math.Sin(Math.PI / 2 - pitch));
@@ -27,8 +40,11 @@ namespace SunroomLib
         public static string AssumeUnits(string stringIn, string assume)
         {
             List<string> units = new List<string> {"'", "ft", "feet", "\"", "in"};
-            if (units.Any(stringIn.Contains)) {return stringIn;}
-            else {return stringIn + assume;}
+            if (units.Any(stringIn.Contains))
+            {
+                return stringIn;
+            }
+            return stringIn + assume;
         }
         public static double PitchInput(EngineeringUnits pitchInput)
         {
@@ -42,9 +58,13 @@ namespace SunroomLib
                     throw new ArgumentException("The base unit needs to be 'inch' or 'radian'.");
             }
         }
-        public static double PitchEstimate(double number)
+        public static double RoundUpToNearest(double number, double roundTo)
         {
-            return Math.Round(number * 2) / 2;
+            if (roundTo == 0)
+            {
+                return number;
+            }
+            return Math.Ceiling(number * (1 / roundTo)) / (1/roundTo);
         }
         public static double NiceFraction(double input, double fraction)
         {
@@ -57,8 +77,8 @@ namespace SunroomLib
                 return soffitHeight + angledThickness;
             return soffitHeight + thickness * Math.Cos(pitch);
         }
-        public static double EstimateDripFromAttached(double attachedHeight, double estimatePitch, double pitchedWallLength,
-            double overhang, double thickness, string endCut)
+        public static double EstimateDripFromAttached(double attachedHeight, double estimatePitch, 
+            double pitchedWallLength, double overhang, double thickness, string endCut)
         {
             double wallHeight = attachedHeight - pitchedWallLength * Math.Tan(estimatePitch);
             double soffitHeight = wallHeight - overhang * Math.Tan(estimatePitch);

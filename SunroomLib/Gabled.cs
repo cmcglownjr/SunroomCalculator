@@ -1,10 +1,12 @@
 using System;
-using System.Data;
 using System.Collections.Generic;
 using static SunroomLib.Utilities;
 
 namespace SunroomLib
 {
+    /// <summary>
+    /// Class <c>Gabled</c> Models a gabled style sunroom.
+    /// </summary>
     public class Gabled : Sunroom, IGabled
     {
         private double _aPitch, _cPitch, _attachedHeight, _maxHeight, _aSoffitWallHeight, _cSoffitWallHeight, 
@@ -14,38 +16,17 @@ namespace SunroomLib
         private int _aRoofPanelLength, _cRoofPanelLength;
 
         public bool APanelCut, CPanelCut;
-        public int ANumberPanelCuts, CNumberPanelCuts, APanelType, CPanelType;
+        public int APanelType, CPanelType, ARakeLength, CRakeLength;
+        public double ANumberPanelCuts, CNumberPanelCuts;
         public double APitch
         {
             get => _aPitch;
-            private set
-            {
-                if (value < Math.Atan(4.0 / 12.0))
-                {
-                    throw new DataException($"The A side pitch is less than 4/12 and is considered too low.");
-                }
-                if (value > Math.Atan(9.0 / 12.0))
-                {
-                    throw new DataException($"The A side pitch is greater than 9/12 and is considered too steep.");
-                }
-                _aPitch = value;
-            }
+            private set => _aPitch = PitchCheck(value);
         }
         public double CPitch
         {
             get => _cPitch;
-            private set
-            {
-                if (value < Math.Atan(4.0 / 12.0))
-                {
-                    throw new DataException($"The C side pitch is less than 4/12 and is considered too low.");
-                }
-                if (value > Math.Atan(9.0 / 12.0))
-                {
-                    throw new DataException($"The C side pitch is greater than 9/12 and is considered too steep.");
-                }
-                _cPitch = value;
-            }
+            private set => _cPitch = PitchCheck(value);
         }
         public double AttachedHeight
         {
@@ -173,19 +154,21 @@ namespace SunroomLib
 
             ARoofPanelLength = Convert.ToInt32(Math.Ceiling(aPanelLength / 12) * 12);
             CRoofPanelLength = Convert.ToInt32(Math.Ceiling(cPanelLength / 12) * 12);
-            while (ARoofPanelLength > 192)
+            ARakeLength = ARoofPanelLength;
+            CRakeLength = CRoofPanelLength;
+            if (ARoofPanelLength > 192)
             {
                 // Cut panel lengths in half because the lengths exceed allowed threshold
                 APanelCut = true;
-                ARoofPanelLength /= 2;
-                ANumberPanelCuts += 1;
+                ANumberPanelCuts = RoundUpToNearest((ARakeLength/192.0), 0.5);
+                ARoofPanelLength = 192;
             }
-            while (CRoofPanelLength > 192)
+            if (CRoofPanelLength > 192)
             {
                 // Cut panel lengths in half because the lengths exceed allowed threshold
                 CPanelCut = true;
-                CRoofPanelLength /= 2;
-                CNumberPanelCuts += 1;
+                CNumberPanelCuts = RoundUpToNearest((CRakeLength/192.0), 0.5);
+                CRoofPanelLength = 192;
             }
             foreach (var panelStandard in StandardPanelLengths.Keys)
             {
@@ -237,14 +220,9 @@ namespace SunroomLib
             return sideOverhang;
         }
 
-        private double CalculateRoofArea(int roofPanelLength, double roofPanels, bool panelCut, int numberPanelCuts)
+        private double CalculateRoofArea(double rakeLength, double roofPanels, string panelWidth)
         {
-            if (panelCut)
-            {
-                return Convert.ToDouble(roofPanelLength) * numberPanelCuts * roofPanels *
-                       StandardPanelWidths[PanelWidth];
-            }
-            return Convert.ToDouble(roofPanelLength) * roofPanels * StandardPanelWidths[PanelWidth];
+            return rakeLength * roofPanels * StandardPanelWidths[panelWidth];
         }
         protected override void CalculateRoofPanels()
         {
@@ -255,8 +233,8 @@ namespace SunroomLib
             cRoofPanels = CalculateRoofPanelLength(cRoofWidth);
             ASideOverhang = CalculateSideOverhang(aRoofPanels, ASoffitWallHeight, ASideOverhang);
             CSideOverhang = CalculateSideOverhang(cRoofPanels, CSoffitWallHeight, CSideOverhang);
-            aRoofArea = CalculateRoofArea(ARoofPanelLength, aRoofPanels, APanelCut, ANumberPanelCuts);
-            cRoofArea = CalculateRoofArea(CRoofPanelLength, cRoofPanels, CPanelCut, CNumberPanelCuts);
+            aRoofArea = CalculateRoofArea(ARakeLength, aRoofPanels, PanelWidth);
+            cRoofArea = CalculateRoofArea(CRakeLength, cRoofPanels, PanelWidth);
             RoofArea = aRoofArea + cRoofArea;
         }
 
