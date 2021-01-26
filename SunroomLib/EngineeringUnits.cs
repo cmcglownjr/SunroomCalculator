@@ -17,41 +17,45 @@ namespace SunroomLib
             return double.Parse((string)row["expression"]);
         }
 
-        readonly List<string> _unitType = new() {"angle", "length"};
+        private readonly List<string> _unitType = new() {"angle", "length"};
         public double BaseMeasure;
         public string BaseUnit;
-        string Measurement {get; set; }
-        string UnitType {get; set; }
-        double toRadians(double input)
+        private string Measurement {get; set; }
+        private string UnitType {get; set; }
+
+        private double toRadians(double input)
         {
             return (Math.PI/180) * input;
         }
-        public EngineeringUnits(string pMeasurement, string pUnitType)
+        public EngineeringUnits(string measurement, string unitType)
         {
-            Measurement = pMeasurement;
-            if (_unitType.Any(pUnitType.Contains)) {UnitType = pUnitType;}
-            else {throw new System.ArgumentException("The unit type selected is not valid!");}
+            Measurement = measurement;
+            if (_unitType.Any(unitType.Contains)) {UnitType = unitType;}
+            else {throw new ArgumentException("The unit type selected is not valid!");}
             SetBase();
         }
-        static bool FeetSearch(string text)
+
+        private static bool FeetSearch(string text)
         {
             //Debug.WriteLine("Checking for feet.");
             List<string> unit = new List<string> {"ft", "'", "feet"};
             return (unit.Any(text.Contains));
         }
-        static bool InchSearch(string text)
+
+        private static bool InchSearch(string text)
         {
             //Debug.WriteLine("Checking for inches.");
             List<string> unit = new List<string> {"in", "\""};
             return unit.Any(text.Contains);
         }
-        string fractSign = "/";
+
+        private string fractSign = "/";
         private Regex _degrees = new(@"(\d*\.?\d*)deg");
         private Regex _fract = new (@"(\d*\s?)(\d+\/\d+)");
         private Regex _ftOrIn = new (@"(\d*\.\d+|\d+)\s?[""|in|\'|ft|feet]");
         private Regex _ftAndInFract = new (@"(\d+\.?\d*)(\s?\d+\/\d+)*(\s?\D+\s?)(\d*\.?\d*)(\s?\d+\/\d+)*");
 
-        void SetBase()
+        private void SetBase()
         {
             if (UnitType == "angle")
             {

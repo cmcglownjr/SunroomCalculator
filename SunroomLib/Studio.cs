@@ -146,17 +146,17 @@ namespace SunroomLib
         {
             Pitch = pitch;
             SoffitWallHeight = soffitWallHeight;
-            SoffitHeight = SoffitWallLength - Overhang * Math.Tan(Pitch);
-            AttachedHeight = SoffitHeight + PitchedWallLength * Math.Tan(Pitch);
+            SoffitHeight = SoffitWallHeight - Overhang * Math.Tan(Pitch);
+            AttachedHeight = SoffitWallHeight + PitchedWallLength * Math.Tan(Pitch);
             MaxHeight = AttachedHeight + Angled(Pitch, Thickness);
             DripEdge = CalculateDripEdge(SoffitHeight, Pitch, Thickness, Endcut);
             CalculateSunroom();
         }
 
-        public void WallHeightAttachedHeight(double soffitWallHeight, double peak)
+        public void WallHeightAttachedHeight(double soffitWallHeight, double attachedHeight)
         {
             SoffitWallHeight = soffitWallHeight;
-            AttachedHeight = peak;
+            AttachedHeight = attachedHeight;
             Pitch = Math.Atan((AttachedHeight - SoffitWallHeight) / PitchedWallLength);
             SoffitHeight = SoffitWallHeight - Overhang * Math.Tan(Pitch);
             MaxHeight = AttachedHeight + Angled(Pitch, Thickness);
@@ -175,10 +175,10 @@ namespace SunroomLib
             CalculateSunroom();
         }
 
-        public void SoffitHeightAttachedHeight(double soffitHeight, double peak)
+        public void SoffitHeightAttachedHeight(double soffitHeight, double attachedHeight)
         {
             SoffitHeight = soffitHeight;
-            AttachedHeight = peak;
+            AttachedHeight = attachedHeight;
             Pitch = Math.Atan((AttachedHeight - SoffitHeight) / (PitchedWallLength + Overhang));
             SoffitWallHeight = SoffitHeight + Overhang * Math.Tan(Pitch);
             MaxHeight = AttachedHeight + Angled(Pitch, Thickness);
@@ -197,21 +197,22 @@ namespace SunroomLib
             CalculateSunroom();
         }
 
-        public void DripEdgeAttachedHeight(double dripEdge, double peak)
+        public void DripEdgeAttachedHeight(double dripEdge, double attachedHeight)
         {
-            AttachedHeight = peak;
+            AttachedHeight = attachedHeight;
             DripEdge = dripEdge;
             double tolerance = 0.01;
             double diff = 100;
             double incr = 0.1;
             double ratioPitch = 0.0;
+            double tempPitch = 0;
             double oldRatio, dripEstimate;
             while (diff > tolerance)
             {
                 oldRatio = ratioPitch;
                 ratioPitch += incr;
-                Pitch = Math.Atan2(ratioPitch, 12.0);
-                dripEstimate = EstimateDripFromAttached(AttachedHeight, Pitch, PitchedWallLength,
+                tempPitch = Math.Atan2(ratioPitch, 12.0);
+                dripEstimate = EstimateDripFromAttached(AttachedHeight, tempPitch, PitchedWallLength,
                     Overhang, Thickness, Endcut);
                 diff = Math.Abs(DripEdge - dripEstimate);
                 if (ratioPitch > 12.0){break;}
@@ -223,6 +224,7 @@ namespace SunroomLib
                 }
             }
 
+            Pitch = tempPitch;
             SoffitWallHeight = AttachedHeight - PitchedWallLength * Math.Tan(Pitch);
             SoffitHeight = SoffitWallHeight - Overhang * Math.Tan(Pitch);
             MaxHeight = AttachedHeight + Angled(Pitch, Thickness);
