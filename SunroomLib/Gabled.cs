@@ -269,9 +269,9 @@ namespace SunroomLib
             ASoffitWallHeight = soffitWallHeight[0];
             CSoffitWallHeight = soffitWallHeight[1];
             APitch = Math.Atan2((AttachedHeight - ASoffitWallHeight),
-                (APitchedWallLength - StandardPostWidth / 2));
+                APitchedWallLength);
             CPitch = Math.Atan2((AttachedHeight - CSoffitWallHeight),
-                (CPitchedWallLength - StandardPostWidth / 2));
+                CPitchedWallLength );
             ASoffitHeight = ASoffitWallHeight - Overhang * Math.Tan(APitch);
             CSoffitHeight = CSoffitWallHeight - Overhang * Math.Tan(CPitch);
             double aMaxHeight = AttachedHeight + Angled(APitch, Thickness) +
@@ -291,11 +291,12 @@ namespace SunroomLib
             APitch = pitch[0];
             CPitch = pitch[1];
             MaxHeight = maxHeight;
-            AttachedHeight = (BWall * Math.Sin(APitch) * Math.Sin(CPitch)) / Math.Sin(Math.PI - APitch - CPitch);
             ASoffitWallHeight = MaxHeight -
                                 Math.Max(Angled(APitch, Thickness), Angled(CPitch, Thickness)) -
                                 (BWall * Math.Sin(APitch) * Math.Sin(CPitch)) / Math.Sin(Math.PI - APitch - CPitch);
             CSoffitWallHeight = ASoffitWallHeight;
+            AttachedHeight = (BWall * Math.Sin(APitch) * Math.Sin(CPitch)) / Math.Sin(Math.PI - APitch - CPitch) +
+                             ASoffitWallHeight;
             ASoffitHeight = ASoffitWallHeight - Overhang * Math.Tan(APitch);
             CSoffitHeight = CSoffitWallHeight - Overhang * Math.Tan(CPitch);
             ADripEdge = CalculateDripEdge(ASoffitHeight, APitch, Thickness, Endcut);
@@ -309,9 +310,9 @@ namespace SunroomLib
             CSoffitHeight = soffitHeight[1];
             AttachedHeight = attachedHeight;
             APitch = Math.Atan((AttachedHeight - ASoffitHeight) /
-                               (APitchedWallLength + Overhang - StandardPostWidth / 2));
+                               (APitchedWallLength + Overhang));
             CPitch = Math.Atan((AttachedHeight - CSoffitHeight) /
-                               (CPitchedWallLength + Overhang - StandardPostWidth / 2));
+                               (CPitchedWallLength + Overhang));
             ASoffitWallHeight = ASoffitHeight + Overhang * Math.Tan(APitch);
             CSoffitWallHeight = CSoffitHeight + Overhang * Math.Tan(CPitch);
             MaxHeight = Math.Max(AttachedHeight + Angled(APitch, Thickness),
@@ -353,7 +354,7 @@ namespace SunroomLib
                 oldRatio = ratioPitch;
                 ratioPitch += incr;
                 pitch = Math.Atan2(ratioPitch, 12);
-                dripEstimate = EstimateDripFromAttached(AttachedHeight, pitch, BWall / 2 - StandardPostWidth / 2,
+                dripEstimate = EstimateDripFromAttached(AttachedHeight, pitch, BWall / 2,
                     Overhang, Thickness, Endcut);
                 diff = Math.Abs(dripEdge - dripEstimate);
                 if (ratioPitch > 12){break;}
