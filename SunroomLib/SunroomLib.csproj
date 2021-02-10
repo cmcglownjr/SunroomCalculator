@@ -6,6 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
       <PackageReference Include="Serilog" Version="2.10.0" />
     </ItemGroup>
 
