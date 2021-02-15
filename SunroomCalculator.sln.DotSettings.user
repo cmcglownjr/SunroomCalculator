@@ -1,0 +1,30 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=F3997CC5_002D6841_002D4D49_002D833A_002DF1E2B644B246_002Ff_003AProgram_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=20183b7a_002De0ed_002D451c_002Dbb80_002D9e14fd82ba6f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TestAngled" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestUtilites.TestAngled&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestUtilites.TestAssumeUnits&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestUtilites.TestPitchCheck&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestUtilites.TestAssumeUnitsGiven&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestUtilites.TestPitchInput&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestUtilites.TestRoundUpToNearest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestUtilites.TestNiceFraction&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestUtilites.TestCalculateDripEdge&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestUtilites.TestEstimateDripFromAttached&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestStudio.TestWallHeightPitch&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestStudio.TestWallHeightAttachedHeight&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestStudio.TestMaxHeightPitch&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestStudio.TestSoffitHeightAttachedHeight&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestStudio.TestSoffitHeightPitch&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestStudio.TestDripEdgeAttachedHeight&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestStudio.TestDripEdgePitch&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestGabled.TestWallHeightPitch&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestGabled.TestWallHeightAttachedHeight&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestGabled.TestMaxHeightPitch&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestGabled.TestSoffitHeightAttachedHeight&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestGabled.TestSoffitHeightPitch&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestGabled.TestDripEdgeAttachedHeight&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::1056ACD4-D62A-43D4-9E7D-FFE0C565C28E::net5.0::SunroomLibTest.TestGabled.TestDripEdgePitch&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	</wpf:ResourceDictionary>

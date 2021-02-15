@@ -1,17 +1,56 @@
 <Window xmlns="https://github.com/avaloniaui"
+        xmlns:rxui="clr-namespace:Avalonia;assembly=Avalonia.ReactiveUI"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:SunroomCalculatorAvalonia.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:views="clr-namespace:SunroomCalculatorAvalonia.Views"
+        xmlns:reactiveUi="http://reactiveui.net"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="450"
         x:Class="SunroomCalculatorAvalonia.Views.MainWindow"
+        Width="800" Height="850"
+        CanResize="False"
         Icon="/Assets/SunroomIcon.ico"
-        Title="SunroomCalculatorAvalonia">
+        Title="Generic Sunroom Calculator">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Window.Resources>
+        <DataTemplate x:Key="DiagramView" DataType="{x:Type vm:DiagramViewModel}">
+            <views:DiagramView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Key="WallHeightPitchView" DataType="{x:Type vm:WallHeightPitchViewModel}">
+            <views:WallHeightPitchView DataContext="{Binding}"/>
+        </DataTemplate>
+    </Window.Resources>
+    <StackPanel x:Name="MainStack" Orientation="Vertical" Margin="10">
+        <StackPanel x:Name="LogoStack" Orientation="Horizontal">
+            <Image Source="/Assets/SunroomIcon.png" Width="160" Height="160"/>
+            <TextBlock Classes="MainLogo" Text="Generic Sunroom Company L.L.C."/>
+        </StackPanel>
+        <StackPanel x:Name="InterfaceStack" Orientation="Horizontal">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Classes="Interface" Orientation="Vertical">
+                    <RadioButton x:Name="Test1" GroupName="Group1" Content="Selection 1"/>
+                    <RadioButton x:Name="Test2" GroupName="Group1" Content="Selection 2"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Classes="Interface" Orientation="Vertical">
+                    <StackPanel Height="400">
+                        <ContentControl Content="{Binding SelectedViewModel}"/>
+                        <!-- <views:DiagramView/> -->
+                    </StackPanel>
+                    <StackPanel Height="200">
+                        <Button Content="Diagram" Command="{Binding Diagram}"/>
+                        <Button Content="Wall Height Pitch" Command="{Binding WallHeightPitch}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </StackPanel>
 
 </Window>

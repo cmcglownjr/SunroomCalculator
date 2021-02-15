@@ -1,6 +1,10 @@
+using System;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
+using SunroomCalculatorAvalonia.ViewModels;
 
 namespace SunroomCalculatorAvalonia.Views
 {

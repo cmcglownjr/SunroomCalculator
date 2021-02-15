@@ -14,4 +14,12 @@
         <PackageReference Include="Avalonia.Diagnostics" Version="0.10.0" />
         <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.0" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="Views\DiagramView.axaml.cs">
+        <DependentUpon>DiagramView.axaml</DependentUpon>
+      </Compile>
+      <Compile Update="Views\WallHeightPitchView.axaml.cs">
+        <DependentUpon>WallHeightPitchView.axaml</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>
