@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace SunroomCalculatorAvalonia.Views
 {
-    public class DiagramView : UserControl
+    public class SunroomOverhangView : UserControl
     {
-        public DiagramView()
+        public SunroomOverhangView()
         {
             InitializeComponent();
         }

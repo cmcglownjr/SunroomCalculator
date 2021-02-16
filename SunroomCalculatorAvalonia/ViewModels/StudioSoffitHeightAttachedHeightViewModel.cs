@@ -1,6 +1,6 @@
 namespace SunroomCalculatorAvalonia.ViewModels
 {
-    public class WallHeightPitchViewModel
+    public class StudioSoffitHeightAttachedHeightViewModel
     {
         
     }

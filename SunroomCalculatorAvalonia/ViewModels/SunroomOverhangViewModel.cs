@@ -1,6 +1,7 @@
 namespace SunroomCalculatorAvalonia.ViewModels
 {
-    public class DiagramViewModel
+    public class SunroomOverhangViewModel
     {
+        
     }
 }

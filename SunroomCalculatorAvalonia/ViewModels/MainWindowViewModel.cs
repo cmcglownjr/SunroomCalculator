@@ -11,6 +11,7 @@ using Avalonia.ReactiveUI;
 using JetBrains.Annotations;
 using ReactiveUI;
 using SunroomCalculatorAvalonia.Views;
+using SunroomCalculatorAvalonia.Models;
 
 namespace SunroomCalculatorAvalonia.ViewModels
 {
@@ -18,6 +19,7 @@ namespace SunroomCalculatorAvalonia.ViewModels
     {
         public string Greeting => "Welcome to Avalonia!";
         private UserControl _selectedViewModel;
+        SunroomViewLoader views = new SunroomViewLoader();
         public ReactiveCommand<Unit, Unit> Diagram { get; }
         public ReactiveCommand<Unit, Unit> WallHeightPitch { get; }
 
@@ -30,18 +32,19 @@ namespace SunroomCalculatorAvalonia.ViewModels
 
         public MainWindowViewModel()
         {
+            
             Diagram = ReactiveCommand.Create(() => ChangeToDiagram());
             WallHeightPitch = ReactiveCommand.Create(() => ChangeToWallHeightPitch());
         }
 
         void ChangeToWallHeightPitch()
         {
-            SelectedViewModel = new WallHeightPitchView();
+            SelectedViewModel = views.GableWallHeightPitchVM;
         }
 
         void ChangeToDiagram()
         {
-            SelectedViewModel = new DiagramView();
+            SelectedViewModel = views.SunroomEndCutVM;
         }
     }
 }

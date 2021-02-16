@@ -1,0 +1,72 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="using:SunroomCalculatorAvalonia.ViewModels"
+                    xmlns:views="clr-namespace:SunroomCalculatorAvalonia.Views"
+                    x:Class="SunroomCalculatorAvalonia.Assets.ViewResources">
+    
+    <!-- Gable Section -->
+    <DataTemplate x:Key="GableDiagram" DataType="{x:Type vm:GableDiagramViewModel}">
+        <views:GableDiagramView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="GableDripEdgeAttachedHeightView" DataType="{x:Type vm:GableDripEdgeAttachedHeightViewModel}">
+        <views:GableDripEdgeAttachedHeightView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="GableDripEdgePitchView" DataType="{x:Type vm:GableDripEdgePitchViewModel}">
+        <views:GableDripEdgePitchView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="GableMaxHeightPitchView" DataType="{x:Type vm:GableMaxHeightPitchViewModel}">
+        <views:GableMaxHeightPitchView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="GableSoffitHeightAttachedHeightView" DataType="{x:Type vm:GableSoffitHeightAttachedHeightViewModel}">
+        <views:GableSoffitHeightAttachedHeightView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="GableSoffitHeightPitchView" DataType="{x:Type vm:GableSoffitHeightPitchViewModel}">
+        <views:GableSoffitHeightPitchView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="GableWallHeightAttachedHeightView" DataType="{x:Type vm:GableWallHeightAttachedHeightViewModel}">
+        <views:GableWallHeightAttachedHeightView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="GableWallHeightPitchView" DataType="{x:Type vm:GableWallHeightPitchViewModel}">
+        <views:GableWallHeightPitchView DataContext="{Binding}"/>
+    </DataTemplate>
+    
+    <!-- Studio Section -->
+    <DataTemplate x:Key="StudioDiagram" DataType="{x:Type vm:StudioDiagramViewModel}">
+        <views:StudioDiagramView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="StudioDripEdgeAttachedHeightView" DataType="{x:Type vm:StudioDripEdgeAttachedHeightViewModel}">
+        <views:StudioDripEdgeAttachedHeightView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="StudioDripEdgePitchView" DataType="{x:Type vm:StudioDripEdgePitchViewModel}">
+        <views:StudioDripEdgePitchView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="StudioMaxHeightPitchView" DataType="{x:Type vm:StudioMaxHeightPitchViewModel}">
+        <views:StudioMaxHeightPitchView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="StudioSoffitHeightAttachedHeightView" DataType="{x:Type vm:StudioSoffitHeightAttachedHeightViewModel}">
+        <views:StudioSoffitHeightAttachedHeightView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="StudioSoffitHeightPitchView" DataType="{x:Type vm:StudioSoffitHeightPitchViewModel}">
+        <views:StudioSoffitHeightPitchView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="StudioWallHeightAttachedHeightView" DataType="{x:Type vm:StudioWallHeightAttachedHeightViewModel}">
+        <views:StudioWallHeightAttachedHeightView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="StudioWallHeightPitchView" DataType="{x:Type vm:StudioWallHeightPitchViewModel}">
+        <views:StudioWallHeightPitchView DataContext="{Binding}"/>
+    </DataTemplate>
+    
+    <!-- General Sunroom Section -->
+    <DataTemplate x:Key="FloorPlanView" DataType="{x:Type vm:FloorPlanViewModel}">
+        <views:FloorPlanView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="SunroomEndCutView" DataType="{x:Type vm:SunroomEndCutViewModel}">
+        <views:SunroomEndCutView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="SunroomOverhangView" DataType="{x:Type vm:SunroomOverhangViewModel}">
+        <views:SunroomOverhangView DataContext="{Binding}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="SunroomPanelThicknessView" DataType="{x:Type vm:SunroomPanelThicknessViewModel}">
+        <views:SunroomPanelThicknessView DataContext="{Binding}"/>
+    </DataTemplate>
+</ResourceDictionary>
