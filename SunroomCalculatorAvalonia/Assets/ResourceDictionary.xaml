@@ -69,4 +69,22 @@
     <DataTemplate x:Key="SunroomPanelThicknessView" DataType="{x:Type vm:SunroomPanelThicknessViewModel}">
         <views:SunroomPanelThicknessView DataContext="{Binding}"/>
     </DataTemplate>
+    
+    <!-- Navigation Section -->
+    <DataTemplate x:Key="Navigation1View" DataType="{x:Type vm:Navigation1ViewModel}">
+        <views:Navigation1View/>
+    </DataTemplate>
+    <DataTemplate x:Key="Navigation2View" DataType="{x:Type vm:Navigation2ViewModel}">
+        <views:Navigation2View/>
+    </DataTemplate>
+    <DataTemplate x:Key="Navigation3View" DataType="{x:Type vm:Navigation3ViewModel}">
+        <views:Navigation3View/>
+    </DataTemplate>
+    <DataTemplate x:Key="Navigation4View" DataType="{x:Type vm:Navigation4ViewModel}">
+        <views:Navigation4View/>
+    </DataTemplate>
+    <DataTemplate x:Key="Navigation5View" DataType="{x:Type vm:Navigation5ViewModel}">
+        <views:Navigation5View/>
+    </DataTemplate>
+    
 </ResourceDictionary>

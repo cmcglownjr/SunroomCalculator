@@ -36,5 +36,8 @@
       <Compile Update="Assets\ResourceDictionary.xaml.cs">
         <DependentUpon>ResourceDictionary.xaml</DependentUpon>
       </Compile>
+      <Compile Update="Views\Navigation1View.axaml.cs">
+        <DependentUpon>Navigation1View.axaml</DependentUpon>
+      </Compile>
     </ItemGroup>
 </Project>

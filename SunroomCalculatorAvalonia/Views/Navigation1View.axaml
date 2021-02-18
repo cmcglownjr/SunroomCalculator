@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:SunroomCalculatorAvalonia.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SunroomCalculatorAvalonia.Views.Navigation1View">
+    <Border>
+        <StackPanel Orientation="Vertical">
+            <StackPanel.DataContext>
+                <vm:Navigation1ViewModel/>
+            </StackPanel.DataContext>
+            <TextBlock Classes="Header" Text="Select Your Sunroom Type"/>
+            <StackPanel Orientation="Horizontal">
+                <RadioButton GroupName="Navigation1Radio" Content="Gable"
+                             Command="{Binding GableStyle}"/>
+                <RadioButton GroupName="Navigation1Radio" Content="Studio"
+                             Command="{Binding StudioStyle}"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>
