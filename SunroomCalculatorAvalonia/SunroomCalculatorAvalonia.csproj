@@ -15,29 +15,14 @@
         <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.0" />
     </ItemGroup>
     <ItemGroup>
-      <Compile Update="Views\FloorPlanView.axaml.cs">
-        <DependentUpon>DiagramView.axaml</DependentUpon>
-      </Compile>
-      <Compile Update="Views\GableWallHeightPitchView.axaml.cs">
-        <DependentUpon>WallHeightPitchView.axaml</DependentUpon>
-      </Compile>
-      <Compile Update="Views\GableDiagramView.axaml.cs">
-        <DependentUpon>GableDiagramView.axaml</DependentUpon>
-      </Compile>
-      <Compile Update="Views\StudioDiagramView.axaml.cs">
-        <DependentUpon>StudioDiagramView.axaml</DependentUpon>
-      </Compile>
-      <Compile Update="Views\GableDripEdgeAttachedHeightView.axaml.cs">
-        <DependentUpon>GableDripEdgeAttachedHeightView.axaml</DependentUpon>
-      </Compile>
-      <Compile Update="Views\GableMaxHeightPitchView.axaml.cs">
-        <DependentUpon>GableMaxHeightPitchView.axaml</DependentUpon>
-      </Compile>
       <Compile Update="Assets\ResourceDictionary.xaml.cs">
         <DependentUpon>ResourceDictionary.xaml</DependentUpon>
       </Compile>
-      <Compile Update="Views\Navigation1View.axaml.cs">
+      <Compile Update="Views\Input1View.axaml.cs">
         <DependentUpon>Navigation1View.axaml</DependentUpon>
+      </Compile>
+      <Compile Update="Views\InputDefaultView.axaml.cs">
+        <DependentUpon>InputDefaultView.axaml</DependentUpon>
       </Compile>
     </ItemGroup>
 </Project>
