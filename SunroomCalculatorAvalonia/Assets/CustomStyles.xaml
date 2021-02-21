@@ -56,7 +56,7 @@
         <Setter Property="HorizontalAlignment" Value="Center"/>
     </Style>
     <Style Selector="RadioButton.ScenarioRadio">
-        <!-- <Setter Property="HorizontalAlignment" Value="Right"/> -->
-        <Setter Property="Margin" Value="1 0"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="10 0"/>
     </Style>
 </Styles>

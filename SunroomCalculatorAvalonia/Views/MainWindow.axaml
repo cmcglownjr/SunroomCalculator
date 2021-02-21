@@ -28,7 +28,7 @@
         </StackPanel>
         <!-- Interface -->
         <StackPanel x:Name="InterfaceStack" Classes="InterfaceStack">
-            <Grid>
+            <Grid Width="900" Height="850">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="175"/>
                     <ColumnDefinition Width="700"/>
@@ -80,8 +80,8 @@
                                          Command="{Binding RadioNavRoofPanel}"/>
                             <!-- End Cut Info -->
                             <!-- Calculate -->
-                            <Label Grid.Row="6" Grid.Column="0" Content="Finished:"/>
-                            <Button Grid.Row="6" Grid.Column="1" Content="Calculate"/>
+                            <Button x:Name="Calculate" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Content="Calculate" 
+                                    HorizontalAlignment="Center"/>
                         </Grid>
                     </Border>
                 </StackPanel>

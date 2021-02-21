@@ -7,39 +7,81 @@
     <UserControl.Styles>
         <StyleInclude Source="/Assets/CustomStyles.xaml"/>
     </UserControl.Styles>
-    <Border>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <TextBlock Classes="Header" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7" HorizontalAlignment="Center" Text="Select Your Scenario"/>
-            <!-- Radio Button Labels -->
-            <Label Classes="RadioButtonLabel" Grid.Row="1" Grid.Column="0" Content="Wall Height &#xa; Pitch"/>
-            <Label Classes="RadioButtonLabel" Grid.Row="1" Grid.Column="1" Content="Wall Height &#xa; Attached Height"/>
-            <Label Classes="RadioButtonLabel" Grid.Row="1" Grid.Column="2" Content="Max Height &#xa; Pitch"/>
-            <Label Classes="RadioButtonLabel" Grid.Row="1" Grid.Column="3" Content="Soffit Height &#xa; Pitch" />
-            <Label Classes="RadioButtonLabel" Grid.Row="1" Grid.Column="4" Content="Soffit Height &#xa; Attached Height"/>
-            <Label Classes="RadioButtonLabel" Grid.Row="1" Grid.Column="5" Content="Drip Edge &#xa; Pitch"/>
-            <Label Classes="RadioButtonLabel" Grid.Row="1" Grid.Column="6" Content="Drip Edge &#xa; Attached Height"/>
-            <!-- Radio Buttons -->
-            <RadioButton Classes="ScenarioRadio" Grid.Row="2" Grid.Column="0" GroupName="ScenarioRadio" Command="{Binding Scenario1Select}"/>
-            <RadioButton Classes="ScenarioRadio" Grid.Row="2" Grid.Column="1" GroupName="ScenarioRadio" Command="{Binding Scenario2Select}"/>
-            <RadioButton Classes="ScenarioRadio" Grid.Row="2" Grid.Column="2" GroupName="ScenarioRadio" Command="{Binding Scenario3Select}"/>
-            <RadioButton Classes="ScenarioRadio" Grid.Row="2" Grid.Column="3" GroupName="ScenarioRadio" Command="{Binding Scenario4Select}"/>
-            <RadioButton Classes="ScenarioRadio" Grid.Row="2" Grid.Column="4" GroupName="ScenarioRadio" Command="{Binding Scenario5Select}"/>
-            <RadioButton Classes="ScenarioRadio" Grid.Row="2" Grid.Column="5" GroupName="ScenarioRadio" Command="{Binding Scenario6Select}"/>
-            <RadioButton Classes="ScenarioRadio" Grid.Row="2" Grid.Column="6" GroupName="ScenarioRadio" Command="{Binding Scenario7Select}"/>
-        </Grid>
-    </Border>
+    <StackPanel Orientation="Vertical">
+        <Border>
+            <Grid Margin="10 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Classes="Header" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7" HorizontalAlignment="Center" Text="Select Your Scenario"/>
+                <!-- Radio Button Labels -->
+                <Label Classes="RadioButtonLabel" Grid.Row="1" Grid.Column="2" Content="Wall Height &#xa; Pitch"/>
+                <Label Classes="RadioButtonLabel" Grid.Row="3" Grid.Column="2" Content="Wall Height &#xa; Attached Height"/>
+                <Label Classes="RadioButtonLabel" Grid.Row="1" Grid.Column="5" Content="Max Height &#xa; Pitch"/>
+                <Label Classes="RadioButtonLabel" Grid.Row="1" Grid.Column="3" Content="Soffit Height &#xa; Pitch" />
+                <Label Classes="RadioButtonLabel" Grid.Row="3" Grid.Column="3" Content="Soffit Height &#xa; Attached Height"/>
+                <Label Classes="RadioButtonLabel" Grid.Row="1" Grid.Column="4" Content="Drip Edge &#xa; Pitch"/>
+                <Label Classes="RadioButtonLabel" Grid.Row="3" Grid.Column="4" Content="Drip Edge &#xa; Attached Height"/>
+                <!-- Radio Buttons -->
+                <RadioButton Classes="ScenarioRadio" Grid.Row="2" Grid.Column="2" GroupName="ScenarioRadio" Command="{Binding Scenario1Select}"/>
+                <RadioButton Classes="ScenarioRadio" Grid.Row="4" Grid.Column="2" GroupName="ScenarioRadio" Command="{Binding Scenario2Select}"/>
+                <RadioButton Classes="ScenarioRadio" Grid.Row="2" Grid.Column="5" GroupName="ScenarioRadio" Command="{Binding Scenario3Select}"/>
+                <RadioButton Classes="ScenarioRadio" Grid.Row="2" Grid.Column="3" GroupName="ScenarioRadio" Command="{Binding Scenario4Select}"/>
+                <RadioButton Classes="ScenarioRadio" Grid.Row="4" Grid.Column="3" GroupName="ScenarioRadio" Command="{Binding Scenario5Select}"/>
+                <RadioButton Classes="ScenarioRadio" Grid.Row="2" Grid.Column="4" GroupName="ScenarioRadio" Command="{Binding Scenario6Select}"/>
+                <RadioButton Classes="ScenarioRadio" Grid.Row="4" Grid.Column="4" GroupName="ScenarioRadio" Command="{Binding Scenario7Select}"/>
+            </Grid>
+        </Border>
+        <Border>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Content="Choose Unit Type for Pitch"
+                       HorizontalAlignment="Center" IsVisible="{Binding ScenarioPitch}"/>
+                <RadioButton x:Name="RadioPitchRatioUnit" Grid.Row="1" Grid.Column="1" GroupName="PitchUnit" 
+                             Content="Ratio" HorizontalAlignment="Right" IsChecked="True" IsVisible="{Binding ScenarioPitch}"/>
+                <RadioButton x:Name="RadioPitchDegreeUnit" Grid.Row="1" Grid.Column="2" GroupName="PitchUnit" 
+                             Content="Degree" HorizontalAlignment="Left" IsVisible="{Binding ScenarioPitch}"/>
+                <Label Grid.Row="2" Grid.Column="0" Content="{Binding ScenarioLabel1}" 
+                       IsVisible="{Binding ScenarioInput1}"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Watermark="{Binding ScenarioWatermark1}"
+                         IsVisible="{Binding ScenarioInput1}"/>
+                <Label Grid.Row="3" Grid.Column="0" Content="{Binding ScenarioLabel2}"
+                       IsVisible="{Binding ScenarioInput2}"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Watermark="{Binding ScenarioWatermark2}"
+                         IsVisible="{Binding ScenarioInput2}"/>
+                <Label Grid.Row="2" Grid.Column="2" Content="{Binding ScenarioLabel3}"
+                       IsVisible="{Binding ScenarioInput3}"/>
+                <TextBox Grid.Row="2" Grid.Column="3" Watermark="{Binding ScenarioWatermark3}"
+                         IsVisible="{Binding ScenarioInput3}"/>
+                <Label Grid.Row="3" Grid.Column="2" Content="{Binding ScenarioLabel4}"
+                       IsVisible="{Binding ScenarioInput4}"/>
+                <TextBox Grid.Row="3" Grid.Column="3" Watermark="{Binding ScenarioWatermark4}"
+                         IsVisible="{Binding ScenarioInput4}"/>
+            </Grid>
+        </Border>
+    </StackPanel>
 </UserControl>

@@ -4,5 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SunroomCalculatorAvalonia.Views.Input3View">
-  Floor Plan!
+    <StackPanel Orientation="Vertical">
+        <TextBox Watermark="This is input." Text="{Binding TestText, Mode=OneWayToSource}">
+        </TextBox>
+        <Label Content="Below is output"/>
+        <TextBox>Text Box</TextBox>
+    </StackPanel>
 </UserControl>
