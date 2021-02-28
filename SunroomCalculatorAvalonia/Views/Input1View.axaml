@@ -11,7 +11,7 @@
         </Border.Styles>
         <StackPanel Orientation="Vertical">
             <TextBlock Classes="Header" Text="Select Your Sunroom Type"/>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <RadioButton GroupName="Navigation1Radio" Content="Studio"
                              Command="{Binding StudioStyle}"/>
                 <RadioButton GroupName="Navigation1Radio" Content="Gable"

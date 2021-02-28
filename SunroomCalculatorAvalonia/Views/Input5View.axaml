@@ -4,5 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SunroomCalculatorAvalonia.Views.Input5View">
-  Roof Panel!
+    <StackPanel Orientation="Vertical">
+        <Label Content="Select Your Panel End Cut" Margin="10"  HorizontalAlignment="Center"/>
+        <StackPanel Orientation="Horizontal" Margin="20" HorizontalAlignment="Center">
+            <RadioButton GroupName="EndCut" Content="Plum Cut" Margin="5" Command="{Binding EndCutSelect1}"
+                         IsChecked="True"/>
+            <RadioButton GroupName="EndCut" Content="Plum Cut Top Only" Margin="5" Command="{Binding EndCutSelect2}"/>
+            <RadioButton GroupName="EndCut" Content="Square Cut" Margin="5" Command="{Binding EndCutSelect3}"/>
+        </StackPanel>
+    </StackPanel>
 </UserControl>

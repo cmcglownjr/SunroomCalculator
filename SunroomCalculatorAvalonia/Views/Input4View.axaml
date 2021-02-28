@@ -4,5 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SunroomCalculatorAvalonia.Views.Input4View">
-  Roof Info!
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Margin="20">
+            <Label Content="Overhang:" Width="150" Margin="10 5"/>
+            <TextBox Watermark="0' or 0in" Width="150" Margin="10 5"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20">
+            <Label Content="Panel Type:" Width="150" Margin="10 5"/>
+            <RadioButton GroupName="PanelType" Content="1 lb Foam" Margin="5"/>
+            <RadioButton GroupName="PanelType" Content="2 lb Foam" Margin="5"/>
+            <RadioButton GroupName="PanelType" Content="Aluminum" Margin="5"/>
+            <!-- <StackPanel Orientation="Vertical"> -->
+            <!--      -->
+            <!-- </StackPanel> -->
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="20">
+            <Label Content="Panel Thickness:" Width="150" Margin="10 5"/>
+            <ComboBox  Width="150" Margin="10 5"></ComboBox>
+        </StackPanel>
+    </StackPanel>
 </UserControl>

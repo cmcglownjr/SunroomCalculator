@@ -28,12 +28,11 @@ namespace SunroomCalculatorAvalonia.ViewModels
         private string _scenarioLabel1, _scenarioLabel2, _scenarioLabel3, _scenarioLabel4;
         private string _scenarioWatermark1, _scenarioWatermark2, _scenarioWatermark3, _scenarioWatermark4;
         private bool _scenarioPitch, _scenarioInput1, _scenarioInput2, _scenarioInput3, _scenarioInput4;
-        SunroomResources sunroomResources = new();
-        [NotNull]
+        private readonly SunroomResources _sunroomResources = new();
         public Image DiagramImage
         {
             get => _diagramImage;
-            set => _diagramImage = value ?? throw new ArgumentNullException(nameof(value));
+            set => _diagramImage = value;
         }
         public ReactiveCommand<Unit, Unit> StudioStyle { get; }
         public ReactiveCommand<Unit, Unit> GableStyle { get; }
@@ -49,6 +48,9 @@ namespace SunroomCalculatorAvalonia.ViewModels
         public ReactiveCommand<Unit, Unit> Scenario5Select { get; }
         public ReactiveCommand<Unit, Unit> Scenario6Select { get; }
         public ReactiveCommand<Unit, Unit> Scenario7Select { get; }
+        public ReactiveCommand<Unit, Unit> EndCutSelect1 { get; }
+        public ReactiveCommand<Unit, Unit> EndCutSelect2 { get; }
+        public ReactiveCommand<Unit, Unit> EndCutSelect3 { get; }
 
         [NotNull]
         public string ScenarioLabel1
@@ -126,8 +128,10 @@ namespace SunroomCalculatorAvalonia.ViewModels
 
         public MainWindowViewModel()
         {
-            DiagramImage.Source = sunroomResources.SunroomDefault;
-            SelectedViewModel = sunroomResources.InputDefaultVM;
+            DiagramImage.Source = _sunroomResources.SunroomDefault;
+            DiagramImage.Height = 300;
+            DiagramImage.Width = 400;
+            SelectedViewModel = _sunroomResources.InputDefaultVM;
             StudioStyle = ReactiveCommand.Create(() => SunroomStyleChange(0));
             GableStyle = ReactiveCommand.Create(() => SunroomStyleChange(1));
             RadioNavSunroomType = ReactiveCommand.Create(() => NavigationChange(1));
@@ -142,6 +146,9 @@ namespace SunroomCalculatorAvalonia.ViewModels
             Scenario5Select = ReactiveCommand.Create(() => ScenarioSelectChange(5));
             Scenario6Select = ReactiveCommand.Create(() => ScenarioSelectChange(6));
             Scenario7Select = ReactiveCommand.Create(() => ScenarioSelectChange(7));
+            EndCutSelect1 = ReactiveCommand.Create(() => EndCutSelectChange(0));
+            EndCutSelect2 = ReactiveCommand.Create(() => EndCutSelectChange(1));
+            EndCutSelect3 = ReactiveCommand.Create(() => EndCutSelectChange(2));
         }
         
         private void NavigationChange(int navigation)
@@ -149,22 +156,25 @@ namespace SunroomCalculatorAvalonia.ViewModels
             switch (navigation)
             {
                 case 1:
-                    SelectedViewModel = sunroomResources.Input1VM;
+                    SelectedViewModel = _sunroomResources.Input1VM;
                     break;
                 case 2:
-                    SelectedViewModel = sunroomResources.Input2VM;
+                    SelectedViewModel = _sunroomResources.Input2VM;
                     break;
                 case 3:
-                    SelectedViewModel = sunroomResources.Input3VM;
+                    SelectedViewModel = _sunroomResources.Input3VM;
+                    DiagramImage.Source = _sunroomResources.SunroomFloorPlan;
                     break;
                 case 4:
-                    SelectedViewModel = sunroomResources.Input4VM;
+                    SelectedViewModel = _sunroomResources.Input4VM;
+                    DiagramImage.Source = _sunroomResources.SunroomOverhang;
                     break;
                 case 5:
-                    SelectedViewModel = sunroomResources.Input5VM;
+                    SelectedViewModel = _sunroomResources.Input5VM;
+                    DiagramImage.Source = _sunroomResources.SunroomPlumCut;
                     break;
                 default:
-                    SelectedViewModel = sunroomResources.InputDefaultVM;
+                    SelectedViewModel = _sunroomResources.InputDefaultVM;
                     break;
             }
         }
@@ -173,15 +183,31 @@ namespace SunroomCalculatorAvalonia.ViewModels
             switch (style)
             {
                 case 0:
-                    DiagramImage.Source = sunroomResources.SunroomStudio;
+                    DiagramImage.Source = _sunroomResources.SunroomStudio;
                     _sunroomStyle = style;
                     break;
                 case 1:
-                    DiagramImage.Source = sunroomResources.SunroomGable;
+                    DiagramImage.Source = _sunroomResources.SunroomGable;
                     _sunroomStyle = style;
                     break;
                 default:
-                    DiagramImage.Source = sunroomResources.SunroomDefault;
+                    DiagramImage.Source = _sunroomResources.SunroomDefault;
+                    break;
+            }
+        }
+
+        private void EndCutSelectChange(int endCut)
+        {
+            switch (endCut)
+            {
+                case 0:
+                    DiagramImage.Source = _sunroomResources.SunroomPlumCut;
+                    break;
+                case 1:
+                    DiagramImage.Source = _sunroomResources.SunroomPlumCutTop;
+                    break;
+                case 2:
+                    DiagramImage.Source = _sunroomResources.SunroomSquareCut;
                     break;
             }
         }
@@ -194,42 +220,42 @@ namespace SunroomCalculatorAvalonia.ViewModels
                     switch (scenario)
                     {
                         case 1:
-                            DiagramImage.Source = sunroomResources.StudioWallPitch;
+                            DiagramImage.Source = _sunroomResources.StudioWallPitch;
                             _sunroomScenario = scenario;
                             ScenarioInputChange();
                             break;
                         case 2:
-                            DiagramImage.Source = sunroomResources.StudioWallAttached;
+                            DiagramImage.Source = _sunroomResources.StudioWallAttached;
                             _sunroomScenario = scenario;
                             ScenarioInputChange();
                             break;
                         case 3:
-                            DiagramImage.Source = sunroomResources.StudioMaxPitch;
+                            DiagramImage.Source = _sunroomResources.StudioMaxPitch;
                             _sunroomScenario = scenario;
                             ScenarioInputChange();
                             break;
                         case 4:
-                            DiagramImage.Source = sunroomResources.StudioSoffitPitch;
+                            DiagramImage.Source = _sunroomResources.StudioSoffitPitch;
                             _sunroomScenario = scenario;
                             ScenarioInputChange();
                             break;
                         case 5:
-                            DiagramImage.Source = sunroomResources.StudioSoffitAttached;
+                            DiagramImage.Source = _sunroomResources.StudioSoffitAttached;
                             _sunroomScenario = scenario;
                             ScenarioInputChange();
                             break;
                         case 6:
-                            DiagramImage.Source = sunroomResources.StudioDripEdgePitch;
+                            DiagramImage.Source = _sunroomResources.StudioDripEdgePitch;
                             _sunroomScenario = scenario;
                             ScenarioInputChange();
                             break;
                         case 7:
-                            DiagramImage.Source = sunroomResources.StudioDripEdgeAttached;
+                            DiagramImage.Source = _sunroomResources.StudioDripEdgeAttached;
                             _sunroomScenario = scenario;
                             ScenarioInputChange();
                             break;
                         default:
-                            DiagramImage.Source = sunroomResources.SunroomDefault;
+                            DiagramImage.Source = _sunroomResources.SunroomDefault;
                             break;
                     }
                     break;
@@ -237,42 +263,42 @@ namespace SunroomCalculatorAvalonia.ViewModels
                     switch (scenario)
                     {
                         case 1:
-                            DiagramImage.Source = sunroomResources.GableWallPitch;
+                            DiagramImage.Source = _sunroomResources.GableWallPitch;
                             _sunroomScenario = scenario;
                             ScenarioInputChange();
                             break;
                         case 2:
-                            DiagramImage.Source = sunroomResources.GableWallAttached;
+                            DiagramImage.Source = _sunroomResources.GableWallAttached;
                             _sunroomScenario = scenario;
                             ScenarioInputChange();
                             break;
                         case 3:
-                            DiagramImage.Source = sunroomResources.GableMaxPitch;
+                            DiagramImage.Source = _sunroomResources.GableMaxPitch;
                             _sunroomScenario = scenario;
                             ScenarioInputChange();
                             break;
                         case 4:
-                            DiagramImage.Source = sunroomResources.GableSoffitPitch;
+                            DiagramImage.Source = _sunroomResources.GableSoffitPitch;
                             _sunroomScenario = scenario;
                             ScenarioInputChange();
                             break;
                         case 5:
-                            DiagramImage.Source = sunroomResources.GableSoffitAttached;
+                            DiagramImage.Source = _sunroomResources.GableSoffitAttached;
                             _sunroomScenario = scenario;
                             ScenarioInputChange();
                             break;
                         case 6:
-                            DiagramImage.Source = sunroomResources.GableDripEdgePitch;
+                            DiagramImage.Source = _sunroomResources.GableDripEdgePitch;
                             _sunroomScenario = scenario;
                             ScenarioInputChange();
                             break;
                         case 7:
-                            DiagramImage.Source = sunroomResources.GableDripEdgeAttached;
+                            DiagramImage.Source = _sunroomResources.GableDripEdgeAttached;
                             _sunroomScenario = scenario;
                             ScenarioInputChange();
                             break;
                         default:
-                            DiagramImage.Source = sunroomResources.SunroomDefault;
+                            DiagramImage.Source = _sunroomResources.SunroomDefault;
                             break;
                     }
                     break;
@@ -415,9 +441,9 @@ namespace SunroomCalculatorAvalonia.ViewModels
                             ScenarioPitch = false;
                             ScenarioLabel1 = "Left Drip Edge";
                             ScenarioWatermark1 = "0' or 0in";
-                            ScenarioLabel2 = "Right Drip Edge";
+                            ScenarioLabel2 = "Attached Height";
                             ScenarioWatermark2 = "0' or 0in";
-                            ScenarioLabel3 = "Attached Height";
+                            ScenarioLabel3 = "Right Drip Edge";
                             ScenarioWatermark3 = "0' or 0in";
                             ScenarioInput4 = false;
                             break;
