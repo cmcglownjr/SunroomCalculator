@@ -24,11 +24,17 @@ namespace SunroomCalculatorAvalonia.ViewModels
         private UserControl _selectedViewModel;
         private Image _diagramImage = new();
         private int _sunroomStyle; // Default to Studio(0), Gable is (1)
-        private int _sunroomScenario;
+        private int _sunroomScenario, _navigation;
         private string _scenarioLabel1, _scenarioLabel2, _scenarioLabel3, _scenarioLabel4;
+        private string _navLabel = "Begin Here";
         private string _scenarioWatermark1, _scenarioWatermark2, _scenarioWatermark3, _scenarioWatermark4;
-        private bool _scenarioPitch, _scenarioInput1, _scenarioInput2, _scenarioInput3, _scenarioInput4;
+        private bool _scenarioPitch, _scenarioInput1, _scenarioInput2, _scenarioInput3, _scenarioInput4, 
+            _panelThicknessEnable, _navBtn1Enable, _navBtn2Enable;
         private readonly SunroomResources _sunroomResources = new();
+        private List<PanelThicknessModel> _panelThicknessModels;
+        private readonly PanelThicknessCombo _panelThicknessCombo = new();
+        private ComboBoxItem _selectedPanelThickness = new();
+        private PanelThicknessModel _selectedThickness;
         public Image DiagramImage
         {
             get => _diagramImage;
@@ -36,11 +42,6 @@ namespace SunroomCalculatorAvalonia.ViewModels
         }
         public ReactiveCommand<Unit, Unit> StudioStyle { get; }
         public ReactiveCommand<Unit, Unit> GableStyle { get; }
-        public ReactiveCommand<Unit, Unit> RadioNavSunroomType { get; }
-        public ReactiveCommand<Unit, Unit> RadioNavScenario { get; }
-        public ReactiveCommand<Unit, Unit> RadioNavFloorPlan { get; }
-        public ReactiveCommand<Unit, Unit> RadioNavRoofInfo { get; }
-        public ReactiveCommand<Unit, Unit> RadioNavRoofPanel { get; }
         public ReactiveCommand<Unit, Unit> Scenario1Select { get; }
         public ReactiveCommand<Unit, Unit> Scenario2Select { get; }
         public ReactiveCommand<Unit, Unit> Scenario3Select { get; }
@@ -51,8 +52,23 @@ namespace SunroomCalculatorAvalonia.ViewModels
         public ReactiveCommand<Unit, Unit> EndCutSelect1 { get; }
         public ReactiveCommand<Unit, Unit> EndCutSelect2 { get; }
         public ReactiveCommand<Unit, Unit> EndCutSelect3 { get; }
+        public ReactiveCommand<Unit, Unit> PanelTypeSelect1 { get; }
+        public ReactiveCommand<Unit, Unit> PanelTypeSelect2 { get; }
+        public ReactiveCommand<Unit, Unit> PanelTypeSelect3 { get; }
+        public ReactiveCommand<Unit, Unit> NavBTN1 { get; }
+        public ReactiveCommand<Unit, Unit> NavBTN2 { get; }
+        public ComboBoxItem SelectedPanelThickness
+        {
+            get => _selectedPanelThickness;
+            set => _selectedPanelThickness = value;
+        }
 
-        [NotNull]
+        public PanelThicknessModel SelectedThickness
+        {
+            get => _selectedThickness;
+            set => this.RaiseAndSetIfChanged(ref _selectedThickness, value);
+        }
+
         public string ScenarioLabel1
         {
             get => _scenarioLabel1;
@@ -73,8 +89,6 @@ namespace SunroomCalculatorAvalonia.ViewModels
             get => _scenarioLabel4;
             set => this.RaiseAndSetIfChanged(ref _scenarioLabel4, value);
         }
-
-        [NotNull]
         public string ScenarioWatermark1
         {
             get => _scenarioWatermark1;
@@ -95,6 +109,11 @@ namespace SunroomCalculatorAvalonia.ViewModels
             get => _scenarioWatermark4;
             set => this.RaiseAndSetIfChanged(ref _scenarioWatermark4, value);
         }
+        public string NavLabel
+        {
+            get => _navLabel;
+            set => this.RaiseAndSetIfChanged(ref _navLabel, value);
+        }
 
         public bool ScenarioPitch
         {
@@ -110,14 +129,39 @@ namespace SunroomCalculatorAvalonia.ViewModels
         {
             get => _scenarioInput2;
             set => this.RaiseAndSetIfChanged(ref _scenarioInput2, value);
-        }public bool ScenarioInput3
+        }
+        public bool ScenarioInput3
         {
             get => _scenarioInput3;
             set => this.RaiseAndSetIfChanged(ref _scenarioInput3, value);
-        }public bool ScenarioInput4
+        }
+        public bool ScenarioInput4
         {
             get => _scenarioInput4;
             set => this.RaiseAndSetIfChanged(ref _scenarioInput4, value);
+        }
+
+        public bool PanelThicknessEnable
+        {
+            get => _panelThicknessEnable;
+            set => this.RaiseAndSetIfChanged(ref _panelThicknessEnable, value);
+        }
+
+        public bool NavBtn1Enable
+        {
+            get => _navBtn1Enable;
+            set => this.RaiseAndSetIfChanged(ref _navBtn1Enable, value);
+        }
+        public bool NavBtn2Enable
+        {
+            get => _navBtn2Enable;
+            set => this.RaiseAndSetIfChanged(ref _navBtn2Enable, value);
+        }
+
+        public List<PanelThicknessModel> PanelThickness
+        {
+            get => _panelThicknessModels;
+            set => this.RaiseAndSetIfChanged(ref _panelThicknessModels, value);
         }
 
         public UserControl SelectedViewModel
@@ -132,53 +176,80 @@ namespace SunroomCalculatorAvalonia.ViewModels
             DiagramImage.Height = 300;
             DiagramImage.Width = 400;
             SelectedViewModel = _sunroomResources.InputDefaultVM;
-            StudioStyle = ReactiveCommand.Create(() => SunroomStyleChange(0));
-            GableStyle = ReactiveCommand.Create(() => SunroomStyleChange(1));
-            RadioNavSunroomType = ReactiveCommand.Create(() => NavigationChange(1));
-            RadioNavScenario = ReactiveCommand.Create(() => NavigationChange(2));
-            RadioNavFloorPlan = ReactiveCommand.Create(() => NavigationChange(3));
-            RadioNavRoofInfo = ReactiveCommand.Create(() => NavigationChange(4));
-            RadioNavRoofPanel = ReactiveCommand.Create(() => NavigationChange(5));
-            Scenario1Select = ReactiveCommand.Create(() => ScenarioSelectChange(1));
-            Scenario2Select = ReactiveCommand.Create(() => ScenarioSelectChange(2));
-            Scenario3Select = ReactiveCommand.Create(() => ScenarioSelectChange(3));
-            Scenario4Select = ReactiveCommand.Create(() => ScenarioSelectChange(4));
-            Scenario5Select = ReactiveCommand.Create(() => ScenarioSelectChange(5));
-            Scenario6Select = ReactiveCommand.Create(() => ScenarioSelectChange(6));
-            Scenario7Select = ReactiveCommand.Create(() => ScenarioSelectChange(7));
-            EndCutSelect1 = ReactiveCommand.Create(() => EndCutSelectChange(0));
-            EndCutSelect2 = ReactiveCommand.Create(() => EndCutSelectChange(1));
-            EndCutSelect3 = ReactiveCommand.Create(() => EndCutSelectChange(2));
+            SelectedPanelThickness = _selectedPanelThickness;
+            NavBtn2Enable = true;
+            StudioStyle = ReactiveCommand.Create(() => OnSunroomStyleChange(0));
+            GableStyle = ReactiveCommand.Create(() => OnSunroomStyleChange(1));
+            
+            NavBTN1 = ReactiveCommand.Create(() => OnNavigationChange(-1));
+            NavBTN2 = ReactiveCommand.Create(() => OnNavigationChange(1));
+
+            Scenario1Select = ReactiveCommand.Create(() => OnScenarioSelectChange(1));
+            Scenario2Select = ReactiveCommand.Create(() => OnScenarioSelectChange(2));
+            Scenario3Select = ReactiveCommand.Create(() => OnScenarioSelectChange(3));
+            Scenario4Select = ReactiveCommand.Create(() => OnScenarioSelectChange(4));
+            Scenario5Select = ReactiveCommand.Create(() => OnScenarioSelectChange(5));
+            Scenario6Select = ReactiveCommand.Create(() => OnScenarioSelectChange(6));
+            Scenario7Select = ReactiveCommand.Create(() => OnScenarioSelectChange(7));
+            EndCutSelect1 = ReactiveCommand.Create(() => OnEndCutSelectChange(0));
+            EndCutSelect2 = ReactiveCommand.Create(() => OnEndCutSelectChange(1));
+            EndCutSelect3 = ReactiveCommand.Create(() => OnEndCutSelectChange(2));
+            PanelTypeSelect1 = ReactiveCommand.Create(()=> OnPanelTypeChange(0));
+            PanelTypeSelect2 = ReactiveCommand.Create(()=> OnPanelTypeChange(1));
+            PanelTypeSelect3 = ReactiveCommand.Create(()=> OnPanelTypeChange(2));
         }
         
-        private void NavigationChange(int navigation)
+        private void OnNavigationChange(int direction)
         {
-            switch (navigation)
+            _navigation += direction;
+            switch (_navigation)
             {
+                case 0:
+                    SelectedViewModel = _sunroomResources.InputDefaultVM;
+                    DiagramImage.Source = _sunroomResources.SunroomDefault;
+                    NavLabel = "Start Here";
+                    break;
                 case 1:
                     SelectedViewModel = _sunroomResources.Input1VM;
+                    NavLabel = "Sunroom Type";
                     break;
                 case 2:
                     SelectedViewModel = _sunroomResources.Input2VM;
+                    NavLabel = "Scenario Selection";
                     break;
                 case 3:
                     SelectedViewModel = _sunroomResources.Input3VM;
                     DiagramImage.Source = _sunroomResources.SunroomFloorPlan;
+                    NavLabel = "Floor Plan";
                     break;
                 case 4:
                     SelectedViewModel = _sunroomResources.Input4VM;
                     DiagramImage.Source = _sunroomResources.SunroomOverhang;
+                    NavLabel = "Roof Info";
                     break;
                 case 5:
                     SelectedViewModel = _sunroomResources.Input5VM;
                     DiagramImage.Source = _sunroomResources.SunroomPlumCut;
+                    NavLabel = "Panel Info";
                     break;
-                default:
-                    SelectedViewModel = _sunroomResources.InputDefaultVM;
+                case 6:
+                    OnCalculateBTN();
                     break;
             }
+            NavBtn1Enable = true;
+            NavBtn2Enable = true;
+            if (_navigation == 0)
+            {
+                NavBtn1Enable = false;
+            }
+            if (_navigation == 6)
+            {
+                NavBtn2Enable = false;
+            }
         }
-        private void SunroomStyleChange(int style)
+        private void OnCalculateBTN()
+        {}
+        private void OnSunroomStyleChange(int style)
         {
             switch (style)
             {
@@ -196,7 +267,7 @@ namespace SunroomCalculatorAvalonia.ViewModels
             }
         }
 
-        private void EndCutSelectChange(int endCut)
+        private void OnEndCutSelectChange(int endCut)
         {
             switch (endCut)
             {
@@ -212,7 +283,7 @@ namespace SunroomCalculatorAvalonia.ViewModels
             }
         }
 
-        private void ScenarioSelectChange(int scenario)
+        private void OnScenarioSelectChange(int scenario)
         {
             switch (_sunroomStyle)
             {
@@ -222,37 +293,37 @@ namespace SunroomCalculatorAvalonia.ViewModels
                         case 1:
                             DiagramImage.Source = _sunroomResources.StudioWallPitch;
                             _sunroomScenario = scenario;
-                            ScenarioInputChange();
+                            InputChange();
                             break;
                         case 2:
                             DiagramImage.Source = _sunroomResources.StudioWallAttached;
                             _sunroomScenario = scenario;
-                            ScenarioInputChange();
+                            InputChange();
                             break;
                         case 3:
                             DiagramImage.Source = _sunroomResources.StudioMaxPitch;
                             _sunroomScenario = scenario;
-                            ScenarioInputChange();
+                            InputChange();
                             break;
                         case 4:
                             DiagramImage.Source = _sunroomResources.StudioSoffitPitch;
                             _sunroomScenario = scenario;
-                            ScenarioInputChange();
+                            InputChange();
                             break;
                         case 5:
                             DiagramImage.Source = _sunroomResources.StudioSoffitAttached;
                             _sunroomScenario = scenario;
-                            ScenarioInputChange();
+                            InputChange();
                             break;
                         case 6:
                             DiagramImage.Source = _sunroomResources.StudioDripEdgePitch;
                             _sunroomScenario = scenario;
-                            ScenarioInputChange();
+                            InputChange();
                             break;
                         case 7:
                             DiagramImage.Source = _sunroomResources.StudioDripEdgeAttached;
                             _sunroomScenario = scenario;
-                            ScenarioInputChange();
+                            InputChange();
                             break;
                         default:
                             DiagramImage.Source = _sunroomResources.SunroomDefault;
@@ -265,37 +336,37 @@ namespace SunroomCalculatorAvalonia.ViewModels
                         case 1:
                             DiagramImage.Source = _sunroomResources.GableWallPitch;
                             _sunroomScenario = scenario;
-                            ScenarioInputChange();
+                            InputChange();
                             break;
                         case 2:
                             DiagramImage.Source = _sunroomResources.GableWallAttached;
                             _sunroomScenario = scenario;
-                            ScenarioInputChange();
+                            InputChange();
                             break;
                         case 3:
                             DiagramImage.Source = _sunroomResources.GableMaxPitch;
                             _sunroomScenario = scenario;
-                            ScenarioInputChange();
+                            InputChange();
                             break;
                         case 4:
                             DiagramImage.Source = _sunroomResources.GableSoffitPitch;
                             _sunroomScenario = scenario;
-                            ScenarioInputChange();
+                            InputChange();
                             break;
                         case 5:
                             DiagramImage.Source = _sunroomResources.GableSoffitAttached;
                             _sunroomScenario = scenario;
-                            ScenarioInputChange();
+                            InputChange();
                             break;
                         case 6:
                             DiagramImage.Source = _sunroomResources.GableDripEdgePitch;
                             _sunroomScenario = scenario;
-                            ScenarioInputChange();
+                            InputChange();
                             break;
                         case 7:
                             DiagramImage.Source = _sunroomResources.GableDripEdgeAttached;
                             _sunroomScenario = scenario;
-                            ScenarioInputChange();
+                            InputChange();
                             break;
                         default:
                             DiagramImage.Source = _sunroomResources.SunroomDefault;
@@ -305,7 +376,7 @@ namespace SunroomCalculatorAvalonia.ViewModels
             }
         }
 
-        private void ScenarioInputChange()
+        private void InputChange()
         {
             switch (_sunroomStyle)
             {
@@ -448,6 +519,25 @@ namespace SunroomCalculatorAvalonia.ViewModels
                             ScenarioInput4 = false;
                             break;
                     }
+                    break;
+            }
+        }
+
+        private void OnPanelTypeChange(int type)
+        {
+            switch (type)
+            {
+                case 0:
+                    PanelThickness = _panelThicknessCombo.CreateList(PanelThicknessModel.Foam1);
+                    PanelThicknessEnable = true;
+                    break;
+                case 1:
+                    PanelThickness = _panelThicknessCombo.CreateList(PanelThicknessModel.Foam2);
+                    PanelThicknessEnable = true;
+                    break;
+                case 2:
+                    PanelThickness = _panelThicknessCombo.CreateList(PanelThicknessModel.Aluminum);
+                    PanelThicknessEnable = true;
                     break;
             }
         }
