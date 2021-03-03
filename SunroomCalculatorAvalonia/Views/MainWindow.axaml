@@ -16,7 +16,7 @@
         <StyleInclude Source="/Assets/CustomStyles.xaml" />
     </Window.Styles>
     <Design.DataContext>
-        <vm:MainWindowViewModel/>
+        <vm:MainViewModel/>
     </Design.DataContext>
     <StackPanel x:Name="MainStack" Orientation="Vertical">
         <!-- Logo -->
@@ -50,6 +50,7 @@
                         <Label Content="{Binding NavLabel}"/>
                         <Button Content="Next" IsEnabled="{Binding NavBtn2Enable}"
                                 Command="{Binding NavBTN2}"/>
+                        <Button Content="Temp" Command="{Binding OnTempButton}"/>
                     </StackPanel>
                 </Border>
             </StackPanel>

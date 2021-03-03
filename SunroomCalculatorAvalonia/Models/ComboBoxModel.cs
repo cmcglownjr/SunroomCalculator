@@ -24,6 +24,12 @@ namespace SunroomCalculatorAvalonia.Models
             {"6\"", 6},
             {"8\"", 8}
         };
+
+        public PanelThicknessModel()
+        {
+            ComboText = "";
+            ComboValue = 0;
+        }
         public string ComboText { get; set; }
         public double ComboValue { get; set; }
         public override string ToString()

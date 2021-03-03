@@ -12,6 +12,7 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.ReactiveUI;
 using Avalonia.Utilities;
+using DynamicData.Binding;
 using JetBrains.Annotations;
 using ReactiveUI;
 using SunroomCalculatorAvalonia.Views;
@@ -25,16 +26,19 @@ namespace SunroomCalculatorAvalonia.ViewModels
         private Image _diagramImage = new();
         private int _sunroomStyle; // Default to Studio(0), Gable is (1)
         private int _sunroomScenario, _navigation;
+        private double _tempDouble;
         private string _scenarioLabel1, _scenarioLabel2, _scenarioLabel3, _scenarioLabel4;
         private string _navLabel = "Begin Here";
         private string _scenarioWatermark1, _scenarioWatermark2, _scenarioWatermark3, _scenarioWatermark4;
         private bool _scenarioPitch, _scenarioInput1, _scenarioInput2, _scenarioInput3, _scenarioInput4, 
-            _panelThicknessEnable, _navBtn1Enable, _navBtn2Enable;
+            _panelThicknessEnable, _navBtn1Enable, _navBtn2Enable, _tempBool;
         private readonly SunroomResources _sunroomResources = new();
         private List<PanelThicknessModel> _panelThicknessModels;
         private readonly PanelThicknessCombo _panelThicknessCombo = new();
         private ComboBoxItem _selectedPanelThickness = new();
         private PanelThicknessModel _selectedThickness;
+        private static Input4ViewModel _panelView;
+        private Input3ViewModel input3VM;
         public Image DiagramImage
         {
             get => _diagramImage;
@@ -57,6 +61,7 @@ namespace SunroomCalculatorAvalonia.ViewModels
         public ReactiveCommand<Unit, Unit> PanelTypeSelect3 { get; }
         public ReactiveCommand<Unit, Unit> NavBTN1 { get; }
         public ReactiveCommand<Unit, Unit> NavBTN2 { get; }
+        public ReactiveCommand<Unit, Unit> TempBTN { get; }
         public ComboBoxItem SelectedPanelThickness
         {
             get => _selectedPanelThickness;
@@ -170,8 +175,13 @@ namespace SunroomCalculatorAvalonia.ViewModels
             set => this.RaiseAndSetIfChanged(ref _selectedViewModel, value);
         }
 
+        private Input4ViewModel.TestPanelThickness testPanelThickness;
+
         public MainWindowViewModel()
         {
+            _panelView = new Input4ViewModel();
+            _panelView.ThrowEvent += (sender, args) => { OnTempButton(); };
+            testPanelThickness = new Input4ViewModel.TestPanelThickness(_panelView.GetSelectedPanel);
             DiagramImage.Source = _sunroomResources.SunroomDefault;
             DiagramImage.Height = 300;
             DiagramImage.Width = 400;
@@ -197,6 +207,7 @@ namespace SunroomCalculatorAvalonia.ViewModels
             PanelTypeSelect1 = ReactiveCommand.Create(()=> OnPanelTypeChange(0));
             PanelTypeSelect2 = ReactiveCommand.Create(()=> OnPanelTypeChange(1));
             PanelTypeSelect3 = ReactiveCommand.Create(()=> OnPanelTypeChange(2));
+            TempBTN = ReactiveCommand.Create(() => OnTempButton());
         }
         
         private void OnNavigationChange(int direction)
@@ -540,6 +551,13 @@ namespace SunroomCalculatorAvalonia.ViewModels
                     PanelThicknessEnable = true;
                     break;
             }
+        }
+
+        public void OnTempButton()
+        {
+            // PanelThicknessModel temp = testPanelThickness();
+            // _tempDouble = temp.ComboValue;
+            _tempBool = true;
         }
     }
 }

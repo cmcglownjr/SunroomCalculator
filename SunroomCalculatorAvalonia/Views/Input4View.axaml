@@ -2,8 +2,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:SunroomCalculatorAvalonia.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SunroomCalculatorAvalonia.Views.Input4View">
+    <Design.DataContext>
+        <vm:MainViewModel/>
+    </Design.DataContext>
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
         <StackPanel Orientation="Horizontal" Margin="20">
             <Label Content="Overhang:" Width="150" Margin="10 5"/>
@@ -21,7 +25,8 @@
         <StackPanel Orientation="Horizontal" Margin="20">
             <Label Content="Panel Thickness:" Width="150" Margin="10 5"/>
             <ComboBox x:Name="PanelThicknessCombo" Width="150" Margin="10 5" Items="{Binding PanelThickness, Mode=TwoWay}" 
-                       IsEnabled="{Binding PanelThicknessEnable}" SelectedItem="{Binding SelectedThickness}">
+                       IsEnabled="{Binding PanelThicknessEnable}" 
+                       SelectedItem="{Binding SelectedThickness}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <ComboBoxItem Content="{Binding ComboText}"/>
