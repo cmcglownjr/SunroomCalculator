@@ -25,4 +25,7 @@
         <DependentUpon>InputDefaultView.axaml</DependentUpon>
       </Compile>
     </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\SunroomLib\SunroomLib.csproj" />
+    </ItemGroup>
 </Project>

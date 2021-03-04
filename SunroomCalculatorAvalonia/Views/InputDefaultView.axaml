@@ -4,5 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SunroomCalculatorAvalonia.Views.InputDefaultView">
-  This is the Default View!
+    <UserControl.Styles>
+        <StyleInclude Source="/Assets/CustomStyles.xaml"/>
+    </UserControl.Styles>
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="15 5" Width="400">
+        <TextBlock Classes="DefaultView" Text="Welcome to the Generic Sunroom Calculator!"/>
+        <TextBlock Classes="DefaultView" Text="This software is for use in designing a typical sunroom addition to a residential building."/>
+        <TextBlock Classes="DefaultView" Text="The Generic Sunroom Calculator only supports a Gabled or Studio style sunroom at the moment. More configurations may be in the future!"/>
+        <TextBlock Classes="DefaultView" Text="The calculator requires that you supply the dimensions that you intend to design around. Diagrams are provided to help you with user input."/>
+        <TextBlock Classes="DefaultView" Text="In order for this calculator to function properly you will be required to give two specific properties of your design. These properties are detailed later."/>
+        <TextBlock Classes="DefaultView" Text="These properties are divided into seven scenarios where only two will be required at a time."/>
+        <TextBlock Classes="DefaultView" Text="This calculator is a work in progress though I hope you find it useful."/>
+    </StackPanel>
 </UserControl>

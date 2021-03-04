@@ -6,23 +6,23 @@ namespace SunroomLib
     public class Sunroom
     {
         // Fields
-        private double _overhang, _aWall, _bWall, _cWall, _thickness;
+        private double _overhang, _leftWall, _frontWall, _rightWall, _thickness;
         private string _endCut, _panelWidth;
         public double Overhang
         {
             get { return _overhang; }
         }
-        public double AWall
+        public double LeftWall
         {
-            get { return _aWall; }
+            get { return _leftWall; }
         }
-        public double BWall
+        public double FrontWall
         {
-            get { return _bWall; }
+            get { return _frontWall; }
         }
-        public double CWall
+        public double RightWall
         {
-            get { return _cWall; }
+            get { return _rightWall; }
         }
         public double Thickness
         {
@@ -39,16 +39,16 @@ namespace SunroomLib
             get { return _panelWidth; }
         }
 
-        public Sunroom(double aWall, double bWall, double cWall, double overhang, double thickness, string endCut, 
+        public Sunroom(double leftWall, double frontWall, double rightWall, double overhang, double thickness, string endCut, 
             string panelWidth)
         {
             if (overhang > 0) {_overhang = overhang;}
             else {throw new ArgumentOutOfRangeException($"The overhang must be greater than zero.");}
-            if (aWall > 0) {_aWall = aWall;}
+            if (leftWall > 0) {_leftWall = leftWall;}
             else {throw new ArgumentOutOfRangeException($"The awall must be greater than zero.");}
-            if (bWall > 0) {_bWall = bWall;}
+            if (frontWall > 0) {_frontWall = frontWall;}
             else {throw new ArgumentOutOfRangeException($"The bwall must be greater than zero.");}
-            if (cWall > 0) {_cWall = cWall;}
+            if (rightWall > 0) {_rightWall = rightWall;}
             else {throw new ArgumentOutOfRangeException($"The cwall must be greater than zero.");}
             if (thickness > 0) {_thickness = thickness;}
             else {throw new ArgumentOutOfRangeException($"The thickness must be greater than zero.");}

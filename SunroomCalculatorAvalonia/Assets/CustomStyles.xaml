@@ -43,6 +43,11 @@
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="FontFamily" Value="Deja Vu Sans"/>
     </Style>
+    <Style Selector="TextBlock.DefaultView">
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="0 5"/>
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
     <Style Selector="TextBlock.Header">
         <Setter Property="FontSize" Value="26"/>
         <Setter Property="FontStyle" Value="Italic"/>

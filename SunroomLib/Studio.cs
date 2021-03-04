@@ -71,11 +71,11 @@ namespace SunroomLib
 
         }
 
-        public Studio(double aWall, double bWall, double cWall, double overhang, double thickness, string endCut, 
-            string panelWidth) : base(aWall, bWall, cWall, overhang, thickness, endCut, panelWidth)
+        public Studio(double leftWall, double frontWall, double rightWall, double overhang, double thickness, string endCut, 
+            string panelWidth) : base(leftWall, frontWall, rightWall, overhang, thickness, endCut, panelWidth)
         {
-            SoffitWallLength = BWall;
-            PitchedWallLength = Math.Max(AWall, CWall);
+            SoffitWallLength = FrontWall;
+            PitchedWallLength = Math.Max(LeftWall, RightWall);
             if (overhang > StandardPanelWidths[panelWidth] / 2)
             {
                 SideOverhang = StandardPanelWidths[panelWidth] / 2;

@@ -11,15 +11,18 @@
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
         <StackPanel Orientation="Horizontal" Margin="20">
             <Label Content="Left Wall Length" Width="150" Margin="10"/>
-            <TextBox Watermark="0' or 0in" Width="150" Margin="10"/>
+            <TextBox Watermark="0' or 0in" Width="150" Margin="10"
+                     Text="{Binding FloorPlanLeft}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Margin="20">
             <Label Content="Right Wall Length" Width="150" Margin="10"/>
-            <TextBox Watermark="0' or 0in" Width="150" Margin="10"/>
+            <TextBox Watermark="0' or 0in" Width="150" Margin="10"
+                     Text="{Binding FloorPlanRight}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Margin="20">
             <Label Content="Front Wall Length" Width="150" Margin="10"/>
-            <TextBox Watermark="0' or 0in" Width="150" Margin="10"/>
+            <TextBox Watermark="0' or 0in" Width="150" Margin="10"
+                     Text="{Binding FloorPlanFront}"/>
         </StackPanel>
     </StackPanel>
 </UserControl>

@@ -11,7 +11,8 @@
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
         <StackPanel Orientation="Horizontal" Margin="20">
             <Label Content="Overhang:" Width="150" Margin="10 5"/>
-            <TextBox Watermark="0' or 0in" Width="150" Margin="10 5"/>
+            <TextBox Watermark="0' or 0in" Width="150" Margin="10 5"
+                     Text="{Binding Overhang}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20">
             <Label Content="Panel Type:" Width="150" Margin="10 5"/>

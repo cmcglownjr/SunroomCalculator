@@ -55,25 +55,31 @@
                 <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Content="Choose Unit Type for Pitch"
                        HorizontalAlignment="Center" IsVisible="{Binding ScenarioPitch}"/>
                 <RadioButton x:Name="RadioPitchRatioUnit" Grid.Row="1" Grid.Column="1" GroupName="PitchUnit"
-                             Content="Ratio" HorizontalAlignment="Right" IsChecked="True" IsVisible="{Binding ScenarioPitch}"/>
+                             Content="Ratio" HorizontalAlignment="Right" IsChecked="True" IsVisible="{Binding ScenarioPitch}"
+                             Command="{Binding PitchUnit1}"/>
                 <RadioButton x:Name="RadioPitchDegreeUnit" Grid.Row="1" Grid.Column="2" GroupName="PitchUnit"
-                             Content="Degree" HorizontalAlignment="Left" IsVisible="{Binding ScenarioPitch}"/>
+                             Content="Degree" HorizontalAlignment="Left" IsVisible="{Binding ScenarioPitch}"
+                             Command="{Binding PitchUnit2}"/>
                 <Label Grid.Row="2" Grid.Column="0" Content="{Binding ScenarioLabel1}"
                        IsVisible="{Binding ScenarioInput1}"/>
                 <TextBox Grid.Row="2" Grid.Column="1" Watermark="{Binding ScenarioWatermark1}"
-                         IsVisible="{Binding ScenarioInput1}"/>
+                         IsVisible="{Binding ScenarioInput1}" 
+                         Text="{Binding ScenarioTxtBx1}"/>
                 <Label Grid.Row="3" Grid.Column="0" Content="{Binding ScenarioLabel2}"
                        IsVisible="{Binding ScenarioInput2}"/>
                 <TextBox Grid.Row="3" Grid.Column="1" Watermark="{Binding ScenarioWatermark2}"
-                         IsVisible="{Binding ScenarioInput2}"/>
+                         IsVisible="{Binding ScenarioInput2}"
+                         Text="{Binding ScenarioTxtBx2}"/>
                 <Label Grid.Row="2" Grid.Column="2" Content="{Binding ScenarioLabel3}"
                        IsVisible="{Binding ScenarioInput3}"/>
                 <TextBox Grid.Row="2" Grid.Column="3" Watermark="{Binding ScenarioWatermark3}"
-                         IsVisible="{Binding ScenarioInput3}"/>
+                         IsVisible="{Binding ScenarioInput3}"
+                         Text="{Binding ScenarioTxtBx3}"/>
                 <Label Grid.Row="3" Grid.Column="2" Content="{Binding ScenarioLabel4}"
                        IsVisible="{Binding ScenarioInput4}"/>
                 <TextBox Grid.Row="3" Grid.Column="3" Watermark="{Binding ScenarioWatermark4}"
-                         IsVisible="{Binding ScenarioInput4}"/>
+                         IsVisible="{Binding ScenarioInput4}"
+                         Text="{Binding ScenarioTxtBx4}"/>
             </Grid>
         </Border>
     </StackPanel>
