@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:SunroomCalculatorAvalonia.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="SunroomCalculatorAvalonia.Views.Input2View">
+             x:Class="SunroomCalculatorAvalonia.Views.ScenarioView">
     <Design.DataContext>
         <vm:MainViewModel/>
     </Design.DataContext>
@@ -52,6 +52,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
+                <!-- Choose Pitch -->
                 <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Content="Choose Unit Type for Pitch"
                        HorizontalAlignment="Center" IsVisible="{Binding ScenarioPitch}"/>
                 <RadioButton x:Name="RadioPitchRatioUnit" Grid.Row="1" Grid.Column="1" GroupName="PitchUnit"
@@ -60,21 +61,25 @@
                 <RadioButton x:Name="RadioPitchDegreeUnit" Grid.Row="1" Grid.Column="2" GroupName="PitchUnit"
                              Content="Degree" HorizontalAlignment="Left" IsVisible="{Binding ScenarioPitch}"
                              Command="{Binding PitchUnit2}"/>
+                <!-- Top Left -->
                 <Label Grid.Row="2" Grid.Column="0" Content="{Binding ScenarioLabel1}"
                        IsVisible="{Binding ScenarioInput1}"/>
                 <TextBox Grid.Row="2" Grid.Column="1" Watermark="{Binding ScenarioWatermark1}"
                          IsVisible="{Binding ScenarioInput1}" 
                          Text="{Binding ScenarioTxtBx1}"/>
+                <!-- Bottom Left -->
                 <Label Grid.Row="3" Grid.Column="0" Content="{Binding ScenarioLabel2}"
                        IsVisible="{Binding ScenarioInput2}"/>
                 <TextBox Grid.Row="3" Grid.Column="1" Watermark="{Binding ScenarioWatermark2}"
                          IsVisible="{Binding ScenarioInput2}"
                          Text="{Binding ScenarioTxtBx2}"/>
+                <!-- Top Right -->
                 <Label Grid.Row="2" Grid.Column="2" Content="{Binding ScenarioLabel3}"
                        IsVisible="{Binding ScenarioInput3}"/>
                 <TextBox Grid.Row="2" Grid.Column="3" Watermark="{Binding ScenarioWatermark3}"
                          IsVisible="{Binding ScenarioInput3}"
                          Text="{Binding ScenarioTxtBx3}"/>
+                <!-- Bottom Right -->
                 <Label Grid.Row="3" Grid.Column="2" Content="{Binding ScenarioLabel4}"
                        IsVisible="{Binding ScenarioInput4}"/>
                 <TextBox Grid.Row="3" Grid.Column="3" Watermark="{Binding ScenarioWatermark4}"

@@ -33,9 +33,11 @@ namespace SunroomCalculatorAvalonia.ViewModels
         private string _navLabel = "Begin Here";
         private string _scenarioWatermark1, _scenarioWatermark2, _scenarioWatermark3, _scenarioWatermark4;
         private bool _scenarioPitch, _scenarioInput1, _scenarioInput2, _scenarioInput3, _scenarioInput4, 
-            _panelThicknessEnable, _navBtn1Enable, _navBtn2Enable, _calcBtnEnable;
+            _panelThicknessEnable, _navBtn1Enable, _navBtn2Enable, _calcBtnEnable, _test;
         private string _scenarioTxtBx1, _scenarioTxtBx2, _scenarioTxtBx3, _scenarioTxtBx4, _floorPlanLeft, 
             _floorPlanRight, _floorPlanFront, _overhang;
+
+        private ComboBoxItem _selectedPanelWidth;
         private readonly SunroomResources _sunroomResources = new();
         private List<PanelThicknessModel> _panelThicknessModels;
         private readonly PanelThicknessCombo _panelThicknessCombo = new();
@@ -211,6 +213,11 @@ namespace SunroomCalculatorAvalonia.ViewModels
             get => _selectedThickness;
             set => this.RaiseAndSetIfChanged(ref _selectedThickness, value);
         }
+        public ComboBoxItem SelectedPanelWidth
+        {
+            get => _selectedPanelWidth;
+            set => this.RaiseAndSetIfChanged(ref _selectedPanelWidth, value);
+        }
 
         public UserControl SelectedViewModel
         {
@@ -293,7 +300,7 @@ namespace SunroomCalculatorAvalonia.ViewModels
             {
                 NavBtn1Enable = false;
             }
-            if (_navigation == 6)
+            if (_navigation == 5)
             {
                 NavBtn2Enable = false;
                 CalcBtnEnable = true;
@@ -302,107 +309,25 @@ namespace SunroomCalculatorAvalonia.ViewModels
 
         private void OnCalculateBTN()
         {
-            switch (_sunroomStyle)
-            {
-                case 0:
-                    CalculateStudio();
-                    break;
-                case 1:
-                    CalculateGable();
-                    break;
-            }
-        }
-        
-        private void CalculateStudio()
-        {
-            EU pitch = null;
-            EU attachedHeight = null;
-            EU wallHeight, soffitHeight, maxHeight, dripEdge;
-            string endcut = "";
-            EU leftWall = new EU(AssumeUnits(FloorPlanLeft, "in"), "length");
-            EU rightWall = new EU(AssumeUnits(FloorPlanRight, "in"), "length");
-            EU frontWall = new EU(AssumeUnits(FloorPlanFront, "in"), "length");
-            EU overhang = new EU(AssumeUnits(Overhang, "in"), "length");
-            var thickness = SelectedThickness.ComboValue;
+            string endCut = null, panelWidth = (string)SelectedPanelWidth.Content;
             switch (_endCut)
             {
                 case 0:
-                    endcut = "PlumCut";
+                    endCut = "PlumCut";
                     break;
                 case 1:
-                    endcut = "PlumCutTop";
+                    endCut = "PlumCutTop";
                     break;
                 case 2:
-                    endcut = "SquareCut";
+                    endCut = "SquareCut";
                     break;
             }
-
-            var studio = new SL.Studio(leftWall.BaseMeasure, frontWall.BaseMeasure, rightWall.BaseMeasure,
-                overhang.BaseMeasure, thickness, endcut, "36in");
-            switch (_sunroomScenario)
-            {
-                case 1:
-                case 3:
-                case 4:
-                case 6:
-                    if (_pitchUnits == 0)
-                    {
-                        pitch = new EU(AssumeUnits(ScenarioTxtBx2, "in"), "length");
-                    }
-                    if (_pitchUnits == 1)
-                    {
-                        pitch = new EU(ScenarioTxtBx2, "angle");
-                    }
-                    break;
-                case 2:
-                    attachedHeight = new EU(AssumeUnits(ScenarioTxtBx2, "in"), "length");
-                    break;
-                case 5:
-                    attachedHeight = new EU(AssumeUnits(ScenarioTxtBx2, "in"), "length");
-                    break;
-                case 7:
-                    attachedHeight = new EU(AssumeUnits(ScenarioTxtBx2, "in"), "length");
-                    break;
-            }
-
-            switch (_sunroomScenario)
-            {
-                case 1:
-                    wallHeight = new EU(AssumeUnits(ScenarioTxtBx1, "in"), "length");
-                    studio.WallHeightPitch(PitchInput(pitch), wallHeight.BaseMeasure);
-                    break;
-                case 3:
-                    maxHeight = new EU(AssumeUnits(ScenarioTxtBx1, "in"), "length");
-                    studio.MaxHeightPitch(PitchInput(pitch), maxHeight.BaseMeasure);
-                    break;
-                case 4:
-                    soffitHeight = new EU(AssumeUnits(ScenarioTxtBx1, "in"), "length");
-                    studio.SoffitHeightPitch(PitchInput(pitch), soffitHeight.BaseMeasure);
-                    break;
-                case 6:
-                    dripEdge = new EU(AssumeUnits(ScenarioTxtBx1, "in"), "length");
-                    studio.DripEdgePitch(dripEdge.BaseMeasure, PitchInput(pitch));
-                    break;
-                case 2:
-                    wallHeight = new EU(AssumeUnits(ScenarioTxtBx1, "in"), "length");
-                    studio.WallHeightAttachedHeight(wallHeight.BaseMeasure, attachedHeight.BaseMeasure);
-                    break;
-                case 5:
-                    soffitHeight = new EU(AssumeUnits(ScenarioTxtBx1, "in"), "length");
-                    studio.SoffitHeightAttachedHeight(soffitHeight.BaseMeasure, attachedHeight.BaseMeasure);
-                    break;
-                case 7:
-                    dripEdge = new EU(AssumeUnits(ScenarioTxtBx1, "in"), "length");
-                    studio.DripEdgeAttachedHeight(dripEdge.BaseMeasure, attachedHeight.BaseMeasure);
-                    break;
-            }
+            var sunroom = new SunroomModel(FloorPlanLeft, FloorPlanRight, FloorPlanFront, Overhang, endCut, panelWidth, 
+                SelectedThickness.ComboValue, _sunroomScenario);
+            sunroom.CalculateSunroom(ScenarioTxtBx1, ScenarioTxtBx2, ScenarioTxtBx3, 
+                ScenarioTxtBx4, _pitchUnits, _sunroomStyle);
+            _test = true;
         }
-
-        private void CalculateGable()
-        {
-            
-        }
-
         private void OnPitchUnit(int unit)
         {
             _pitchUnits = unit;

@@ -18,7 +18,7 @@
       <Compile Update="Assets\ResourceDictionary.xaml.cs">
         <DependentUpon>ResourceDictionary.xaml</DependentUpon>
       </Compile>
-      <Compile Update="Views\Input1View.axaml.cs">
+      <Compile Update="Views\SunroomView.axaml.cs">
         <DependentUpon>Navigation1View.axaml</DependentUpon>
       </Compile>
       <Compile Update="Views\InputDefaultView.axaml.cs">

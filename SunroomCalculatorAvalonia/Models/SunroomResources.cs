@@ -30,11 +30,11 @@ namespace SunroomCalculatorAvalonia.Models
             StudioWallPitch;
         public SunroomResources()
         {
-            Input1VM = new Input1View();
-            Input2VM = new Input2View();
-            Input3VM = new Input3View();
-            Input4VM = new Input4View();
-            Input5VM = new Input5View();
+            Input1VM = new SunroomView();
+            Input2VM = new ScenarioView();
+            Input3VM = new FloorPlanView();
+            Input4VM = new PanelView();
+            Input5VM = new EndCutView();
             InputDefaultVM = new InputDefaultView();
             
             SunroomDefault = new Bitmap(AppContext.BaseDirectory+Path.Combine("Assets", "porch-1046156_640.jpg"));

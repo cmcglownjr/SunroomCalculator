@@ -9,24 +9,25 @@ namespace SunroomLib
     /// </summary>
     public class Gabled : Sunroom, IGabled
     {
-        private double _aPitch, _cPitch, _attachedHeight, _maxHeight, _aSoffitWallHeight, _cSoffitWallHeight, 
-            _leftSoffitWallLength, _rightSoffitWallLength, _aSoffitHeight, _cSoffitHeight, _aPitchedWallLength, 
-            _cPitchedWallLength, _aDripEdge, _cDripEdge, _roofArea, _aSideOverhang, _cSideOverhang;
+        private double _leftPitch, _rightPitch, _attachedHeight, _maxHeight, _leftSoffitWallHeight, _rightSoffitWallHeight, 
+            _leftSoffitWallLength, _rightSoffitWallLength, _leftSoffitHeight, _rightSoffitHeight, _leftPitchedWallLength, 
+            _rightPitchedWallLength, _leftDripEdge, _rightDripEdge, _roofArea, _leftSideOverhang, _rightSideOverhang,
+            _leftRoofPanels, _rightRoofPanels;
 
-        private int _aRoofPanelLength, _cRoofPanelLength;
+        private int _leftRoofPanelLength, _rightRoofPanelLength;
 
-        public bool APanelCut, CPanelCut;
-        public int APanelType, CPanelType, ARakeLength, CRakeLength;
-        public double ANumberPanelCuts, CNumberPanelCuts;
-        public double APitch
+        public bool LeftPanelCut, RightPanelCut;
+        public int LeftPanelType, RightPanelType, LeftRakeLength, RightRakeLength;
+        public double LeftNumberPanelCuts, RightNumberPanelCuts;
+        public double LeftPitch
         {
-            get => _aPitch;
-            private set => _aPitch = PitchCheck(value);
+            get => _leftPitch;
+            private set => _leftPitch = PitchCheck(value);
         }
-        public double CPitch
+        public double RightPitch
         {
-            get => _cPitch;
-            private set => _cPitch = PitchCheck(value);
+            get => _rightPitch;
+            private set => _rightPitch = PitchCheck(value);
         }
         public double AttachedHeight
         {
@@ -38,15 +39,15 @@ namespace SunroomLib
             get => _maxHeight;
             private set => _maxHeight = value;
         }
-        public double ASoffitWallHeight
+        public double LeftSoffitWallHeight
         {
-            get => _aSoffitWallHeight;
-            private set => _aSoffitWallHeight = value;
+            get => _leftSoffitWallHeight;
+            private set => _leftSoffitWallHeight = value;
         }
-        public double CSoffitWallHeight
+        public double RightSoffitWallHeight
         {
-            get => _cSoffitWallHeight;
-            private set => _cSoffitWallHeight = value;
+            get => _rightSoffitWallHeight;
+            private set => _rightSoffitWallHeight = value;
         }
         public double LeftSoffitWallLength
         {
@@ -59,40 +60,40 @@ namespace SunroomLib
             private set => _rightSoffitWallLength = value;
         }
 
-        public double ASoffitHeight
+        public double LeftSoffitHeight
         {
-            get => _aSoffitHeight;
-            private set => _aSoffitHeight = value;
+            get => _leftSoffitHeight;
+            private set => _leftSoffitHeight = value;
         }
 
-        public double CSoffitHeight
+        public double RightSoffitHeight
         {
-            get => _cSoffitHeight;
-            private set => _cSoffitHeight = value;
+            get => _rightSoffitHeight;
+            private set => _rightSoffitHeight = value;
         }
 
-        public double APitchedWallLength
+        public double LeftPitchedWallLength
         {
-            get => _aPitchedWallLength;
-            private set => _aPitchedWallLength = value;
+            get => _leftPitchedWallLength;
+            private set => _leftPitchedWallLength = value;
         }
 
-        public double CPitchedWallLength
+        public double RightPitchedWallLength
         {
-            get => _cPitchedWallLength;
-            private set => _cPitchedWallLength = value;
+            get => _rightPitchedWallLength;
+            private set => _rightPitchedWallLength = value;
         }
 
-        public double ADripEdge
+        public double LeftDripEdge
         {
-            get => _aDripEdge;
-            private set => _aDripEdge = value;
+            get => _leftDripEdge;
+            private set => _leftDripEdge = value;
         }
 
-        public double CDripEdge
+        public double RightDripEdge
         {
-            get => _cDripEdge;
-            private set => _cDripEdge = value;
+            get => _rightDripEdge;
+            private set => _rightDripEdge = value;
         }
 
         public double RoofArea
@@ -101,88 +102,100 @@ namespace SunroomLib
             private set => _roofArea = value;
         }
 
-        public int ARoofPanelLength
+        public int LeftRoofPanelLength
         {
-            get => _aRoofPanelLength;
-            private set => _aRoofPanelLength = value;
+            get => _leftRoofPanelLength;
+            private set => _leftRoofPanelLength = value;
         }
 
-        public int CRoofPanelLength
+        public int RightRoofPanelLength
         {
-            get => _cRoofPanelLength;
-            private set => _cRoofPanelLength = value;
+            get => _rightRoofPanelLength;
+            private set => _rightRoofPanelLength = value;
         }
 
-        public double ASideOverhang
+        public double LeftRoofPanels
         {
-            get => _aSideOverhang;
-            private set => _aSideOverhang = value;
+            get => _leftRoofPanels;
+            set => _leftRoofPanels = value;
         }
 
-        public double CSideOverhang
+        public double RightRoofPanels
         {
-            get => _cSideOverhang;
-            private set => _cSideOverhang = value;
+            get => _rightRoofPanels;
+            set => _rightRoofPanels = value;
+        }
+
+        public double LeftSideOverhang
+        {
+            get => _leftSideOverhang;
+            private set => _leftSideOverhang = value;
+        }
+
+        public double RightSideOverhang
+        {
+            get => _rightSideOverhang;
+            private set => _rightSideOverhang = value;
         }
 
         public Gabled(double leftWall, double frontWall, double rightWall, double overhang, double thickness, string endCut,
             string panelWidth) : base(leftWall, frontWall, rightWall, overhang, thickness, endCut, panelWidth)
         {
-            APitchedWallLength = frontWall / 2;
-            CPitchedWallLength = frontWall / 2;
+            LeftPitchedWallLength = frontWall / 2;
+            RightPitchedWallLength = frontWall / 2;
             LeftSoffitWallLength = leftWall;
             RightSoffitWallLength = rightWall;
         }
 
         protected override void CalculatePanelLength()
         {
-            double aPanelLength, cPanelLength, panelBottom, panelTop;
+            double leftPanelLength, rightPanelLength, panelBottom, panelTop;
             if (Endcut == "SquareCut")
             {
-                aPanelLength = (APitchedWallLength + Overhang) / Math.Cos(APitch);
-                cPanelLength = (CPitchedWallLength + Overhang) / Math.Cos(CPitch);
+                leftPanelLength = (LeftPitchedWallLength + Overhang) / Math.Cos(LeftPitch);
+                rightPanelLength = (RightPitchedWallLength + Overhang) / Math.Cos(RightPitch);
             }
             else
             {
-                panelBottom = (APitchedWallLength + Overhang) / Math.Cos(APitch);
-                panelTop = (APitchedWallLength + Overhang + Thickness * Math.Sin(APitch)) / Math.Cos(APitch);
-                aPanelLength = Math.Max(panelBottom, panelTop);
-                panelBottom = (CPitchedWallLength + Overhang) / Math.Cos(CPitch);
-                panelTop = (CPitchedWallLength + Overhang + Thickness * Math.Sin(CPitch)) / Math.Cos(CPitch);
-                cPanelLength = Math.Max(panelBottom, panelTop);
+                panelBottom = (LeftPitchedWallLength + Overhang) / Math.Cos(LeftPitch);
+                panelTop = (LeftPitchedWallLength + Overhang + Thickness * Math.Sin(LeftPitch)) / Math.Cos(LeftPitch);
+                leftPanelLength = Math.Max(panelBottom, panelTop);
+                panelBottom = (RightPitchedWallLength + Overhang) / Math.Cos(RightPitch);
+                panelTop = (RightPitchedWallLength + Overhang + Thickness * Math.Sin(RightPitch)) / Math.Cos(RightPitch);
+                rightPanelLength = Math.Max(panelBottom, panelTop);
             }
 
-            ARoofPanelLength = Convert.ToInt32(Math.Ceiling(aPanelLength / 12) * 12);
-            CRoofPanelLength = Convert.ToInt32(Math.Ceiling(cPanelLength / 12) * 12);
-            ARakeLength = ARoofPanelLength;
-            CRakeLength = CRoofPanelLength;
-            if (ARoofPanelLength > 192)
+            LeftRoofPanelLength = Convert.ToInt32(Math.Ceiling(leftPanelLength / 12) * 12);
+            RightRoofPanelLength = Convert.ToInt32(Math.Ceiling(rightPanelLength / 12) * 12);
+            LeftRakeLength = LeftRoofPanelLength;
+            RightRakeLength = RightRoofPanelLength;
+            if (LeftRoofPanelLength > 192)
             {
                 // Cut panel lengths in half because the lengths exceed allowed threshold
-                APanelCut = true;
-                ANumberPanelCuts = RoundUpToNearest((ARakeLength/192.0), 0.5);
-                ARoofPanelLength = 192;
+                LeftPanelCut = true;
+                LeftNumberPanelCuts = RoundUpToNearest((LeftRakeLength/192.0), 0.5);
+                LeftRoofPanelLength = 192;
             }
-            if (CRoofPanelLength > 192)
+            if (RightRoofPanelLength > 192)
             {
                 // Cut panel lengths in half because the lengths exceed allowed threshold
-                CPanelCut = true;
-                CNumberPanelCuts = RoundUpToNearest((CRakeLength/192.0), 0.5);
-                CRoofPanelLength = 192;
+                RightPanelCut = true;
+                RightNumberPanelCuts = RoundUpToNearest((RightRakeLength/192.0), 0.5);
+                RightRoofPanelLength = 192;
             }
             foreach (var panelStandard in StandardPanelLengths.Keys)
             {
-                if (ARoofPanelLength <= panelStandard)
+                if (LeftRoofPanelLength <= panelStandard)
                 {
-                    APanelType = panelStandard;
+                    LeftPanelType = panelStandard;
                     break;
                 }
             }
             foreach (var panelStandard in StandardPanelLengths.Keys)
             {
-                if (CRoofPanelLength <= panelStandard)
+                if (RightRoofPanelLength <= panelStandard)
                 {
-                    CPanelType = panelStandard;
+                    RightPanelType = panelStandard;
                     break;
                 }
             }
@@ -198,7 +211,7 @@ namespace SunroomLib
             if ((roofWidth / StandardPanelWidths[PanelWidth]) >=
                      (Math.Floor(roofWidth / StandardPanelWidths[PanelWidth]) + 0.5))
             {
-                APanelCut = true;
+                LeftPanelCut = true;
                 return Math.Floor(roofWidth / StandardPanelWidths[PanelWidth]) + 0.5;
             }
             return Math.Ceiling(roofWidth / StandardPanelWidths[PanelWidth]);
@@ -226,16 +239,16 @@ namespace SunroomLib
         }
         protected override void CalculateRoofPanels()
         {
-            double aRoofPanels, cRoofPanels, aRoofWidth, cRoofWidth, aRoofArea, cRoofArea;
-            aRoofWidth = LeftSoffitWallLength + ASideOverhang;
-            cRoofWidth = RightSoffitWallLength + CSideOverhang;
-            aRoofPanels = CalculateRoofPanelLength(aRoofWidth);
-            cRoofPanels = CalculateRoofPanelLength(cRoofWidth);
-            ASideOverhang = CalculateSideOverhang(aRoofPanels, ASoffitWallHeight, ASideOverhang);
-            CSideOverhang = CalculateSideOverhang(cRoofPanels, CSoffitWallHeight, CSideOverhang);
-            aRoofArea = CalculateRoofArea(ARakeLength, aRoofPanels, PanelWidth);
-            cRoofArea = CalculateRoofArea(CRakeLength, cRoofPanels, PanelWidth);
-            RoofArea = aRoofArea + cRoofArea;
+            double leftRoofWidth, rightRoofWidth, leftRoofArea, rightRoofArea;
+            leftRoofWidth = LeftSoffitWallLength + LeftSideOverhang;
+            rightRoofWidth = RightSoffitWallLength + RightSideOverhang;
+            LeftRoofPanels = CalculateRoofPanelLength(leftRoofWidth);
+            RightRoofPanels = CalculateRoofPanelLength(rightRoofWidth);
+            LeftSideOverhang = CalculateSideOverhang(LeftRoofPanels, LeftSoffitWallHeight, LeftSideOverhang);
+            RightSideOverhang = CalculateSideOverhang(RightRoofPanels, RightSoffitWallHeight, RightSideOverhang);
+            leftRoofArea = CalculateRoofArea(LeftRakeLength, LeftRoofPanels, PanelWidth);
+            rightRoofArea = CalculateRoofArea(RightRakeLength, RightRoofPanels, PanelWidth);
+            RoofArea = leftRoofArea + rightRoofArea;
         }
 
         protected override void CalculateSunroom()
@@ -246,102 +259,102 @@ namespace SunroomLib
 
         public void WallHeightPitch(List<double> pitch, List<double> soffitWallHeight)
         {
-            APitch = pitch[0];
-            CPitch = pitch[1];
-            ASoffitWallHeight = soffitWallHeight[0];
-            CSoffitWallHeight = soffitWallHeight[0];
-            ASoffitHeight = ASoffitWallHeight - Overhang * Math.Tan(APitch);
-            CSoffitHeight = CSoffitWallHeight - Overhang * Math.Tan(CPitch);
-            AttachedHeight = (FrontWall * Math.Sin(APitch) * Math.Sin(CPitch)) / Math.Sin(Math.PI - APitch - CPitch) +
-                             Math.Max(ASoffitWallHeight, CSoffitWallHeight);
-            MaxHeight = AttachedHeight + Math.Max(Angled(APitch, Thickness),
-                            Angled(CPitch, Thickness)) +
-                        (StandardPostWidth * Math.Sin(APitch) * Math.Sin(CPitch)) /
-                        Math.Sin(Math.PI - APitch - CPitch);
-            ADripEdge = CalculateDripEdge(ASoffitHeight, APitch, Thickness, Endcut);
-            CDripEdge = CalculateDripEdge(CSoffitHeight, CPitch, Thickness, Endcut);
+            LeftPitch = pitch[0];
+            RightPitch = pitch[1];
+            LeftSoffitWallHeight = soffitWallHeight[0];
+            RightSoffitWallHeight = soffitWallHeight[0];
+            LeftSoffitHeight = LeftSoffitWallHeight - Overhang * Math.Tan(LeftPitch);
+            RightSoffitHeight = RightSoffitWallHeight - Overhang * Math.Tan(RightPitch);
+            AttachedHeight = (FrontWall * Math.Sin(LeftPitch) * Math.Sin(RightPitch)) / Math.Sin(Math.PI - LeftPitch - RightPitch) +
+                             Math.Max(LeftSoffitWallHeight, RightSoffitWallHeight);
+            MaxHeight = AttachedHeight + Math.Max(Angled(LeftPitch, Thickness),
+                            Angled(RightPitch, Thickness)) +
+                        (StandardPostWidth * Math.Sin(LeftPitch) * Math.Sin(RightPitch)) /
+                        Math.Sin(Math.PI - LeftPitch - RightPitch);
+            LeftDripEdge = CalculateDripEdge(LeftSoffitHeight, LeftPitch, Thickness, Endcut);
+            RightDripEdge = CalculateDripEdge(RightSoffitHeight, RightPitch, Thickness, Endcut);
             CalculateSunroom();
         }
 
         public void WallHeightAttachedHeight(List<double> soffitWallHeight, double attachedHeight)
         {
             AttachedHeight = attachedHeight;
-            ASoffitWallHeight = soffitWallHeight[0];
-            CSoffitWallHeight = soffitWallHeight[1];
-            APitch = Math.Atan2((AttachedHeight - ASoffitWallHeight),
-                APitchedWallLength);
-            CPitch = Math.Atan2((AttachedHeight - CSoffitWallHeight),
-                CPitchedWallLength );
-            ASoffitHeight = ASoffitWallHeight - Overhang * Math.Tan(APitch);
-            CSoffitHeight = CSoffitWallHeight - Overhang * Math.Tan(CPitch);
-            double aMaxHeight = AttachedHeight + Angled(APitch, Thickness) +
-                                (StandardPostWidth * Math.Sin(APitch) * Math.Sin(CPitch)) /
-                                Math.Sin(Math.PI - APitch - CPitch);
-            double cMaxHeight = AttachedHeight + Angled(CPitch, Thickness) +
-                                (StandardPostWidth * Math.Sin(APitch) * Math.Sin(CPitch)) /
-                                Math.Sin(Math.PI - APitch - CPitch);
+            LeftSoffitWallHeight = soffitWallHeight[0];
+            RightSoffitWallHeight = soffitWallHeight[1];
+            LeftPitch = Math.Atan2((AttachedHeight - LeftSoffitWallHeight),
+                LeftPitchedWallLength);
+            RightPitch = Math.Atan2((AttachedHeight - RightSoffitWallHeight),
+                RightPitchedWallLength );
+            LeftSoffitHeight = LeftSoffitWallHeight - Overhang * Math.Tan(LeftPitch);
+            RightSoffitHeight = RightSoffitWallHeight - Overhang * Math.Tan(RightPitch);
+            double aMaxHeight = AttachedHeight + Angled(LeftPitch, Thickness) +
+                                (StandardPostWidth * Math.Sin(LeftPitch) * Math.Sin(RightPitch)) /
+                                Math.Sin(Math.PI - LeftPitch - RightPitch);
+            double cMaxHeight = AttachedHeight + Angled(RightPitch, Thickness) +
+                                (StandardPostWidth * Math.Sin(LeftPitch) * Math.Sin(RightPitch)) /
+                                Math.Sin(Math.PI - LeftPitch - RightPitch);
             MaxHeight = Math.Max(aMaxHeight, cMaxHeight);
-            ADripEdge = CalculateDripEdge(ASoffitHeight, APitch, Thickness, Endcut);
-            CDripEdge = CalculateDripEdge(CSoffitHeight, CPitch, Thickness, Endcut);
+            LeftDripEdge = CalculateDripEdge(LeftSoffitHeight, LeftPitch, Thickness, Endcut);
+            RightDripEdge = CalculateDripEdge(RightSoffitHeight, RightPitch, Thickness, Endcut);
             CalculateSunroom();
         }
 
         public void MaxHeightPitch(List<double> pitch, double maxHeight)
         {
-            APitch = pitch[0];
-            CPitch = pitch[1];
+            LeftPitch = pitch[0];
+            RightPitch = pitch[1];
             MaxHeight = maxHeight;
-            ASoffitWallHeight = MaxHeight -
-                                Math.Max(Angled(APitch, Thickness), Angled(CPitch, Thickness)) -
-                                (FrontWall * Math.Sin(APitch) * Math.Sin(CPitch)) / Math.Sin(Math.PI - APitch - CPitch);
-            CSoffitWallHeight = ASoffitWallHeight;
-            AttachedHeight = (FrontWall * Math.Sin(APitch) * Math.Sin(CPitch)) / Math.Sin(Math.PI - APitch - CPitch) +
-                             ASoffitWallHeight;
-            ASoffitHeight = ASoffitWallHeight - Overhang * Math.Tan(APitch);
-            CSoffitHeight = CSoffitWallHeight - Overhang * Math.Tan(CPitch);
-            ADripEdge = CalculateDripEdge(ASoffitHeight, APitch, Thickness, Endcut);
-            CDripEdge = CalculateDripEdge(CSoffitHeight, CPitch, Thickness, Endcut);
+            LeftSoffitWallHeight = MaxHeight -
+                                Math.Max(Angled(LeftPitch, Thickness), Angled(RightPitch, Thickness)) -
+                                (FrontWall * Math.Sin(LeftPitch) * Math.Sin(RightPitch)) / Math.Sin(Math.PI - LeftPitch - RightPitch);
+            RightSoffitWallHeight = LeftSoffitWallHeight;
+            AttachedHeight = (FrontWall * Math.Sin(LeftPitch) * Math.Sin(RightPitch)) / Math.Sin(Math.PI - LeftPitch - RightPitch) +
+                             LeftSoffitWallHeight;
+            LeftSoffitHeight = LeftSoffitWallHeight - Overhang * Math.Tan(LeftPitch);
+            RightSoffitHeight = RightSoffitWallHeight - Overhang * Math.Tan(RightPitch);
+            LeftDripEdge = CalculateDripEdge(LeftSoffitHeight, LeftPitch, Thickness, Endcut);
+            RightDripEdge = CalculateDripEdge(RightSoffitHeight, RightPitch, Thickness, Endcut);
             CalculateSunroom();
         }
 
         public void SoffitHeightAttachedHeight(List<double> soffitHeight, double attachedHeight)
         {
-            ASoffitHeight = soffitHeight[0];
-            CSoffitHeight = soffitHeight[1];
+            LeftSoffitHeight = soffitHeight[0];
+            RightSoffitHeight = soffitHeight[1];
             AttachedHeight = attachedHeight;
-            APitch = Math.Atan((AttachedHeight - ASoffitHeight) /
-                               (APitchedWallLength + Overhang));
-            CPitch = Math.Atan((AttachedHeight - CSoffitHeight) /
-                               (CPitchedWallLength + Overhang));
-            ASoffitWallHeight = ASoffitHeight + Overhang * Math.Tan(APitch);
-            CSoffitWallHeight = CSoffitHeight + Overhang * Math.Tan(CPitch);
-            MaxHeight = Math.Max(AttachedHeight + Angled(APitch, Thickness),
-                AttachedHeight + Angled(CPitch, Thickness));
-            ADripEdge = CalculateDripEdge(ASoffitHeight, APitch, Thickness, Endcut);
-            CDripEdge = CalculateDripEdge(CSoffitHeight, CPitch, Thickness, Endcut);
+            LeftPitch = Math.Atan((AttachedHeight - LeftSoffitHeight) /
+                               (LeftPitchedWallLength + Overhang));
+            RightPitch = Math.Atan((AttachedHeight - RightSoffitHeight) /
+                               (RightPitchedWallLength + Overhang));
+            LeftSoffitWallHeight = LeftSoffitHeight + Overhang * Math.Tan(LeftPitch);
+            RightSoffitWallHeight = RightSoffitHeight + Overhang * Math.Tan(RightPitch);
+            MaxHeight = Math.Max(AttachedHeight + Angled(LeftPitch, Thickness),
+                AttachedHeight + Angled(RightPitch, Thickness));
+            LeftDripEdge = CalculateDripEdge(LeftSoffitHeight, LeftPitch, Thickness, Endcut);
+            RightDripEdge = CalculateDripEdge(RightSoffitHeight, RightPitch, Thickness, Endcut);
             CalculateSunroom();
         }
 
         public void SoffitHeightPitch(List<double> pitch, List<double> soffitHeight)
         {
-            APitch = pitch[0];
-            CPitch = pitch[1];
-            ASoffitHeight = soffitHeight[0];
-            CSoffitHeight = soffitHeight[1];
-            ASoffitWallHeight = ASoffitHeight + Overhang * Math.Tan(APitch);
-            CSoffitWallHeight = CSoffitHeight + Overhang * Math.Tan(CPitch);
-            AttachedHeight = (FrontWall * Math.Sin(APitch) * Math.Sin(CPitch)) / Math.Sin(Math.PI - APitch - CPitch) +
-                             Math.Max(ASoffitWallHeight, CSoffitWallHeight);
-            MaxHeight = AttachedHeight + Math.Max(Angled(APitch, Thickness), Angled(CPitch, Thickness));
-            ADripEdge = CalculateDripEdge(ASoffitHeight, APitch, Thickness, Endcut);
-            CDripEdge = CalculateDripEdge(CSoffitHeight, CPitch, Thickness, Endcut);
+            LeftPitch = pitch[0];
+            RightPitch = pitch[1];
+            LeftSoffitHeight = soffitHeight[0];
+            RightSoffitHeight = soffitHeight[1];
+            LeftSoffitWallHeight = LeftSoffitHeight + Overhang * Math.Tan(LeftPitch);
+            RightSoffitWallHeight = RightSoffitHeight + Overhang * Math.Tan(RightPitch);
+            AttachedHeight = (FrontWall * Math.Sin(LeftPitch) * Math.Sin(RightPitch)) / Math.Sin(Math.PI - LeftPitch - RightPitch) +
+                             Math.Max(LeftSoffitWallHeight, RightSoffitWallHeight);
+            MaxHeight = AttachedHeight + Math.Max(Angled(LeftPitch, Thickness), Angled(RightPitch, Thickness));
+            LeftDripEdge = CalculateDripEdge(LeftSoffitHeight, LeftPitch, Thickness, Endcut);
+            RightDripEdge = CalculateDripEdge(RightSoffitHeight, RightPitch, Thickness, Endcut);
             CalculateSunroom();
         }
 
         public void DripEdgeAttachedHeight(double dripEdge, double attachedHeight)
         {
-            ADripEdge = dripEdge;
-            CDripEdge = dripEdge;
+            LeftDripEdge = dripEdge;
+            RightDripEdge = dripEdge;
             AttachedHeight = attachedHeight;
             double tolerance = 0.01;
             double diff = 100;
@@ -366,30 +379,30 @@ namespace SunroomLib
                 }
             }
 
-            ASoffitWallHeight = AttachedHeight - (FrontWall / 2 - StandardPostWidth / 2) * Math.Tan(pitch);
-            CSoffitWallHeight = ASoffitWallHeight;
-            ASoffitHeight = ASoffitWallHeight - Overhang * Math.Tan(pitch);
-            CSoffitHeight = CSoffitWallHeight - Overhang * Math.Tan(pitch);
-            APitch = pitch;
-            CPitch = pitch;
+            LeftSoffitWallHeight = AttachedHeight - (FrontWall / 2 - StandardPostWidth / 2) * Math.Tan(pitch);
+            RightSoffitWallHeight = LeftSoffitWallHeight;
+            LeftSoffitHeight = LeftSoffitWallHeight - Overhang * Math.Tan(pitch);
+            RightSoffitHeight = RightSoffitWallHeight - Overhang * Math.Tan(pitch);
+            LeftPitch = pitch;
+            RightPitch = pitch;
             MaxHeight = AttachedHeight + Angled(pitch, Thickness);
             CalculateSunroom();
         }
 
         public void DripEdgePitch(double dripEdge, List<double> pitch)
         {
-            APitch = pitch[0];
-            CPitch = pitch[1];
-            ADripEdge = dripEdge;
-            CDripEdge = dripEdge;
-            ASoffitHeight = ADripEdge - Angled(APitch, Thickness);
-            CSoffitHeight = CDripEdge - Angled(CPitch, Thickness);
-            double maxSoffit = Math.Max(ASoffitHeight, CSoffitHeight);
-            ASoffitWallHeight = maxSoffit + Overhang * Math.Tan(APitch);
-            CSoffitWallHeight = maxSoffit + Overhang * Math.Tan(CPitch);
-            AttachedHeight = (FrontWall * Math.Sin(APitch) * Math.Sin(CPitch)) / Math.Sin(Math.PI - APitch - CPitch) +
-                             Math.Max(ASoffitWallHeight, CSoffitWallHeight);
-            MaxHeight = AttachedHeight + Math.Max(Angled(APitch, Thickness), Angled(CPitch, Thickness));
+            LeftPitch = pitch[0];
+            RightPitch = pitch[1];
+            LeftDripEdge = dripEdge;
+            RightDripEdge = dripEdge;
+            LeftSoffitHeight = LeftDripEdge - Angled(LeftPitch, Thickness);
+            RightSoffitHeight = RightDripEdge - Angled(RightPitch, Thickness);
+            double maxSoffit = Math.Max(LeftSoffitHeight, RightSoffitHeight);
+            LeftSoffitWallHeight = maxSoffit + Overhang * Math.Tan(LeftPitch);
+            RightSoffitWallHeight = maxSoffit + Overhang * Math.Tan(RightPitch);
+            AttachedHeight = (FrontWall * Math.Sin(LeftPitch) * Math.Sin(RightPitch)) / Math.Sin(Math.PI - LeftPitch - RightPitch) +
+                             Math.Max(LeftSoffitWallHeight, RightSoffitWallHeight);
+            MaxHeight = AttachedHeight + Math.Max(Angled(LeftPitch, Thickness), Angled(RightPitch, Thickness));
             CalculateSunroom();
         }
     }

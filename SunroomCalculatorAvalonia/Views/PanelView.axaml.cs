@@ -1,12 +1,13 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using SunroomCalculatorAvalonia.ViewModels;
 
 namespace SunroomCalculatorAvalonia.Views
 {
-    public class Input1View : UserControl
+    public class PanelView : UserControl
     {
-        public Input1View()
+        public PanelView()
         {
             InitializeComponent();
         }

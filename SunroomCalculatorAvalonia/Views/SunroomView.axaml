@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:SunroomCalculatorAvalonia.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="SunroomCalculatorAvalonia.Views.Input1View">
+             x:Class="SunroomCalculatorAvalonia.Views.SunroomView">
     <Border BorderThickness="2">
         <Border.Styles>
             <StyleInclude Source="/Assets/CustomStyles.xaml" />

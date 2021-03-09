@@ -9,7 +9,7 @@ namespace SunroomLib
     public class Studio : Sunroom, IStudio
     {
         private double _pitch, _attachedHeight, _maxHeight, _soffitWallLength, _soffitWallHeight, _soffitHeight, 
-            _dripEdge, _pitchedWallLength, _roofArea, _sideOverhang;
+            _dripEdge, _pitchedWallLength, _roofArea, _sideOverhang, _roofPanelNumber;
         public bool PanelCut;
         public int RoofPanelLength, PanelType, RakeLength;
         public double NumPanelCuts;
@@ -64,6 +64,13 @@ namespace SunroomLib
             get => _roofArea;
             private set => _roofArea = value;
         }
+
+        public double RoofPanelNumber
+        {
+            get => _roofPanelNumber;
+            set => _roofPanelNumber = value;
+        }
+
         public double SideOverhang
         {
             get => _sideOverhang;
@@ -122,18 +129,18 @@ namespace SunroomLib
         {
             double roofWidth = SoffitWallLength + SideOverhang * 2;
             double panelWidth = StandardPanelWidths[PanelWidth];
-            double roofPanelNumber = Math.Ceiling(roofWidth / panelWidth);
-            if ((roofPanelNumber * panelWidth - SoffitWallLength) / 2 < SideOverhang)
+            RoofPanelNumber = Math.Ceiling(roofWidth / panelWidth);
+            if ((RoofPanelNumber * panelWidth - SoffitWallLength) / 2 < SideOverhang)
             {
                 // The overhang from the calculated number of panels is too low
-                SideOverhang = (roofPanelNumber * panelWidth - SoffitWallLength) / 2;
+                SideOverhang = (RoofPanelNumber * panelWidth - SoffitWallLength) / 2;
             }
-            if ((roofPanelNumber * panelWidth - SoffitWallLength) / 2 > (panelWidth / 2))
+            if ((RoofPanelNumber * panelWidth - SoffitWallLength) / 2 > (panelWidth / 2))
             {
                 // The calculated overhang exceeds max allowed
-                SideOverhang = (roofPanelNumber * panelWidth - SoffitWallLength) / 2;
+                SideOverhang = (RoofPanelNumber * panelWidth - SoffitWallLength) / 2;
             }
-            RoofArea = RakeLength * roofPanelNumber * panelWidth;
+            RoofArea = RakeLength * RoofPanelNumber * panelWidth;
         }
 
         protected override void CalculateSunroom()

@@ -23,22 +23,22 @@ namespace SunroomLibTest
         public void TestWallHeightPitch()
         {
             _sut.WallHeightPitch(pitchList, soffitWallList);
-            Assert.False(_sut.APanelCut);
-            Assert.False(_sut.CPanelCut);
-            Assert.Equal(pitch, _sut.APitch);
-            Assert.Equal(pitch, _sut.CPitch);
-            Assert.Equal(132, _sut.ARoofPanelLength);
-            Assert.Equal(132, _sut.CRoofPanelLength);
-            Assert.Equal(144, _sut.APanelType);
-            Assert.Equal(144, _sut.CPanelType);
+            Assert.False(_sut.LeftPanelCut);
+            Assert.False(_sut.RightPanelCut);
+            Assert.Equal(pitch, _sut.LeftPitch);
+            Assert.Equal(pitch, _sut.RightPitch);
+            Assert.Equal(132, _sut.LeftRoofPanelLength);
+            Assert.Equal(132, _sut.RightRoofPanelLength);
+            Assert.Equal(144, _sut.LeftPanelType);
+            Assert.Equal(144, _sut.RightPanelType);
             Assert.Equal(139, _sut.AttachedHeight);
             Assert.Equal(153, NiceFraction(_sut.MaxHeight, 16));
-            Assert.Equal(95, _sut.ASoffitWallHeight);
-            Assert.Equal(95, _sut.CSoffitWallHeight);
-            Assert.Equal(89.5, _sut.ASoffitHeight);
-            Assert.Equal(89.5, _sut.CSoffitHeight);
-            Assert.Equal(102.6875, NiceFraction(_sut.ADripEdge, 16));
-            Assert.Equal(102.6875, NiceFraction(_sut.CDripEdge, 16));
+            Assert.Equal(95, _sut.LeftSoffitWallHeight);
+            Assert.Equal(95, _sut.RightSoffitWallHeight);
+            Assert.Equal(89.5, _sut.LeftSoffitHeight);
+            Assert.Equal(89.5, _sut.RightSoffitHeight);
+            Assert.Equal(102.6875, NiceFraction(_sut.LeftDripEdge, 16));
+            Assert.Equal(102.6875, NiceFraction(_sut.RightDripEdge, 16));
             Assert.Equal(38016, _sut.RoofArea);
         }
 
@@ -46,22 +46,22 @@ namespace SunroomLibTest
         public void TestWallHeightAttachedHeight()
         {
             _sut.WallHeightAttachedHeight(soffitWallList, 139);
-            Assert.False(_sut.APanelCut);
-            Assert.False(_sut.CPanelCut);
-            Assert.Equal(pitch, _sut.APitch);
-            Assert.Equal(pitch, _sut.CPitch);
-            Assert.Equal(132, _sut.ARoofPanelLength);
-            Assert.Equal(132, _sut.CRoofPanelLength);
-            Assert.Equal(144, _sut.APanelType);
-            Assert.Equal(144, _sut.CPanelType);
+            Assert.False(_sut.LeftPanelCut);
+            Assert.False(_sut.RightPanelCut);
+            Assert.Equal(pitch, _sut.LeftPitch);
+            Assert.Equal(pitch, _sut.RightPitch);
+            Assert.Equal(132, _sut.LeftRoofPanelLength);
+            Assert.Equal(132, _sut.RightRoofPanelLength);
+            Assert.Equal(144, _sut.LeftPanelType);
+            Assert.Equal(144, _sut.RightPanelType);
             Assert.Equal(139, NiceFraction(_sut.AttachedHeight, 16));
             Assert.Equal(153, NiceFraction(_sut.MaxHeight, 16));
-            Assert.Equal(95, NiceFraction(_sut.ASoffitWallHeight, 16));
-            Assert.Equal(95, NiceFraction(_sut.CSoffitWallHeight, 16));
-            Assert.Equal(89.5, NiceFraction(_sut.ASoffitHeight, 16));
-            Assert.Equal(89.5, NiceFraction(_sut.CSoffitHeight, 16));
-            Assert.Equal(102.6875, NiceFraction(_sut.ADripEdge, 16));
-            Assert.Equal(102.6875, NiceFraction(_sut.CDripEdge, 16));
+            Assert.Equal(95, NiceFraction(_sut.LeftSoffitWallHeight, 16));
+            Assert.Equal(95, NiceFraction(_sut.RightSoffitWallHeight, 16));
+            Assert.Equal(89.5, NiceFraction(_sut.LeftSoffitHeight, 16));
+            Assert.Equal(89.5, NiceFraction(_sut.RightSoffitHeight, 16));
+            Assert.Equal(102.6875, NiceFraction(_sut.LeftDripEdge, 16));
+            Assert.Equal(102.6875, NiceFraction(_sut.RightDripEdge, 16));
             Assert.Equal(38016, _sut.RoofArea);
         }
 
@@ -69,22 +69,22 @@ namespace SunroomLibTest
         public void TestMaxHeightPitch()
         {
             _sut.MaxHeightPitch(pitchList, 153);
-            Assert.False(_sut.APanelCut);
-            Assert.False(_sut.CPanelCut);
-            Assert.Equal(pitch, _sut.APitch);
-            Assert.Equal(pitch, _sut.CPitch);
-            Assert.Equal(132, _sut.ARoofPanelLength);
-            Assert.Equal(132, _sut.CRoofPanelLength);
-            Assert.Equal(144, _sut.APanelType);
-            Assert.Equal(144, _sut.CPanelType);
+            Assert.False(_sut.LeftPanelCut);
+            Assert.False(_sut.RightPanelCut);
+            Assert.Equal(pitch, _sut.LeftPitch);
+            Assert.Equal(pitch, _sut.RightPitch);
+            Assert.Equal(132, _sut.LeftRoofPanelLength);
+            Assert.Equal(132, _sut.RightRoofPanelLength);
+            Assert.Equal(144, _sut.LeftPanelType);
+            Assert.Equal(144, _sut.RightPanelType);
             Assert.Equal(139.8125, NiceFraction(_sut.AttachedHeight, 16));
             Assert.Equal(153, NiceFraction(_sut.MaxHeight, 16));
-            Assert.Equal(95.8125, NiceFraction(_sut.ASoffitWallHeight, 16));
-            Assert.Equal(95.8125, NiceFraction(_sut.CSoffitWallHeight, 16));
-            Assert.Equal(90.3125, NiceFraction(_sut.ASoffitHeight, 16));
-            Assert.Equal(90.3125, NiceFraction(_sut.CSoffitHeight, 16));
-            Assert.Equal(103.5, NiceFraction(_sut.ADripEdge, 16));
-            Assert.Equal(103.5, NiceFraction(_sut.CDripEdge, 16));
+            Assert.Equal(95.8125, NiceFraction(_sut.LeftSoffitWallHeight, 16));
+            Assert.Equal(95.8125, NiceFraction(_sut.RightSoffitWallHeight, 16));
+            Assert.Equal(90.3125, NiceFraction(_sut.LeftSoffitHeight, 16));
+            Assert.Equal(90.3125, NiceFraction(_sut.RightSoffitHeight, 16));
+            Assert.Equal(103.5, NiceFraction(_sut.LeftDripEdge, 16));
+            Assert.Equal(103.5, NiceFraction(_sut.RightDripEdge, 16));
             Assert.Equal(38016, _sut.RoofArea);
         }
 
@@ -92,22 +92,22 @@ namespace SunroomLibTest
         public void TestSoffitHeightAttachedHeight()
         {
             _sut.SoffitHeightAttachedHeight(soffitHeightList, 139);
-            Assert.False(_sut.APanelCut);
-            Assert.False(_sut.CPanelCut);
-            Assert.Equal(pitch, _sut.APitch);
-            Assert.Equal(pitch, _sut.CPitch);
-            Assert.Equal(132, _sut.ARoofPanelLength);
-            Assert.Equal(132, _sut.CRoofPanelLength);
-            Assert.Equal(144, _sut.APanelType);
-            Assert.Equal(144, _sut.CPanelType);
+            Assert.False(_sut.LeftPanelCut);
+            Assert.False(_sut.RightPanelCut);
+            Assert.Equal(pitch, _sut.LeftPitch);
+            Assert.Equal(pitch, _sut.RightPitch);
+            Assert.Equal(132, _sut.LeftRoofPanelLength);
+            Assert.Equal(132, _sut.RightRoofPanelLength);
+            Assert.Equal(144, _sut.LeftPanelType);
+            Assert.Equal(144, _sut.RightPanelType);
             Assert.Equal(139, NiceFraction(_sut.AttachedHeight, 16));
             Assert.Equal(152.1875, NiceFraction(_sut.MaxHeight, 16));
-            Assert.Equal(95, NiceFraction(_sut.ASoffitWallHeight, 16));
-            Assert.Equal(95, NiceFraction(_sut.CSoffitWallHeight, 16));
-            Assert.Equal(89.5, NiceFraction(_sut.ASoffitHeight, 16));
-            Assert.Equal(89.5, NiceFraction(_sut.CSoffitHeight, 16));
-            Assert.Equal(102.6875, NiceFraction(_sut.ADripEdge, 16));
-            Assert.Equal(102.6875, NiceFraction(_sut.CDripEdge, 16));
+            Assert.Equal(95, NiceFraction(_sut.LeftSoffitWallHeight, 16));
+            Assert.Equal(95, NiceFraction(_sut.RightSoffitWallHeight, 16));
+            Assert.Equal(89.5, NiceFraction(_sut.LeftSoffitHeight, 16));
+            Assert.Equal(89.5, NiceFraction(_sut.RightSoffitHeight, 16));
+            Assert.Equal(102.6875, NiceFraction(_sut.LeftDripEdge, 16));
+            Assert.Equal(102.6875, NiceFraction(_sut.RightDripEdge, 16));
             Assert.Equal(38016, _sut.RoofArea);
         }
 
@@ -115,22 +115,22 @@ namespace SunroomLibTest
         public void TestSoffitHeightPitch()
         {
             _sut.SoffitHeightPitch(pitchList, soffitHeightList);
-            Assert.False(_sut.APanelCut);
-            Assert.False(_sut.CPanelCut);
-            Assert.Equal(pitch, _sut.APitch);
-            Assert.Equal(pitch, _sut.CPitch);
-            Assert.Equal(132, _sut.ARoofPanelLength);
-            Assert.Equal(132, _sut.CRoofPanelLength);
-            Assert.Equal(144, _sut.APanelType);
-            Assert.Equal(144, _sut.CPanelType);
+            Assert.False(_sut.LeftPanelCut);
+            Assert.False(_sut.RightPanelCut);
+            Assert.Equal(pitch, _sut.LeftPitch);
+            Assert.Equal(pitch, _sut.RightPitch);
+            Assert.Equal(132, _sut.LeftRoofPanelLength);
+            Assert.Equal(132, _sut.RightRoofPanelLength);
+            Assert.Equal(144, _sut.LeftPanelType);
+            Assert.Equal(144, _sut.RightPanelType);
             Assert.Equal(139, NiceFraction(_sut.AttachedHeight, 16));
             Assert.Equal(152.1875, NiceFraction(_sut.MaxHeight, 16));
-            Assert.Equal(95, NiceFraction(_sut.ASoffitWallHeight, 16));
-            Assert.Equal(95, NiceFraction(_sut.CSoffitWallHeight, 16));
-            Assert.Equal(89.5, NiceFraction(_sut.ASoffitHeight, 16));
-            Assert.Equal(89.5, NiceFraction(_sut.CSoffitHeight, 16));
-            Assert.Equal(102.6875, NiceFraction(_sut.ADripEdge, 16));
-            Assert.Equal(102.6875, NiceFraction(_sut.CDripEdge, 16));
+            Assert.Equal(95, NiceFraction(_sut.LeftSoffitWallHeight, 16));
+            Assert.Equal(95, NiceFraction(_sut.RightSoffitWallHeight, 16));
+            Assert.Equal(89.5, NiceFraction(_sut.LeftSoffitHeight, 16));
+            Assert.Equal(89.5, NiceFraction(_sut.RightSoffitHeight, 16));
+            Assert.Equal(102.6875, NiceFraction(_sut.LeftDripEdge, 16));
+            Assert.Equal(102.6875, NiceFraction(_sut.RightDripEdge, 16));
             Assert.Equal(38016, _sut.RoofArea);
         }
 
@@ -138,22 +138,22 @@ namespace SunroomLibTest
         public void TestDripEdgeAttachedHeight()
         {
             _sut.DripEdgeAttachedHeight(102.6875, 139);
-            Assert.False(_sut.APanelCut);
-            Assert.False(_sut.CPanelCut);
-            Assert.Equal(pitch, _sut.APitch, 3);
-            Assert.Equal(pitch, _sut.CPitch, 3);
-            Assert.Equal(132, _sut.ARoofPanelLength);
-            Assert.Equal(132, _sut.CRoofPanelLength);
-            Assert.Equal(144, _sut.APanelType);
-            Assert.Equal(144, _sut.CPanelType);
+            Assert.False(_sut.LeftPanelCut);
+            Assert.False(_sut.RightPanelCut);
+            Assert.Equal(pitch, _sut.LeftPitch, 3);
+            Assert.Equal(pitch, _sut.RightPitch, 3);
+            Assert.Equal(132, _sut.LeftRoofPanelLength);
+            Assert.Equal(132, _sut.RightRoofPanelLength);
+            Assert.Equal(144, _sut.LeftPanelType);
+            Assert.Equal(144, _sut.RightPanelType);
             Assert.Equal(139, NiceFraction(_sut.AttachedHeight, 16));
             Assert.Equal(152.1875, NiceFraction(_sut.MaxHeight, 16));
-            Assert.Equal(95.8125, NiceFraction(_sut.ASoffitWallHeight, 16));
-            Assert.Equal(95.8125, NiceFraction(_sut.CSoffitWallHeight, 16));
-            Assert.Equal(90.3125, NiceFraction(_sut.ASoffitHeight, 16));
-            Assert.Equal(90.3125, NiceFraction(_sut.CSoffitHeight, 16));
-            Assert.Equal(102.6875, NiceFraction(_sut.ADripEdge, 16));
-            Assert.Equal(102.6875, NiceFraction(_sut.CDripEdge, 16));
+            Assert.Equal(95.8125, NiceFraction(_sut.LeftSoffitWallHeight, 16));
+            Assert.Equal(95.8125, NiceFraction(_sut.RightSoffitWallHeight, 16));
+            Assert.Equal(90.3125, NiceFraction(_sut.LeftSoffitHeight, 16));
+            Assert.Equal(90.3125, NiceFraction(_sut.RightSoffitHeight, 16));
+            Assert.Equal(102.6875, NiceFraction(_sut.LeftDripEdge, 16));
+            Assert.Equal(102.6875, NiceFraction(_sut.RightDripEdge, 16));
             Assert.Equal(38016, _sut.RoofArea);
         }
 
@@ -161,22 +161,22 @@ namespace SunroomLibTest
         public void TestDripEdgePitch()
         {
             _sut.DripEdgePitch(102.6875, pitchList);
-            Assert.False(_sut.APanelCut);
-            Assert.False(_sut.CPanelCut);
-            Assert.Equal(pitch, _sut.APitch, 3);
-            Assert.Equal(pitch, _sut.CPitch, 3);
-            Assert.Equal(132, _sut.ARoofPanelLength);
-            Assert.Equal(132, _sut.CRoofPanelLength);
-            Assert.Equal(144, _sut.APanelType);
-            Assert.Equal(144, _sut.CPanelType);
+            Assert.False(_sut.LeftPanelCut);
+            Assert.False(_sut.RightPanelCut);
+            Assert.Equal(pitch, _sut.LeftPitch, 3);
+            Assert.Equal(pitch, _sut.RightPitch, 3);
+            Assert.Equal(132, _sut.LeftRoofPanelLength);
+            Assert.Equal(132, _sut.RightRoofPanelLength);
+            Assert.Equal(144, _sut.LeftPanelType);
+            Assert.Equal(144, _sut.RightPanelType);
             Assert.Equal(139, NiceFraction(_sut.AttachedHeight, 16));
             Assert.Equal(152.1875, NiceFraction(_sut.MaxHeight, 16));
-            Assert.Equal(95, NiceFraction(_sut.ASoffitWallHeight, 16));
-            Assert.Equal(95, NiceFraction(_sut.CSoffitWallHeight, 16));
-            Assert.Equal(89.5, NiceFraction(_sut.ASoffitHeight, 16));
-            Assert.Equal(89.5, NiceFraction(_sut.CSoffitHeight, 16));
-            Assert.Equal(102.6875, NiceFraction(_sut.ADripEdge, 16));
-            Assert.Equal(102.6875, NiceFraction(_sut.CDripEdge, 16));
+            Assert.Equal(95, NiceFraction(_sut.LeftSoffitWallHeight, 16));
+            Assert.Equal(95, NiceFraction(_sut.RightSoffitWallHeight, 16));
+            Assert.Equal(89.5, NiceFraction(_sut.LeftSoffitHeight, 16));
+            Assert.Equal(89.5, NiceFraction(_sut.RightSoffitHeight, 16));
+            Assert.Equal(102.6875, NiceFraction(_sut.LeftDripEdge, 16));
+            Assert.Equal(102.6875, NiceFraction(_sut.RightDripEdge, 16));
             Assert.Equal(38016, _sut.RoofArea);
         }
     }

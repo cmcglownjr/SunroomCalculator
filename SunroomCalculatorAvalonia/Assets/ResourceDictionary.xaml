@@ -4,20 +4,20 @@
                     xmlns:views="clr-namespace:SunroomCalculatorAvalonia.Views"
                     x:Class="SunroomCalculatorAvalonia.Assets.ViewResources">
     <!-- Navigation Section -->
-    <DataTemplate x:Key="Input1View" DataType="{x:Type vm:Input1ViewModel}">
-        <views:Input1View/>
+    <DataTemplate x:Key="SunroomView" DataType="{x:Type vm:MainViewModel}">
+        <views:SunroomView/>
     </DataTemplate>
-    <DataTemplate x:Key="Input2View" DataType="{x:Type vm:Input2ViewModel}">
-        <views:Input2View/>
+    <DataTemplate x:Key="ScenarioView" DataType="{x:Type vm:MainViewModel}">
+        <views:ScenarioView/>
     </DataTemplate>
-    <DataTemplate x:Key="Input3View" DataType="{x:Type vm:Input3ViewModel}">
-        <views:Input3View/>
+    <DataTemplate x:Key="FloorPlanView" DataType="{x:Type vm:MainViewModel}">
+        <views:FloorPlanView/>
     </DataTemplate>
-    <DataTemplate x:Key="Input4View" DataType="{x:Type vm:Input4ViewModel}">
-        <views:Input4View/>
+    <DataTemplate x:Key="PanelView" DataType="{x:Type vm:Input4ViewModel}">
+        <views:PanelView/>
     </DataTemplate>
-    <DataTemplate x:Key="Input5View" DataType="{x:Type vm:Input5ViewModel}">
-        <views:Input5View/>
+    <DataTemplate x:Key="EndCutView" DataType="{x:Type vm:MainViewModel}">
+        <views:EndCutView/>
     </DataTemplate>
     
 </ResourceDictionary>

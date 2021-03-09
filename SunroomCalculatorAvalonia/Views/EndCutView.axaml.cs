@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace SunroomCalculatorAvalonia.Views
 {
-    public class Input2View : UserControl
+    public class EndCutView : UserControl
     {
-        public Input2View()
+        public EndCutView()
         {
             InitializeComponent();
         }

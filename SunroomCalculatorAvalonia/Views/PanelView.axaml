@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:SunroomCalculatorAvalonia.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="SunroomCalculatorAvalonia.Views.Input4View">
+             x:Class="SunroomCalculatorAvalonia.Views.PanelView">
     <Design.DataContext>
         <vm:MainViewModel/>
     </Design.DataContext>
@@ -19,12 +19,9 @@
             <RadioButton GroupName="PanelType" Content="1 lb Foam" Margin="5" Command="{Binding PanelTypeSelect1}"/>
             <RadioButton GroupName="PanelType" Content="2 lb Foam" Margin="5" Command="{Binding PanelTypeSelect2}"/>
             <RadioButton GroupName="PanelType" Content="Aluminum" Margin="5" Command="{Binding PanelTypeSelect3}"/>
-            <!-- <StackPanel Orientation="Vertical"> -->
-            <!--      -->
-            <!-- </StackPanel> -->
         </StackPanel>
         <StackPanel Orientation="Horizontal" Margin="20">
-            <Label Content="Panel Thickness:" Width="150" Margin="10 5"/>
+            <Label Content="Panel Thickness:" Width="125" Margin="5"/>
             <ComboBox x:Name="PanelThicknessCombo" Width="150" Margin="10 5" Items="{Binding PanelThickness, Mode=TwoWay}" 
                        IsEnabled="{Binding PanelThicknessEnable}" 
                        SelectedItem="{Binding SelectedThickness}">
@@ -33,6 +30,13 @@
                         <ComboBoxItem Content="{Binding ComboText}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Label Content="Panel Width:" Width="125" Margin="5"/>
+            <ComboBox x:Name="PanelWidthCombo" Width="150" Margin="10 5" 
+                      IsEnabled="{Binding PanelThicknessEnable}" 
+                      SelectedItem="{Binding SelectedPanelWidth}">
+                <ComboBoxItem>24in</ComboBoxItem>
+                <ComboBoxItem>36in</ComboBoxItem>
             </ComboBox>
         </StackPanel>
     </StackPanel>
