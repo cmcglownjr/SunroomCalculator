@@ -48,9 +48,9 @@
                         <Button Content="Previous" IsEnabled="{Binding NavBtn1Enable}"
                                 Command="{Binding NavBtn1}"/>
                         <Label Content="{Binding NavLabel}"/>
-                        <Button Content="Next" IsEnabled="{Binding NavBtn2Enable}"
+                        <Button Content="Next" IsVisible="{Binding NavBtn2Enable}"
                                 Command="{Binding NavBtn2}"/>
-                        <Button Content="Calculate" IsEnabled="{Binding CalcBtnEnable}" 
+                        <Button Content="Calculate" IsVisible="{Binding CalcBtnEnable}" 
                                 Command="{Binding CalculateBtn}"/>
                     </StackPanel>
                 </Border>

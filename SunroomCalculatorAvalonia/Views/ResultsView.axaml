@@ -1,0 +1,57 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:SunroomCalculatorAvalonia.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SunroomCalculatorAvalonia.Views.ResultsView">
+    <Design.DataContext>
+        <vm:MainViewModel/>
+    </Design.DataContext>
+    <UserControl.Styles>
+        <StyleInclude Source="/Assets/CustomStyles.xaml"/>
+    </UserControl.Styles>
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+        <TextBlock Classes="MainLogo" Text="Results"/>
+        <!-- Pitch -->
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Classes="ResultsLabel" Text="{Binding PitchLabel}"/>
+            <TextBlock Classes="ResultsText" Text="{Binding PitchResults}"/>
+        </StackPanel>
+        <!-- Attached Height -->
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Classes="ResultsLabel" Text="{Binding AttachedHeightLabel}"/>
+            <TextBlock Classes="ResultsText" Text="{Binding AttachedHeightResults}"/>
+        </StackPanel>
+        <!-- Max Height -->
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Classes="ResultsLabel" Text="{Binding MaxHeightLabel}"/>
+            <TextBlock Classes="ResultsText" Text="{Binding MaxHeightResults}"/>
+        </StackPanel>
+        <!-- Soffit Height -->
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Classes="ResultsLabel" Text="{Binding SoffitHeightLabel}"/>
+            <TextBlock Classes="ResultsText" Text="{Binding SoffitHeightResults}"/>
+        </StackPanel>
+        <!-- Drip Edge -->
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Classes="ResultsLabel" Text="{Binding DripEdgeLabel}"/>
+            <TextBlock Classes="ResultsText" Text="{Binding DripEdgeResults}"/>
+        </StackPanel>
+        <!-- Panel Lengths -->
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Classes="ResultsLabel" Text="{Binding PanelLengthLabel}"/>
+            <TextBlock Classes="ResultsText" Text="{Binding PanelLengthResults}"/>
+        </StackPanel>
+        <!-- Panel Number -->
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Classes="ResultsLabel" Text="{Binding PanelNumberLabel}"/>
+            <TextBlock Classes="ResultsText" Text="{Binding PanelNumberResults}"/>
+        </StackPanel>
+        <!-- Roof Area -->
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Classes="ResultsLabel" Text="{Binding RoofAreaLabel}"/>
+            <TextBlock Classes="ResultsText" Text="{Binding RoofAreaResults}"/>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

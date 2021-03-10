@@ -35,6 +35,21 @@
     <Style Selector="TextBox.InputTextBox">
         <Setter Property="Margin" Value="10"/>
     </Style>
+    <Style Selector="TextBlock.ResultsLabel">
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Margin" Value="10 5"/>
+        <Setter Property="TextAlignment" Value="Left"/>
+        <Setter Property="Width" Value="250"/>
+    </Style>
+    <Style Selector="TextBlock.ResultsText">
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontStyle" Value="Italic"/>
+        <Setter Property="Margin" Value="10 5"/>
+        <Setter Property="FontFamily" Value="Deja Vu Sans"/>
+        <Setter Property="TextAlignment" Value="Left"/>
+        <Setter Property="Width" Value="200"/>
+    </Style>
     <Style Selector="Image.OptionsDiagram">
         <Setter Property="Width" Value="200"/>
     </Style>

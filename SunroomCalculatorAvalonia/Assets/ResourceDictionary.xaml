@@ -3,7 +3,6 @@
                     xmlns:vm="using:SunroomCalculatorAvalonia.ViewModels"
                     xmlns:views="clr-namespace:SunroomCalculatorAvalonia.Views"
                     x:Class="SunroomCalculatorAvalonia.Assets.ViewResources">
-    <!-- Navigation Section -->
     <DataTemplate x:Key="SunroomView" DataType="{x:Type vm:MainViewModel}">
         <views:SunroomView/>
     </DataTemplate>
@@ -13,11 +12,13 @@
     <DataTemplate x:Key="FloorPlanView" DataType="{x:Type vm:MainViewModel}">
         <views:FloorPlanView/>
     </DataTemplate>
-    <DataTemplate x:Key="PanelView" DataType="{x:Type vm:Input4ViewModel}">
+    <DataTemplate x:Key="PanelView" DataType="{x:Type vm:MainViewModel}">
         <views:PanelView/>
     </DataTemplate>
     <DataTemplate x:Key="EndCutView" DataType="{x:Type vm:MainViewModel}">
         <views:EndCutView/>
     </DataTemplate>
-    
+    <DataTemplate x:Key="ResultsView" DataType="{x:Type vm:MainViewModel}">
+        <views:ResultsView/>
+    </DataTemplate>
 </ResourceDictionary>

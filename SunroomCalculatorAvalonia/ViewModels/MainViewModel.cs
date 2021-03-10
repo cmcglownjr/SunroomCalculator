@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Reactive;
 using System.Text;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.ReactiveUI;
@@ -36,12 +38,17 @@ namespace SunroomCalculatorAvalonia.ViewModels
             _panelThicknessEnable, _navBtn1Enable, _navBtn2Enable, _calcBtnEnable, _test;
         private string _scenarioTxtBx1, _scenarioTxtBx2, _scenarioTxtBx3, _scenarioTxtBx4, _floorPlanLeft, 
             _floorPlanRight, _floorPlanFront, _overhang;
-
+        private string _pitchLabel, _pitchResults, _maxHeightLabel, _maxHeightResults, _soffitHeightLabel, 
+            _soffitHeightResults, _dripEdgeLabel, _dripEdgeResults, _attachedHeightLabel, _attachedHeightResults,
+            _panelLengthLabel, _panelLengthResults, _panelNuberLabel, _panelNumberResults, _roofAreaLabel, 
+            _roofAreaResults = "test";
         private ComboBoxItem _selectedPanelWidth;
         private readonly SunroomResources _sunroomResources = new();
         private List<PanelThicknessModel> _panelThicknessModels;
         private readonly PanelThicknessCombo _panelThicknessCombo = new();
         private PanelThicknessModel _selectedThickness;
+        private ResultsModel _resultsModel = new();
+        private ResultsView _resultsView;
         public ReactiveCommand<Unit, Unit> StudioStyle { get; }
         public ReactiveCommand<Unit, Unit> GableStyle { get; }
         public ReactiveCommand<Unit, Unit> Scenario1Select { get; }
@@ -112,6 +119,86 @@ namespace SunroomCalculatorAvalonia.ViewModels
         {
             get => _navLabel;
             set => this.RaiseAndSetIfChanged(ref _navLabel, value);
+        }
+        public string PitchLabel
+        {
+            get => _pitchLabel;
+            set => this.RaiseAndSetIfChanged(ref _pitchLabel, value);
+        }
+        public string PitchResults
+        {
+            get => _pitchResults;
+            set => this.RaiseAndSetIfChanged(ref _pitchResults, value);
+        }
+        public string MaxHeightLabel
+        {
+            get => _maxHeightLabel;
+            set => this.RaiseAndSetIfChanged(ref _maxHeightLabel, value);
+        }
+        public string MaxHeightResults
+        {
+            get => _maxHeightResults;
+            set => this.RaiseAndSetIfChanged(ref _maxHeightResults, value);
+        }
+        public string SoffitHeightLabel
+        {
+            get => _soffitHeightLabel;
+            set => this.RaiseAndSetIfChanged(ref _soffitHeightLabel, value);
+        }
+        public string SoffitHeightResults
+        {
+            get => _soffitHeightResults;
+            set => this.RaiseAndSetIfChanged(ref _soffitHeightResults, value);
+        }
+        public string DripEdgeLabel
+        {
+            get => _dripEdgeLabel;
+            set => this.RaiseAndSetIfChanged(ref _dripEdgeLabel, value);
+        }
+        public string DripEdgeResults
+        {
+            get => _dripEdgeResults;
+            set => this.RaiseAndSetIfChanged(ref _dripEdgeResults, value);
+        }
+        public string AttachedHeightLabel
+        {
+            get => _attachedHeightLabel;
+            set => this.RaiseAndSetIfChanged(ref _attachedHeightLabel, value);
+        }
+        public string AttachedHeightResults
+        {
+            get => _attachedHeightResults;
+            set => this.RaiseAndSetIfChanged(ref _attachedHeightResults, value);
+        }
+        public string PanelLengthLabel
+        {
+            get => _panelLengthLabel;
+            set => this.RaiseAndSetIfChanged(ref _panelLengthLabel, value);
+        }
+        public string PanelLengthResults
+        {
+            get => _panelLengthResults;
+            set => this.RaiseAndSetIfChanged(ref _panelLengthResults, value);
+        }
+        public string PanelNumberLabel
+        {
+            get => _panelNuberLabel;
+            set => this.RaiseAndSetIfChanged(ref _panelNuberLabel, value);
+        }
+        public string PanelNumberResults
+        {
+            get => _panelNumberResults;
+            set => this.RaiseAndSetIfChanged(ref _panelNumberResults, value);
+        }
+        public string RoofAreaLabel
+        {
+            get => _roofAreaLabel;
+            set => this.RaiseAndSetIfChanged(ref _roofAreaLabel, value);
+        }
+        public string RoofAreaResults
+        {
+            get => _roofAreaResults;
+            set => this.RaiseAndSetIfChanged(ref _roofAreaResults, value);
         }
 
         public bool ScenarioPitch
@@ -232,7 +319,8 @@ namespace SunroomCalculatorAvalonia.ViewModels
             DiagramImage.Width = 400;
             SelectedViewModel = _sunroomResources.InputDefaultVM;
             NavBtn2Enable = true;
-            
+            _resultsView = new ResultsView() {DataContext = this};
+
             StudioStyle = ReactiveCommand.Create(() => OnSunroomStyleChange(0));
             GableStyle = ReactiveCommand.Create(() => OnSunroomStyleChange(1));
             
@@ -326,7 +414,30 @@ namespace SunroomCalculatorAvalonia.ViewModels
                 SelectedThickness.ComboValue, _sunroomScenario);
             sunroom.CalculateSunroom(ScenarioTxtBx1, ScenarioTxtBx2, ScenarioTxtBx3, 
                 ScenarioTxtBx4, _pitchUnits, _sunroomStyle);
-            _test = true;
+            _resultsModel.FormatResults(sunroom, _sunroomStyle);
+            PitchLabel = _resultsModel.PitchLabel;
+            PitchResults = _resultsModel.PitchResults;
+            AttachedHeightLabel = _resultsModel.AttachedHeightLabel;
+            AttachedHeightResults = _resultsModel.AttachedHeightResults;
+            MaxHeightLabel = _resultsModel.MaxHeightLabel;
+            MaxHeightResults = _resultsModel.MaxHeightResults;
+            SoffitHeightLabel = _resultsModel.SoffitHeightLabel;
+            SoffitHeightResults = _resultsModel.SoffitHeightResults;
+            DripEdgeLabel = _resultsModel.DripEdgeLabel;
+            DripEdgeResults = _resultsModel.DripEdgeResults;
+            PanelLengthLabel = _resultsModel.PanelLengthLabel;
+            PanelLengthResults = _resultsModel.PanelLengthResults;
+            PanelNumberLabel = _resultsModel.PanelNumberLabel;
+            PanelNumberResults = _resultsModel.PanelNumberResults;
+            RoofAreaLabel = _resultsModel.RoofAreaLabel;
+            RoofAreaResults = _resultsModel.RoofAreaResults;
+            WindowIcon _icon = new(AppContext.BaseDirectory+Path.Combine("Assets", "SunroomIcon.ico"));
+            Window resultsWindow = new Window();
+            resultsWindow.Content = _resultsView;
+            resultsWindow.Width = 750;
+            resultsWindow.Height = 600;
+            resultsWindow.Icon = _icon;
+            resultsWindow.Show();
         }
         private void OnPitchUnit(int unit)
         {
