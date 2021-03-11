@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using SL = SunroomLib;
 using EU = SunroomLib.EngineeringUnits;
@@ -99,31 +100,87 @@ namespace SunroomCalculatorAvalonia.Models
             {
                 case 1:
                     wallHeight = new EU(AssumeUnits(input1, "in"), "length");
-                    studio.WallHeightPitch(PitchInput(pitch), wallHeight.BaseMeasure);
+                    try
+                    {
+                        studio.WallHeightPitch(PitchInput(pitch), wallHeight.BaseMeasure);
+                    }
+                    catch (Exception e)
+                    {
+                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        throw;
+                    }
                     break;
                 case 3:
                     maxHeight = new EU(AssumeUnits(input1, "in"), "length");
-                    studio.MaxHeightPitch(PitchInput(pitch), maxHeight.BaseMeasure);
+                    try
+                    {
+                        studio.MaxHeightPitch(PitchInput(pitch), maxHeight.BaseMeasure);
+                    }
+                    catch (Exception e)
+                    {
+                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        throw;
+                    }
                     break;
                 case 4:
                     soffitHeight = new EU(AssumeUnits(input1, "in"), "length");
-                    studio.SoffitHeightPitch(PitchInput(pitch), soffitHeight.BaseMeasure);
+                    try
+                    {
+                        studio.SoffitHeightPitch(PitchInput(pitch), soffitHeight.BaseMeasure);
+                    }
+                    catch (Exception e)
+                    {
+                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        throw;
+                    }
                     break;
                 case 6:
                     dripEdge = new EU(AssumeUnits(input1, "in"), "length");
-                    studio.DripEdgePitch(dripEdge.BaseMeasure, PitchInput(pitch));
+                    try
+                    {
+                        studio.DripEdgePitch(dripEdge.BaseMeasure, PitchInput(pitch));
+                    }
+                    catch (Exception e)
+                    {
+                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        throw;
+                    }
                     break;
                 case 2:
                     wallHeight = new EU(AssumeUnits(input1, "in"), "length");
-                    studio.WallHeightAttachedHeight(wallHeight.BaseMeasure, attachedHeight.BaseMeasure);
+                    try
+                    {
+                        studio.WallHeightAttachedHeight(wallHeight.BaseMeasure, attachedHeight.BaseMeasure);
+                    }
+                    catch (Exception e)
+                    {
+                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        throw;
+                    }
                     break;
                 case 5:
                     soffitHeight = new EU(AssumeUnits(input1, "in"), "length");
-                    studio.SoffitHeightAttachedHeight(soffitHeight.BaseMeasure, attachedHeight.BaseMeasure);
+                    try
+                    {
+                        studio.SoffitHeightAttachedHeight(soffitHeight.BaseMeasure, attachedHeight.BaseMeasure);
+                    }
+                    catch (Exception e)
+                    {
+                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        throw;
+                    }
                     break;
                 case 7:
                     dripEdge = new EU(AssumeUnits(input1, "in"), "length");
-                    studio.DripEdgeAttachedHeight(dripEdge.BaseMeasure, attachedHeight.BaseMeasure);
+                    try
+                    {
+                        studio.DripEdgeAttachedHeight(dripEdge.BaseMeasure, attachedHeight.BaseMeasure);
+                    }
+                    catch (Exception e)
+                    {
+                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        throw;
+                    }
                     break;
             }
 
@@ -168,44 +225,100 @@ namespace SunroomCalculatorAvalonia.Models
                     rightWallHeight = new(AssumeUnits(input3, "in"), "length");
                     pitch = new List<double>{PitchInput(leftPitch), PitchInput(rightPitch)};
                     wallHeight = new List<double> {leftWallHeight.BaseMeasure, rightWallHeight.BaseMeasure};
-                    gabled.WallHeightPitch(pitch, wallHeight);
+                    try
+                    {
+                        gabled.WallHeightPitch(pitch, wallHeight);
+                    }
+                    catch (Exception e)
+                    {
+                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        throw;
+                    }
                     break;
                 case 2:
                     leftWallHeight = new(AssumeUnits(input1, "in"), "length");
                     rightWallHeight = new(AssumeUnits(input3, "in"), "length");
                     wallHeight = new List<double> {leftWallHeight.BaseMeasure, rightWallHeight.BaseMeasure};
-                    gabled.WallHeightAttachedHeight(wallHeight, attachedHeight.BaseMeasure);
+                    try
+                    {
+                        gabled.WallHeightAttachedHeight(wallHeight, attachedHeight.BaseMeasure);
+                    }
+                    catch (Exception e)
+                    {
+                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        throw;
+                    }
                     break;
                 case 3:
                     maxHeight = new(AssumeUnits(input1, "in"), "length");
                     pitch = new List<double>{PitchInput(leftPitch), PitchInput(rightPitch)};
-                    gabled.MaxHeightPitch(pitch, maxHeight.BaseMeasure);
+                    try
+                    {
+                        gabled.MaxHeightPitch(pitch, maxHeight.BaseMeasure);
+                    }
+                    catch (Exception e)
+                    {
+                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        throw;
+                    }
                     break;
                 case 4:
                     leftSoffitHeight = new(AssumeUnits(input1, "in"), "length");
                     rightSoffitHeight = new(AssumeUnits(input3, "in"), "length");
                     pitch = new List<double>{PitchInput(leftPitch), PitchInput(rightPitch)};
                     soffitHeight = new List<double> {leftSoffitHeight.BaseMeasure, rightSoffitHeight.BaseMeasure};
-                    gabled.SoffitHeightPitch(pitch, soffitHeight);
+                    try
+                    {
+                        gabled.SoffitHeightPitch(pitch, soffitHeight);
+                    }
+                    catch (Exception e)
+                    {
+                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        throw;
+                    }
                     break;
                 case 5:
                     leftSoffitHeight = new(AssumeUnits(input1, "in"), "length");
                     rightSoffitHeight = new(AssumeUnits(input3, "in"), "length");
                     soffitHeight = new List<double> {leftSoffitHeight.BaseMeasure, rightSoffitHeight.BaseMeasure};
-                    gabled.SoffitHeightAttachedHeight(soffitHeight, attachedHeight.BaseMeasure);
+                    try
+                    {
+                        gabled.SoffitHeightAttachedHeight(soffitHeight, attachedHeight.BaseMeasure);
+                    }
+                    catch (Exception e)
+                    {
+                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        throw;
+                    }
                     break;
                 case 6:
                     leftDripEdge = new(AssumeUnits(input1, "in"), "length");
                     rightDripEdge = new(AssumeUnits(input3, "in"), "length");
                     pitch = new List<double>{PitchInput(leftPitch), PitchInput(rightPitch)};
                     dripEdge = new List<double> {leftDripEdge.BaseMeasure, rightDripEdge.BaseMeasure};
-                    gabled.DripEdgePitch(dripEdge[0], pitch);
+                    try
+                    {
+                        gabled.DripEdgePitch(dripEdge[0], pitch);
+                    }
+                    catch (Exception e)
+                    {
+                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        throw;
+                    }
                     break;
                 case 7:
                     leftDripEdge = new(AssumeUnits(input1, "in"), "length");
                     rightDripEdge = new(AssumeUnits(input3, "in"), "length");
                     dripEdge = new List<double> {leftDripEdge.BaseMeasure, rightDripEdge.BaseMeasure};
-                    gabled.DripEdgeAttachedHeight(dripEdge[0], attachedHeight.BaseMeasure);
+                    try
+                    {
+                        gabled.DripEdgeAttachedHeight(dripEdge[0], attachedHeight.BaseMeasure);
+                    }
+                    catch (Exception e)
+                    {
+                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        throw;
+                    }
                     break;
             }
             return gabled;

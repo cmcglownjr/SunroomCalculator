@@ -1,18 +1,18 @@
 using System;
 using System.IO;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
-using Avalonia.Platform;
+using MessageBox.Avalonia;
 using SunroomCalculatorAvalonia.Views;
 
 namespace SunroomCalculatorAvalonia.Models
 {
     public class SunroomResources
     {
-        public UserControl Input1VM, Input2VM, Input3VM, Input4VM, Input5VM, InputDefaultVM;
+        public UserControl SunroomVM, ScenarioVM, FloorPlanVM, PanelVM, EndCutVM, InputDefaultVM, InterfaceVM;
         public Bitmap SunroomDefault, SunroomGable, SunroomStudio;
         public Bitmap SunroomFloorPlan, SunroomOverhang, SunroomPlumCut, SunroomPlumCutTop, SunroomSquareCut;
+        static WindowIcon _icon = new(AppContext.BaseDirectory+Path.Combine("Assets", "SunroomIcon.ico"));
 
         public Bitmap GableDripEdgeAttached,
             GableDripEdgePitch,
@@ -30,11 +30,12 @@ namespace SunroomCalculatorAvalonia.Models
             StudioWallPitch;
         public SunroomResources()
         {
-            Input1VM = new SunroomView();
-            Input2VM = new ScenarioView();
-            Input3VM = new FloorPlanView();
-            Input4VM = new PanelView();
-            Input5VM = new EndCutView();
+            SunroomVM = new SunroomView();
+            ScenarioVM = new ScenarioView();
+            FloorPlanVM = new FloorPlanView();
+            PanelVM = new PanelView();
+            EndCutVM = new EndCutView();
+            InterfaceVM = new InterfaceView();
             InputDefaultVM = new InputDefaultView();
             
             SunroomDefault = new Bitmap(AppContext.BaseDirectory+Path.Combine("Assets", "porch-1046156_640.jpg"));
@@ -62,6 +63,18 @@ namespace SunroomCalculatorAvalonia.Models
             StudioSoffitPitch = new Bitmap(AppContext.BaseDirectory+Path.Combine("Assets", "Studio-soffitheight_pitch.png"));
             StudioWallAttached = new Bitmap(AppContext.BaseDirectory+Path.Combine("Assets", "Studio-wallheight_attachedheight.png"));
             StudioWallPitch = new Bitmap(AppContext.BaseDirectory+Path.Combine("Assets", "Studio-wallheight_pitch.png"));
+        }
+        public static void SunroomMessageBox(string title, string message)
+        {
+            var msBoxStandardWindow = MessageBoxManager
+                .GetMessageBoxStandardWindow(new MessageBox.Avalonia.DTO.MessageBoxStandardParams{
+                    ContentTitle = title,
+                    ContentMessage = message,
+                    Icon = MessageBox.Avalonia.Enums.Icon.Error,
+                    WindowIcon = _icon,
+                    WindowStartupLocation = WindowStartupLocation.CenterScreen
+                });
+            msBoxStandardWindow.Show();
         }
     }
 }

@@ -21,4 +21,7 @@
     <DataTemplate x:Key="ResultsView" DataType="{x:Type vm:MainViewModel}">
         <views:ResultsView/>
     </DataTemplate>
+    <DataTemplate x:Key="InterfaceView" DataType="{x:Type vm:MainViewModel}">
+        <views:InterfaceView/>
+    </DataTemplate>
 </ResourceDictionary>

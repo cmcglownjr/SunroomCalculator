@@ -27,33 +27,19 @@
             </Border>
         </StackPanel>
         <!-- Interface -->
-        <StackPanel x:Name="InterfaceStack" Classes="InterfaceStack" HorizontalAlignment="Center">
-            <!-- Diagrams -->
-            <StackPanel Classes="DiagramStack" Orientation="Vertical">
-                <Border BorderThickness="2" BorderBrush="Black">
-                    <StackPanel Height="300" Width="400" Margin="10 5" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <ContentControl HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                        Content="{Binding DiagramImage}"/>
-                    </StackPanel>
-                </Border>
-                <!-- Information -->
-                <Border BorderThickness="2" BorderBrush="Black">
-                    <StackPanel Classes="InformationStack" Height="300">
-                        <ContentControl Content="{Binding SelectedViewModel}"/>
-                    </StackPanel>
-                </Border>
-                <!-- Navigation -->
-                <Border BorderThickness="2" BorderBrush="Black">
-                    <StackPanel Classes="NavigationStack" Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
-                        <Button Content="Previous" IsEnabled="{Binding NavBtn1Enable}"
-                                Command="{Binding NavBtn1}"/>
-                        <Label Content="{Binding NavLabel}"/>
-                        <Button Content="Next" IsVisible="{Binding NavBtn2Enable}"
-                                Command="{Binding NavBtn2}"/>
-                        <Button Content="Calculate" IsVisible="{Binding CalcBtnEnable}" 
-                                Command="{Binding CalculateBtn}"/>
-                    </StackPanel>
-                </Border>
+        <StackPanel Classes="InterfaceStack" Orientation="Vertical" HorizontalAlignment="Center">
+            <StackPanel Height="600">
+                <ContentControl Content="{Binding InterfaceViewModel}"/>
+            </StackPanel>
+            <!-- Navigation -->
+            <StackPanel Classes="NavigationStack" Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
+                <Button Content="Previous" IsEnabled="{Binding NavBtn1Enable}"
+                        Command="{Binding NavBtn1}" Width="100"/>
+                <Label Classes="Navigation" Content="{Binding NavLabel}"/>
+                <Button Content="Next" IsVisible="{Binding NavBtn2Enable}"
+                        Command="{Binding NavBtn2}" Width="100"/>
+                <Button Content="Calculate" IsVisible="{Binding CalcBtnEnable}" 
+                        Command="{Binding CalculateBtn}" Width="100"/>
             </StackPanel>
         </StackPanel>
     </StackPanel>

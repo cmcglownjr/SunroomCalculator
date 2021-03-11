@@ -11,7 +11,7 @@
     <UserControl.Styles>
         <StyleInclude Source="/Assets/CustomStyles.xaml"/>
     </UserControl.Styles>
-    <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Height="600">
         <TextBlock Classes="MainLogo" Text="Results"/>
         <!-- Pitch -->
         <StackPanel Orientation="Horizontal">

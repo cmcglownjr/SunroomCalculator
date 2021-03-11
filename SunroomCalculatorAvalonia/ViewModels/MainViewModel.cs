@@ -1,33 +1,17 @@
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.IO;
 using System.Reactive;
-using System.Text;
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
-using Avalonia.Media;
-using Avalonia.Media.Imaging;
-using Avalonia.Platform;
-using Avalonia.ReactiveUI;
-using Avalonia.Utilities;
-using DynamicData.Binding;
-using JetBrains.Annotations;
 using ReactiveUI;
 using SunroomCalculatorAvalonia.Views;
 using SunroomCalculatorAvalonia.Models;
 using SL = SunroomLib;
 using EU = SunroomLib.EngineeringUnits;
-using static SunroomLib.Utilities;
 
 namespace SunroomCalculatorAvalonia.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private UserControl _selectedViewModel;
+        private UserControl _selectedViewModel, _interfaceViewModel;
         private Image _diagramImage = new();
         private int _sunroomStyle; // Default to Studio(0), Gable is (1)
         private int _sunroomScenario, _navigation, _pitchUnits, _endCut;
@@ -35,13 +19,13 @@ namespace SunroomCalculatorAvalonia.ViewModels
         private string _navLabel = "Begin Here";
         private string _scenarioWatermark1, _scenarioWatermark2, _scenarioWatermark3, _scenarioWatermark4;
         private bool _scenarioPitch, _scenarioInput1, _scenarioInput2, _scenarioInput3, _scenarioInput4, 
-            _panelThicknessEnable, _navBtn1Enable, _navBtn2Enable, _calcBtnEnable, _test;
+            _panelThicknessEnable, _navBtn1Enable, _navBtn2Enable, _calcBtnEnable;
         private string _scenarioTxtBx1, _scenarioTxtBx2, _scenarioTxtBx3, _scenarioTxtBx4, _floorPlanLeft, 
             _floorPlanRight, _floorPlanFront, _overhang;
         private string _pitchLabel, _pitchResults, _maxHeightLabel, _maxHeightResults, _soffitHeightLabel, 
             _soffitHeightResults, _dripEdgeLabel, _dripEdgeResults, _attachedHeightLabel, _attachedHeightResults,
             _panelLengthLabel, _panelLengthResults, _panelNuberLabel, _panelNumberResults, _roofAreaLabel, 
-            _roofAreaResults = "test";
+            _roofAreaResults;
         private ComboBoxItem _selectedPanelWidth;
         private readonly SunroomResources _sunroomResources = new();
         private List<PanelThicknessModel> _panelThicknessModels;
@@ -311,6 +295,11 @@ namespace SunroomCalculatorAvalonia.ViewModels
             get => _selectedViewModel;
             set => this.RaiseAndSetIfChanged(ref _selectedViewModel, value);
         }
+        public UserControl InterfaceViewModel
+        {
+            get => _interfaceViewModel;
+            set => this.RaiseAndSetIfChanged(ref _interfaceViewModel, value);
+        }
 
         public MainViewModel()
         {
@@ -318,6 +307,7 @@ namespace SunroomCalculatorAvalonia.ViewModels
             DiagramImage.Height = 300;
             DiagramImage.Width = 400;
             SelectedViewModel = _sunroomResources.InputDefaultVM;
+            InterfaceViewModel = _sunroomResources.InterfaceVM;
             NavBtn2Enable = true;
             _resultsView = new ResultsView() {DataContext = this};
 
@@ -355,30 +345,28 @@ namespace SunroomCalculatorAvalonia.ViewModels
                     NavLabel = "Start Here";
                     break;
                 case 1:
-                    SelectedViewModel = _sunroomResources.Input1VM;
+                    SelectedViewModel = _sunroomResources.SunroomVM;
                     NavLabel = "Sunroom Type";
                     break;
                 case 2:
-                    SelectedViewModel = _sunroomResources.Input2VM;
+                    SelectedViewModel = _sunroomResources.ScenarioVM;
                     NavLabel = "Scenario Selection";
                     break;
                 case 3:
-                    SelectedViewModel = _sunroomResources.Input3VM;
+                    SelectedViewModel = _sunroomResources.FloorPlanVM;
                     DiagramImage.Source = _sunroomResources.SunroomFloorPlan;
                     NavLabel = "Floor Plan";
                     break;
                 case 4:
-                    SelectedViewModel = _sunroomResources.Input4VM;
+                    SelectedViewModel = _sunroomResources.PanelVM;
                     DiagramImage.Source = _sunroomResources.SunroomOverhang;
                     NavLabel = "Roof Info";
                     break;
                 case 5:
-                    SelectedViewModel = _sunroomResources.Input5VM;
+                    SelectedViewModel = _sunroomResources.EndCutVM;
                     DiagramImage.Source = _sunroomResources.SunroomPlumCut;
                     NavLabel = "Panel Info";
-                    break;
-                case 6:
-                    // OnCalculateBTN();
+                    InterfaceViewModel = _sunroomResources.InterfaceVM;
                     break;
             }
             NavBtn1Enable = true;
@@ -431,13 +419,9 @@ namespace SunroomCalculatorAvalonia.ViewModels
             PanelNumberResults = _resultsModel.PanelNumberResults;
             RoofAreaLabel = _resultsModel.RoofAreaLabel;
             RoofAreaResults = _resultsModel.RoofAreaResults;
-            WindowIcon _icon = new(AppContext.BaseDirectory+Path.Combine("Assets", "SunroomIcon.ico"));
-            Window resultsWindow = new Window();
-            resultsWindow.Content = _resultsView;
-            resultsWindow.Width = 750;
-            resultsWindow.Height = 600;
-            resultsWindow.Icon = _icon;
-            resultsWindow.Show();
+            InterfaceViewModel = _resultsView;
+            _navigation = 6;
+            NavLabel = "Results";
         }
         private void OnPitchUnit(int unit)
         {
