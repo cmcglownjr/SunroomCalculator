@@ -18,40 +18,33 @@ namespace SunroomCalculatorAvalonia.Models
         private int _sunroomScenario;
         public Dictionary<string, double> Results;
 
-        public string LeftWall
+        private string LeftWall
         {
-            get => _leftWall?.BaseMeasure.ToString();
             set => _leftWall = new EU(AssumeUnits(value, "in"), "length");
         }
-        public string RightWall
+        private string RightWall
         {
-            get => _rightWall?.BaseMeasure.ToString();
             set => _rightWall = new EU(AssumeUnits(value, "in"), "length");
         }
-        public string FrontWall
+        private string FrontWall
         {
-            get => _frontWall?.BaseMeasure.ToString();
             set => _frontWall = new EU(AssumeUnits(value, "in"), "length");
         }
-        public string Overhang
+        private string Overhang
         {
-            get => _overhang?.BaseMeasure.ToString();
             set => _overhang = new EU(AssumeUnits(value, "in"), "length");
         }
-        public string? EndCut
+        private string? EndCut
         {
-            get => _endCut;
             set => _endCut = value;
         }
-        public string? PanelWidth
+        private string? PanelWidth
         {
-            get => _panelWidth;
             set => _panelWidth = value;
         }
 
-        public double Thickness
+        private double Thickness
         {
-            get => _thickness;
             set => _thickness = value;
         }
 

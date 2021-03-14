@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Reactive;
 using Avalonia.Controls;
@@ -400,8 +401,16 @@ namespace SunroomCalculatorAvalonia.ViewModels
             }
             var sunroom = new SunroomModel(FloorPlanLeft, FloorPlanRight, FloorPlanFront, Overhang, endCut, panelWidth, 
                 SelectedThickness.ComboValue, _sunroomScenario);
-            sunroom.CalculateSunroom(ScenarioTxtBx1, ScenarioTxtBx2, ScenarioTxtBx3, 
-                ScenarioTxtBx4, _pitchUnits, _sunroomStyle);
+            try
+            {
+                sunroom.CalculateSunroom(ScenarioTxtBx1, ScenarioTxtBx2, ScenarioTxtBx3, 
+                    ScenarioTxtBx4, _pitchUnits, _sunroomStyle);
+            }
+            catch (Exception e)
+            {
+                SunroomResources.SunroomMessageBox("Error", e.Message);
+                throw;
+            }
             _resultsModel.FormatResults(sunroom, _sunroomStyle);
             PitchLabel = _resultsModel.PitchLabel;
             PitchResults = _resultsModel.PitchResults;
