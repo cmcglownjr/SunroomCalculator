@@ -6,12 +6,13 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SunroomCalculatorAvalonia.Views.ScenarioView">
     <Design.DataContext>
-        <vm:MainViewModel/>
+        <vm:ScenarioViewModel/>
     </Design.DataContext>
     <UserControl.Styles>
         <StyleInclude Source="/Assets/CustomStyles.xaml"/>
     </UserControl.Styles>
     <StackPanel Orientation="Vertical">
+        <ContentControl Classes="DiagramContent" Content="{Binding DiagramImage}"/>
         <Border>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <StackPanel Orientation="Vertical">

@@ -1,16 +1,68 @@
 using System;
+using System.Collections.Generic;
+using Avalonia.Controls;
 using static SunroomLib.Utilities;
 
 namespace SunroomCalculatorAvalonia.Models
 {
-    public class ResultsModel
+    public interface IResultsModel
     {
-        public string PitchLabel, PitchResults, AttachedHeightLabel, AttachedHeightResults, MaxHeightLabel, 
+        void FormatResults();
+        void StudioResults(SunroomModel sunroomModel);
+        void GableResults(SunroomModel sunroomModel);
+    }
+
+    public class ResultsModel : IResultsModel
+    {
+        public string? ScenarioTxtBx1, ScenarioTxtBx2, ScenarioTxtBx3, ScenarioTxtBx4;
+        public string? FloorPlanLeft, FloorPlanRight, FloorPlanFront;
+        public string? Overhang;
+        public int SunroomStyle; // Default to Studio(0), Gable is (1)
+        public int SunroomScenario, PitchUnits, EndCut;
+        public ComboBoxItem? SelectedPanelWidth;
+        public List<PanelThicknessModel>? PanelThicknessModels;
+        public readonly PanelThicknessCombo PanelThicknessCombo = new();
+        public PanelThicknessModel SelectedThickness = new();
+        
+        public string? PitchLabel, PitchResults, AttachedHeightLabel, AttachedHeightResults, MaxHeightLabel, 
             MaxHeightResults, SoffitHeightLabel, SoffitHeightResults, DripEdgeLabel, DripEdgeResults, PanelLengthLabel,
             PanelLengthResults, PanelNumberLabel, PanelNumberResults, RoofAreaLabel, RoofAreaResults;
-        public void FormatResults(SunroomModel sunroomModel, int style)
+
+        private SunroomModel CalculateSunroom()
         {
-            switch (style)
+            string? endCut = null;
+            string? panelWidth = (string)SelectedPanelWidth.Content;
+            switch (EndCut)
+            {
+                case 0:
+                    endCut = "PlumCut";
+                    break;
+                case 1:
+                    endCut = "PlumCutTop";
+                    break;
+                case 2:
+                    endCut = "SquareCut";
+                    break;
+            }
+            var sunroom = new SunroomModel(FloorPlanLeft, FloorPlanRight, FloorPlanFront, Overhang, endCut, panelWidth, 
+                SelectedThickness.ComboValue, SunroomScenario);
+            try
+            {
+                sunroom.CalculateSunroom(ScenarioTxtBx1, ScenarioTxtBx2, ScenarioTxtBx3, 
+                    ScenarioTxtBx4, PitchUnits, SunroomStyle);
+            }
+            catch (Exception e)
+            {
+                SunroomMessageBox.SunroomMessageBoxDialog("Error", e.Message);
+                throw;
+            }
+
+            return sunroom;
+        }
+        public void FormatResults()
+        {
+            var sunroomModel = CalculateSunroom();
+            switch (SunroomStyle)
             {
                 case 0:
                     StudioResults(sunroomModel);
@@ -21,7 +73,7 @@ namespace SunroomCalculatorAvalonia.Models
             }
         }
 
-        private void StudioResults(SunroomModel sunroomModel)
+        public void StudioResults(SunroomModel sunroomModel)
         {
             PitchLabel = "Roof Pitch:";
             PitchResults = $"{RoundUpToNearest((Math.Tan(sunroomModel.Results["Pitch"]) * 12.0), 0.1)}/12";
@@ -41,7 +93,7 @@ namespace SunroomCalculatorAvalonia.Models
             RoofAreaResults = $"{sunroomModel.Results["Roof Area"]/144} ft\xB2";
         }
 
-        private void GableResults(SunroomModel sunroomModel)
+        public void GableResults(SunroomModel sunroomModel)
         {
             PitchLabel = "Left Roof Pitch:\nRight Roof Pitch:";
             PitchResults = $"{RoundUpToNearest((Math.Tan(sunroomModel.Results["Left Pitch"]) * 12.0), 0.1)}/12\n" +

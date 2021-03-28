@@ -3,25 +3,22 @@
                     xmlns:vm="using:SunroomCalculatorAvalonia.ViewModels"
                     xmlns:views="clr-namespace:SunroomCalculatorAvalonia.Views"
                     x:Class="SunroomCalculatorAvalonia.Assets.ViewResources">
-    <DataTemplate x:Key="SunroomView" DataType="{x:Type vm:MainViewModel}">
+    <DataTemplate x:Key="SunroomView" DataType="{x:Type vm:SunroomViewModel}">
         <views:SunroomView/>
     </DataTemplate>
-    <DataTemplate x:Key="ScenarioView" DataType="{x:Type vm:MainViewModel}">
+    <DataTemplate x:Key="ScenarioView" DataType="{x:Type vm:ScenarioViewModel}">
         <views:ScenarioView/>
     </DataTemplate>
-    <DataTemplate x:Key="FloorPlanView" DataType="{x:Type vm:MainViewModel}">
+    <DataTemplate x:Key="FloorPlanView" DataType="{x:Type vm:FloorPlanViewModel}">
         <views:FloorPlanView/>
     </DataTemplate>
-    <DataTemplate x:Key="PanelView" DataType="{x:Type vm:MainViewModel}">
+    <DataTemplate x:Key="PanelView" DataType="{x:Type vm:PanelViewModel}">
         <views:PanelView/>
     </DataTemplate>
-    <DataTemplate x:Key="EndCutView" DataType="{x:Type vm:MainViewModel}">
+    <DataTemplate x:Key="EndCutView" DataType="{x:Type vm:EndCutViewModel}">
         <views:EndCutView/>
     </DataTemplate>
     <DataTemplate x:Key="ResultsView" DataType="{x:Type vm:MainViewModel}">
         <views:ResultsView/>
-    </DataTemplate>
-    <DataTemplate x:Key="InterfaceView" DataType="{x:Type vm:MainViewModel}">
-        <views:InterfaceView/>
     </DataTemplate>
 </ResourceDictionary>

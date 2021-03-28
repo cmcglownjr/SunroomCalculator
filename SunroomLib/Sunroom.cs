@@ -3,7 +3,7 @@ using System.Data;
 
 namespace SunroomLib
 {
-    public class Sunroom
+    public abstract class Sunroom
     {
         // Fields
         private double _overhang, _leftWall, _frontWall, _rightWall, _thickness;

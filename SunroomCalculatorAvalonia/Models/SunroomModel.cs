@@ -18,19 +18,19 @@ namespace SunroomCalculatorAvalonia.Models
         private int _sunroomScenario;
         public Dictionary<string, double> Results;
 
-        private string LeftWall
+        private string? LeftWall
         {
             set => _leftWall = new EU(AssumeUnits(value, "in"), "length");
         }
-        private string RightWall
+        private string? RightWall
         {
             set => _rightWall = new EU(AssumeUnits(value, "in"), "length");
         }
-        private string FrontWall
+        private string? FrontWall
         {
             set => _frontWall = new EU(AssumeUnits(value, "in"), "length");
         }
-        private string Overhang
+        private string? Overhang
         {
             set => _overhang = new EU(AssumeUnits(value, "in"), "length");
         }
@@ -48,8 +48,8 @@ namespace SunroomCalculatorAvalonia.Models
             set => _thickness = value;
         }
 
-        public SunroomModel(string leftWall, string rightWall, string frontWall, string overhang, string endCut, 
-            string panelWidth, double thickness, int scenario)
+        public SunroomModel(string? leftWall, string? rightWall, string? frontWall, string? overhang, string? endCut, 
+            string? panelWidth, double thickness, int scenario)
         {
             LeftWall = leftWall;
             RightWall = rightWall;
@@ -99,7 +99,7 @@ namespace SunroomCalculatorAvalonia.Models
                     }
                     catch (Exception e)
                     {
-                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        SunroomMessageBox.SunroomMessageBoxDialog("Error", e.Message);
                         throw;
                     }
                     break;
@@ -111,7 +111,7 @@ namespace SunroomCalculatorAvalonia.Models
                     }
                     catch (Exception e)
                     {
-                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        SunroomMessageBox.SunroomMessageBoxDialog("Error", e.Message);
                         throw;
                     }
                     break;
@@ -123,7 +123,7 @@ namespace SunroomCalculatorAvalonia.Models
                     }
                     catch (Exception e)
                     {
-                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        SunroomMessageBox.SunroomMessageBoxDialog("Error", e.Message);
                         throw;
                     }
                     break;
@@ -135,7 +135,7 @@ namespace SunroomCalculatorAvalonia.Models
                     }
                     catch (Exception e)
                     {
-                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        SunroomMessageBox.SunroomMessageBoxDialog("Error", e.Message);
                         throw;
                     }
                     break;
@@ -147,7 +147,7 @@ namespace SunroomCalculatorAvalonia.Models
                     }
                     catch (Exception e)
                     {
-                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        SunroomMessageBox.SunroomMessageBoxDialog("Error", e.Message);
                         throw;
                     }
                     break;
@@ -159,7 +159,7 @@ namespace SunroomCalculatorAvalonia.Models
                     }
                     catch (Exception e)
                     {
-                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        SunroomMessageBox.SunroomMessageBoxDialog("Error", e.Message);
                         throw;
                     }
                     break;
@@ -171,7 +171,7 @@ namespace SunroomCalculatorAvalonia.Models
                     }
                     catch (Exception e)
                     {
-                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        SunroomMessageBox.SunroomMessageBoxDialog("Error", e.Message);
                         throw;
                     }
                     break;
@@ -224,7 +224,7 @@ namespace SunroomCalculatorAvalonia.Models
                     }
                     catch (Exception e)
                     {
-                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        SunroomMessageBox.SunroomMessageBoxDialog("Error", e.Message);
                         throw;
                     }
                     break;
@@ -238,7 +238,7 @@ namespace SunroomCalculatorAvalonia.Models
                     }
                     catch (Exception e)
                     {
-                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        SunroomMessageBox.SunroomMessageBoxDialog("Error", e.Message);
                         throw;
                     }
                     break;
@@ -251,7 +251,7 @@ namespace SunroomCalculatorAvalonia.Models
                     }
                     catch (Exception e)
                     {
-                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        SunroomMessageBox.SunroomMessageBoxDialog("Error", e.Message);
                         throw;
                     }
                     break;
@@ -266,7 +266,7 @@ namespace SunroomCalculatorAvalonia.Models
                     }
                     catch (Exception e)
                     {
-                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        SunroomMessageBox.SunroomMessageBoxDialog("Error", e.Message);
                         throw;
                     }
                     break;
@@ -280,7 +280,7 @@ namespace SunroomCalculatorAvalonia.Models
                     }
                     catch (Exception e)
                     {
-                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        SunroomMessageBox.SunroomMessageBoxDialog("Error", e.Message);
                         throw;
                     }
                     break;
@@ -295,7 +295,7 @@ namespace SunroomCalculatorAvalonia.Models
                     }
                     catch (Exception e)
                     {
-                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        SunroomMessageBox.SunroomMessageBoxDialog("Error", e.Message);
                         throw;
                     }
                     break;
@@ -309,7 +309,7 @@ namespace SunroomCalculatorAvalonia.Models
                     }
                     catch (Exception e)
                     {
-                        SunroomResources.SunroomMessageBox("Error", e.Message);
+                        SunroomMessageBox.SunroomMessageBoxDialog("Error", e.Message);
                         throw;
                     }
                     break;
@@ -317,7 +317,7 @@ namespace SunroomCalculatorAvalonia.Models
             return gabled;
         }
 
-        public void CalculateSunroom(string input1, string input2, string input3, string input4, int pitchUnit,
+        public void CalculateSunroom(string? input1, string? input2, string? input3, string? input4, int pitchUnit,
             int sunroomStyle)
         {
             switch (sunroomStyle)

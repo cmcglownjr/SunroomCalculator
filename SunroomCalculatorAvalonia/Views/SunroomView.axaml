@@ -5,11 +5,18 @@
              xmlns:vm="using:SunroomCalculatorAvalonia.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SunroomCalculatorAvalonia.Views.SunroomView">
+    <Design.DataContext>
+        <vm:SunroomViewModel/>
+    </Design.DataContext>
     <Border BorderThickness="2">
         <Border.Styles>
             <StyleInclude Source="/Assets/CustomStyles.xaml" />
         </Border.Styles>
         <StackPanel Orientation="Vertical">
+            <StackPanel Height="300" Width="400" Margin="10 5" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <ContentControl HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                Content="{Binding DiagramImage}"/>
+            </StackPanel>
             <TextBlock Classes="Header" Text="Select Your Sunroom Type"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <RadioButton GroupName="Navigation1Radio" Content="Studio"

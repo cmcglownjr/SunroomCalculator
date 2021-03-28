@@ -6,9 +6,13 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SunroomCalculatorAvalonia.Views.FloorPlanView">
     <Design.DataContext>
-        <vm:MainViewModel/>
+        <vm:FloorPlanViewModel/>
     </Design.DataContext>
+    <UserControl.Styles>
+        <StyleInclude Source="/Assets/CustomStyles.xaml"/>
+    </UserControl.Styles>
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+        <ContentControl Classes="DiagramContent" Content="{Binding DiagramImage}"/>
         <StackPanel Orientation="Horizontal" Margin="20">
             <Label Content="Left Wall Length" Width="150" Margin="10"/>
             <TextBox Watermark="0' or 0in" Width="150" Margin="10"

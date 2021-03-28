@@ -3,7 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using SunroomCalculatorAvalonia.ViewModels;
 using SunroomCalculatorAvalonia.Views;
-using SunroomCalculatorAvalonia.Models;
+using Splat;
 
 namespace SunroomCalculatorAvalonia
 {
@@ -11,6 +11,7 @@ namespace SunroomCalculatorAvalonia
     {
         public override void Initialize()
         {
+            new AppBootstrapper();
             AvaloniaXamlLoader.Load(this);
         }
 
@@ -20,7 +21,8 @@ namespace SunroomCalculatorAvalonia
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainViewModel(),
+                    // DataContext = new MainViewModel()
+                    DataContext = Locator.Current.GetService(typeof(MainViewModel))
                 };
             }
 

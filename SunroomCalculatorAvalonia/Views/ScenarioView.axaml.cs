@@ -1,6 +1,8 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using SunroomCalculatorAvalonia.ViewModels;
+using Splat;
 
 namespace SunroomCalculatorAvalonia.Views
 {
@@ -8,6 +10,7 @@ namespace SunroomCalculatorAvalonia.Views
     {
         public ScenarioView()
         {
+            DataContext = Locator.Current.GetService(typeof(ScenarioViewModel));
             InitializeComponent();
         }
 

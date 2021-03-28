@@ -5,10 +5,14 @@
              xmlns:vm="using:SunroomCalculatorAvalonia.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SunroomCalculatorAvalonia.Views.PanelView">
+    <UserControl.Styles>
+        <StyleInclude Source="/Assets/CustomStyles.xaml"/>
+    </UserControl.Styles>
     <Design.DataContext>
-        <vm:MainViewModel/>
+        <vm:PanelViewModel/>
     </Design.DataContext>
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+        <ContentControl Classes="DiagramContent" Content="{Binding DiagramImage}"/>
         <StackPanel Orientation="Horizontal" Margin="20">
             <Label Content="Overhang:" Width="150" Margin="10 5"/>
             <TextBox Watermark="0' or 0in" Width="150" Margin="10 5"

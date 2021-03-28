@@ -5,10 +5,14 @@
              xmlns:vm="using:SunroomCalculatorAvalonia.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SunroomCalculatorAvalonia.Views.EndCutView">
+    <UserControl.Styles>
+        <StyleInclude Source="/Assets/CustomStyles.xaml"/>
+    </UserControl.Styles>
     <Design.DataContext>
-        <vm:MainViewModel/>
+        <vm:EndCutViewModel/>
     </Design.DataContext>
     <StackPanel Orientation="Vertical">
+        <ContentControl Classes="DiagramContent" Content="{Binding DiagramImage}"/>
         <Label Content="Select Your Panel End Cut" Margin="10"  HorizontalAlignment="Center"/>
         <StackPanel Orientation="Horizontal" Margin="20" HorizontalAlignment="Center">
             <RadioButton GroupName="EndCut" Content="Plum Cut" Margin="5" Command="{Binding EndCutSelect1}"
