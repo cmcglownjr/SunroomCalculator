@@ -1,4 +1,6 @@
+using System.Reactive;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using ReactiveUI;
 using SunroomCalculatorAvalonia.Models;
 using Splat;
@@ -11,7 +13,7 @@ namespace SunroomCalculatorAvalonia.ViewModels
         private DiagramModel _diagramModel;
         private ResultsModel _resultsModel;
         private string _floorPlanLeft, _floorPlanRight, _floorPlanFront;
-        
+        public ReactiveCommand<string, Unit> InputCheck { get; }
         public Image DiagramImage => _diagramImage;
         public string FloorPlanLeft
         {
@@ -33,7 +35,13 @@ namespace SunroomCalculatorAvalonia.ViewModels
         {
             _diagramModel = (DiagramModel)Locator.Current.GetService(typeof(DiagramModel));
             _resultsModel = (ResultsModel)Locator.Current.GetService(typeof(IResultsModel));
+            InputCheck = ReactiveCommand.Create<string>(stringIn => OnLostFocusTextBox(stringIn));
             _diagramImage.Source = _diagramModel.SunroomFloorPlan;
+        }
+        private void OnLostFocusTextBox(string input)
+        {
+            input = _floorPlanFront;
+            SunroomMessageBox.SunroomMessageBoxDialog("Error", input);
         }
     }
 }

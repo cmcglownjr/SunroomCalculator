@@ -20,7 +20,6 @@ namespace SunroomCalculatorAvalonia
             Locator.CurrentMutable.RegisterConstant(new FloorPlanViewModel(), typeof(FloorPlanViewModel));
             Locator.CurrentMutable.RegisterConstant(new PanelViewModel(), typeof(PanelViewModel));
             Locator.CurrentMutable.RegisterConstant(new EndCutViewModel(), typeof(EndCutViewModel));
-            Locator.CurrentMutable.RegisterConstant(new MainWindowViewModel(), typeof(MainWindowViewModel));
             Locator.CurrentMutable.RegisterConstant(new MainViewModel(), typeof(MainViewModel));
         }
     }
