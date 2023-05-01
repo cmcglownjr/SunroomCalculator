@@ -5,3 +5,28 @@ riderModule.iml
 /_ReSharper.Caches/
 .idea/
 /SunroomSandbox/
+
+# Env
+.env
+myvenv/
+venv/
+
+# Database
+db.sqlite3
+*.db
+
+# Windows
+Thumbs.db*
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# macOS
+._*
+.DS_Store
+.fseventsd
+.Spotlight-V100
+
+# Visual Studio
+.vscode/
+.history/
+*.code-workspace
